@@ -1,0 +1,106 @@
+theHarvester
+theHarvester -d microsoft.com -l 200 -b baidu
+
+Note: In this command, -d specifies the domain or company name to search, -l specifies the number of results to be retrieved, and -b specifies the data source.
+
+theHarvester -d eccouncil -l 200 -b linkedin
+
+Redes sociales para saber los empleados
+
+https://censys.io/domain?q=eccouncil.org
+Para saber el SO.
+
+sherlock
+git clone https://github.com/sherlockproject/sherlock.git o CEH-Tools/CEHv11 Module 02 Footprinting and Reconnaissance/GitHub Tools/ and copy the sherlock folder to /root
+cd sherlock
+python3 -m pip install -r requirements.txt
+despues de la instalacion
+cd sherlock
+python3 sherlock.py satya nadella  para ver urls relacionados a satya nadella
+
+Web Data Extractor
+E:ICEH-Tools\CEHv11\Module 02 Footprinting and Reconnaissance\Web Spiders\Web DataExtractor and double-click wde.exe.
+Despues de instalación
+The Web Data Extractor main window appears. Click New to start a new session.
+The Session settings window appears; type a URL (here, http://www.certifiedhacker.com) in the Starting URL field. Check all the options, as shown in d1e screenshot, 
+and click OK.
+Click Start to initiate the data extraction.
+Acabara la extracción cuando aparezca un cuadro de dialogo
+View the extracted infonnation by clicking the tabs.
+--Select the Meta tags tab to view the URL, Title, Keywords, Description, Host, Domain, page síze, etc.
+--Select the Emails tab to view infonn ation related to emails such as Email address, Name, URL, Title, etc
+--Select the Phones tab to view the Phone, Source, Tag, URL, etc.
+Check for more information under the Faxes, Merged list, URLs, andlnactive sites tabs.
+To save the session, choose File and click Save session
+Specify the sess10n name (here, certifiedhacker.com) m the Save session dialog box and click OK
+
+HTTrack Web Site Copier
+E:\CEH-Tools\CEHv11 Module 02 Footprinting and Reconnaissance\Website Mirroring Tools\HTTrack Web Site Copier and double-click httrack-3.49.2.exe.
+The WinHTTrack Website Copier window appears. Click OK in the popup window, and d1en click Next > to create a New Project
+
+Enter the name of the project (here, Test Project) in the New project name: field. Select d1e Base path: to store the copied files; click Next >.
+
+Enter a target URL Q1ere, www.certifiedhacker.com) in the Web Addresses: (URL) field and click Set options •••
+WinHTTrack window appears, click the Sean Rules tab and select the checkboxes for the file types as shown in the following screenshot; click OK.
+Click the Next > button
+By default, the radio button will be selected for Please adjust connection paramet ers if necessary, then press FINJSH to launch the mirroring operation. Check Disconnect when
+finished and click Finish to start mirroring the website.
+
+Once the site mirroring is completed, WinHTirack displays the message Mirroring operation complete; click on Browse Mirrored Website.
+
+Cewl
+
+cewl -d 2 -m 5 www.certifiedhacker.com and press Enter.
+Note: -d represents the depth to spider the website (here, 2) and -m represents mínimum word lengt (here, 5).
+
+Alternatively, this unique wordlist can be written directly to a text file by typing 
+cewl -w wordlist.txt -el 2 -m 5 www.certifiedhacker.com.
+Note: -w - Write tl1e output to tl1e file (here, wordlist.txt)
+
+eMaiiTrackerPro
+
+E:\CEH-Tools\CEHv11 Module 02 Footprinting and Reconnaissanc·e\Email Tracking Tools\eMaiiTrackerPro and double-click emt.exe
+To trace email headers, click the My Trace Reports icon from the View section. (here, you will see the output report of the traced email header)
+Click the Trace Headers icon from the New Email Trace section to start the trace
+A pop-up window will appear; select Trace an email 1 have received. 
+Copy the email header from the suspicious email you wish to trace and paste it in the Email headers: field under Enter Details section.
+For finding email headers, open any web browser and login to any email account of your choice; from the email inbox, open the message you would like to view headers for.
+Note: In Gmail, find the email header by following d1e steps:
+• Open an email; click the dots (More) icon arrow next to the Reply icon at the top-right comer of the message pane.
+• Select Show original from the list .
+• The Original Message window appears in a new browser tab with all the details about the email, including d1e email header.
+Copy the entire email header text and paste it into the Email headers:
+field of eMailTrackerPro, and click Trace.
+The My Trace Reports window opens.
+The email location will be traced in a Map (world map GUI). You can also view the summary by selecting Ema il Summary on the right-hand side of ilie window. The Table section right below ilie Map shows ilie
+entire hop in the route, with the IP and suspected locations for each hop.
+Note: The location and IP addresses may vary according to your email header.
+To examine the report, click the View Report button above Map to view the complete trace report.
+The complete report appears in the default browser.
+Expand each section to view detailed information.
+
+Who is
+
+Open any web browser (here, Mozilla Firefox) and navigate to http://whois.domaintools.com. In the Enter a domain or IP address ...
+search bar, type www.certifiedhacker.com and click Search.
+
+DNS
+
+nslookup
+
+In cdm type nslookup and then enter
+In the nslookup interactive mode, type set type=a and press Enter. Setting the type as "a" configures nslookup to query for the IP address of a given
+domain.
+Type the target domain www.certifiedhacker.com and press Enter. This resolves the IP address and displays the result, 
+Since the result returned is non-autoritative, you need to obtain the domain's aud1oritative name server.
+9. Type set type=cname and press Enter. The CNAME lookup is done directly against the domain's autoritative name server and lists the CNAME records
+for a domain.
+10. Type certifiedhacker.com and press Enter.
+11. This returns the domain's autoritative name server (ns1.bluehost.com), along with the mail server address (dnsadmin.box5331.bluehost.com)
+Since you have obtained the authoritative name server, you will need to determine the IP address of the name server.
+13. Issue the command set type=a and press Enter.
+14. Type ns1.bluehost.com (or the primary name server that is displayed in your lab environment) and press Enter. this returns the IP address of the server
+
+Open any web browser (here, Mozilla Firefox) and navigate to http://www.kloth.net/services/nslookup.php.
+19. Once the site opens, in the Domain: field, enter certifiedhacker.com. Set the Query: field to default (A (1Pv4 address)] and click the Look it up button to
+review the results that are displayed.
