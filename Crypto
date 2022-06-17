@@ -1,0 +1,223 @@
+HashCalc
+
+We will use HashCalc tool to calculate one-way hashes.
+
+Navigate to E:\CEH-Tools\CEHv11 Module 20 Cryptography\MDS and MD6 Hash Calculators\HashCalc and double click setup.exe.
+
+the HashCalc window; ensure that the File option is selected in the Data Format field and click ellipsis icon (...) under the Data filed.
+The Find window appears, navigate to the location where you saved the Test.txt file (here, Desktop) and click Open
+The path of the selected file (Test.txt) appears tmder the Data field. Ensure that the MDS, SHA1, RIPEMD160, and CRC32 hash functions are selected.
+Click the Calculate button.
+The calculated hash values of the Test .txt file appears
+Note: In real-time, the HashCalc too! is used to check rl1e integrity of a file where the changes in rl1e hash values indicate rl1at the file content has been modified.
+
+MD5 Calculator
+
+Navigate to E:\CEH-Tools\CEHv11 Module 20 Cryptography\MDS and MD6 Hash calculators\MDS Calculator and double-click md5calc(1.0.0.0).msi.
+The MDS Calculator setup window appears; click Next.
+Navigate to Desktop, right-click on the text file (Test.txt) that we created in the previous task, and click MDS Calculator from the context menu to
+calcula te the MDS hash of the file.
+
+The MDS Calculator window appears, with the path of file under the File Name field and MDS hash value under me MDS Digest field, as shown in the
+screenshot
+
+Note: If a person wants to send a file to anoilier person via a medium, they will calculate its hashes and send the file (along wid1 rl1e hash value) to the
+intended person. \"Vhen rl1e intended person receives ilie email, may will download me file and calculate its value using me MD5 Calculator.
+
+HashMyFiles (Calcular MD5)
+
+navigate to E:ICEH-Tools\CEHv11 Module 20 Cryptography\MDS and MD6 Hash Calc ulators\HashMyFiles and double-click HashMyFiles.exe.
+In the HashMyFiles window, click Files from the menu bar. From the drop-down list, click the Add Folder option.
+Note: You can also use the A dd Files option to add multiple files
+The Select Folder pop-up appears; click on rl1e ellipsis icon (..) to select the folder you want to encrypt.
+The Browse for Folder window appears; navigate to E:\CEHTools\CEHv11 Module 20 Cryptography\MDS and MD6 Hash Calculators\HashMyfiles and select the Sample Files folder; then, 
+click OK.
+The location of me selected folder appears in the field; click OK.
+A list of files cont.ained in the folder appears, along with their various hash values such as MD5, SHA1, CRC32, etc
+In the HashMyfiles window, click Options from the menu bar and choose Hash Types from the options. You can observe a list of hash functions such as MD5, SHA1, CRC32, SHA-256,
+SHA-512, and SHA-3 84, which you can choose (here, the MDS, SHA 1, and CRC32 hash functions were selected).
+Note: In real-time, you may share confidencial infonnation in the folder in an encrypted form to maint.ain its integrity.
+
+CryptoForge
+we will use rl1e CryptoForge too! to encrypt a file and text message
+Z:\CEHv11 Module 20 Cryptography\Cryptography Tools\Cryptoforge and double-click Cryptoforge.exe.
+Right-click the Confidential.txt file located at the same location (E:\CEH-Tools\CEHv11 Module 20 Cryptography\CryptographyTools\CryptoForge) and select Encrypt from the 
+context menu.
+The Enter Passphrase - CryptoForge Files dialog-box appears; type a password in the Passphrase fteld, retype it in the Confirm fteld, and click
+OK. The password used in this lab is qwerty@1234.
+Note: No one can access dus file unless the user provides the password for d1e encrypted file. You will have to share the password with the user through
+message, email, or any other means
+
+Advanced Encryption Package
+navigate to E:ICEH-Tools\CEHv11 Module 20 Cryptography\Cryptography Tools\Advanced Encryption Package and double-click aep.msi.
+Now, click the Start icon from the bottom-left corner of Desktop; and from the list of Recently added applications, click Advanced Encryption
+Package 2017 to launch the application
+The Advanced Encryption Package - License Manager window appears. Under the License Manager section, select the Start free 30-day trial radio button and click Next
+Leave all options set to default in the License lnformation step and click Finish
+The Advanced Encryption Package main window appears
+In the Advanced Encryption Package window, expand E: drive and navigate to CEH-Tools\CEHv11 Module 20 Cryptography\Cryptography Tools\Advanced Encryption Package. 
+Select the Sample.docx file located in the given location and click Encrypt in the toolbar
+You need to provide a password for encryption. In the right-hand panel, enter the password into the Pwd field, retype it in the Again field, and
+click Encrypt Now! button (Here, the password provided is test@123)
+The encrypted Sample.docx.aep file appears in the same location as the original file
+To decrypt the file, first, select the encrypted ftle and click on Decrypt
+Note: In real time, net:work administrators or ethical hackers use this tool to encrypt files and send it to the intended persons to safeguard the integrity of
+the files.
+
+BCTextEncoder
+we will use the BCfextEncoder too! to encrypt and decrypt data.
+1. navigate to E:\CEH-Tools\CEHv11 Module 20 Cryptography\Cryptography Tools\BCTextEncoder and double click BCTextEncoder_v.1.03.2.1.exe.
+To encrypt the text, insert text in the clip board.
+Or
+Select the data that you want to encocle and paste it to the clipboard by pressing Ctri+V.
+4. Ensure that the password option is selected in the Encode by field and click Encode
+The Enter password pop-up appears; enter the password into the Password field and retype it in the Confirm field; then, click OK. Here,
+we use the password test@123
+BCTextEncoder encocles d1e te..xt and displays it in under the Encoded text section
+To decrypt the data, first, you need to clean the Decoded plain text inthe clipboard, and then click the Decode button.
+The Enter password for encoding text dialog-box appears; insert the Password (test@123) into the password field and click OK.
+Note: In real-time, using this procedure, you can encode the text while sending it to the intended user along with the password used for encryption. The user for
+whom the text is intended should have the BCfextEncoder apphcation installed on his/ her machine. He/ she will have topaste the encoded te.xt into the Encoded
+text section and use the password you shared, to decode it to plain text.
+
+Create and Use Self-signed Certificates
+Select Internet lnformation Services (liS) Manager from the results.
+The Internet lnformation Services (liS) Manager window appears; click the machine name (SERVER2019 (SERVER2019\Administrator)) under the Connections section from the 
+left-hand pane.
+In SERVER2019 Home, double-click Server Certificates in the liS section.
+The Server Certificates wizard appears; click Create Self-Signed Certificate ... from the right-hand pane in the Actions section
+The Create Self-Signed Certificate window appears; type GoodShopping in the Specify a friendly na me for the certificate field.
+Ensure that the Personal option is selected in the Select a certificate store for the new certificate field; then, click OK.
+A newly created self-signed certificare will be displayed in the Server Certificates pane, as shown in the screenshot
+Expand the Sites node from the left-hand pane, and select GoodShopping from the available si tes. Click Bindings ••• from the righthand
+pane in the Actions section.
+The Site Bindings window appears; click Add •••.
+The Add Site Binding window appears; choose https from the Type field drop-down list. Once you choose the https type, the port munber in the
+Port field automatically changes to 443 (the channel on which HTTPS runs).
+15. Choose the IP address on which the si te is hosted (here, 10.10.10.19) .
+16. Under d1e Host name field, type www.goodshopping.com. Under the SSL certificate field, select GoodShopping from the drop-down list, and click OK
+The newly creared SSL certificare is added to the Site Bindings window; then, click Close.
+Now, right-click the name of the site for which you have created the selfsigned certificate (here, GoodShopping) and click Refresh from the context menu.
+Open the Google Chrome browser, type https://www.goodshopping.com in d1e address bar, and press Enter
+
+RMail
+we will use the RMail too! to perform email encryption
+Open any web browser (here, Google Chrome), type https://www.rmail.com/free-trial/ in the address bar, and press Enter.
+as well as the registration form. Fill in the required personal details.
+The FREE TRIAL - GETTING STARTED page appears; click Apps page hyperlink.
+The APPS & DOWNLOADS page appears; click the RMail for Gmail (Chrome) option from the available platforms.
+The RMAIL FOR GMAIL (GOOGLE CHROME) page appears; scroll down and click the ADD TO CHROME button
+A chrome web store page appears; click the Add to Chrome button under the RPost for Gmail option
+The Add "RPost for Gmail"? notification appears; click Add extension.
+RPost is added to the browser and an RPost for Gmail has been added to Chrome no tification appears.
+12. Now, open a new tab in the browser and open rl1e Gmail account within which you wish to implement email encryption.
+13. Once you log in to your Gmail accotmt, the RMail pop-up appears. Click the Actívate button.
+The Thank you For Choosing RMail page appears. Close the tab and navigate back to your Gmail account page.
+17. Click Compose from the left-hand pane; the email body appears. Compose an email and click Send Registered.
+The RMail Track & Prove pop-up appears; ensure that the Marked radio button is selected. Under the Register Replies section, check the Receive
+proof of content and time of replies to this message checkbox. Then, click the Encrypt tab.
+In the Encrypt tab, check the Encrypt message and any attachments checkbox and click the E-sign tab.
+In the E-Sign tab, check both the Send your attachments for electronic signature and Send e-sign request encrypted checkboxes. Click the Send Registered button
+In the lnbox, you can observe an Acknowledgement email with Proof of Sending
+
+Veracrypt
+we will use d1e VeraCrypt too! to perform disk encryption.
+Navigate to E:\CEH-Tools\CEHv11 Module 20 Cryptography\Disk Encryption Tools\VeraCrypt and double-click VeraCrypt Setup 1.24-Hotfix1.exe.
+The VeraCrypt main window appears; click the Create Volume button.
+The VeraCrypt Volume Creation Wizard window appears. Ensure that the Create an encrypted file container radio-button is selected and click Next to proceed
+In the Volume Type wizard, keep the default settings and click Next.
+In the Volume Location wizard, click Select File ....
+The Specify Path and File Name window appears; navigate to the desired location (here, Desktop), provide the File name as My Volume, and click Save
+After saving the file, the location of a file containing the VeraCrypt volume appears under the Volume Location field; then, click Next.
+In the Encryption Options wizard, keep the default settings and click Next.
+15. In the Volume Size wizard, ensure that the MB radio-button is selected and specify the size of the VeraCrypt container as 5; then, click Next.
+The Volume Password wizard appears; provide a strong password in the Password field, retype in the Confirm field, and click Next. The password
+provided in dus lab is qwerty@123
+The Volume Format wizard appears; ensure that FAT is selected in the Filesystem option and Default is selected in Cluster option.
+18. Check the checkbox under the Random Pool, Header Key, and Master Key section.
+19. Move your mouse as randomly as possible within the Volume Creation Wizard window for at least 30 seconds and click the Format button.
+After clicking Format, VeraCrypt will create a file called My Volume in the provided folder. This file depends on the VeraCrypt container (it will
+contain the encrypted VeraCrypt volume).
+21. Depending on the size of d1e volume, volume creation may take some time.
+22. Once the volume is created, a VeraCrypt Volume Creation Wizard dialog-box appears; click OK.
+In the VeraCrypt Volume Creation Wizard window, a Volume Created message appears; d1en, click Exit
+The VeraCrypt main window appears; select a drive (here, 1:) and click Select File ....
+The Select a VeraCrypt Volume window appears; navigate to Desktop, click My Volume, and click Open.
+The window closes, and the VeraCrypt window appears displaying the location of selected volume under d1e Volume field; then, click Mount.
+The Enter password dialog-box appears; type the password you specified in Step#16 into the Password field and click OK.
+After the password is verified, VeraCrypt will mount d1e volume in I: drive, as shown in the screenshot
+
+BitLocker Drive Encryption
+we will perform disk encryption using BitLocker Drive Encryption
+Click the Type here to search field present at the bottom-left comer of Desktop and type bitlocker. Select Manage Bitlocker from the search results.
+The BitLocker Dñve Encryption window appears; click the New Volume (E:) BitLocker off option under the Removable data drives - BitLocker To Go section.
+Click the Turn on BitLocker option under New Volume (E:) BitLocker off.
+The BitLocker Drive Encryption (E:) wizard appears; check the Use a password to unlock the drive checkbox.
+S. Type the password in the Enter your password field and re-type the password in the Reenter your password field; then, click Next (Here,
+the password entered is test@123) .
+The How do you want to back up your recovery key? step appears; click Save to a file from the available options.
+The Save BitLocker recovery key as window appears; keep the save location set to default and click Save
+Click Next in the How do you want to back up your recovery key? step.
+9. In the Choose how much of your drive to encrypt step, select the Encrypt entire drive (slower but best for PCs and drives already in use) button, and click Next.
+In the Choose which encryption mode to use step, ensure that the Compatible mode (best for drives that can be moved from this device) option is selected, and click Next.
+In the Are you ready to encrypt this drive? step, click Start encrypting to encrypt the selected drive
+The BitLocker Orive Encryption pop-up appears, showing the Encrypting ... status
+After the completion of the encryption process, the Encryption of E: is complete notification appears; click Close and Restart the virtual machine.
+After the system reboots, login with the credentials
+You can observe that Local Disk (E:) is now encrypted; double-click and d1e BitLocker (E:) security pop-up appears at d1e top-right comer of Desktop.
+17. Type the password you provided in Step#S and click Unlock
+The New Volume (E:) pop-up appears at the top-right corner of file window. Click the Open folder to view files option to view the disk content.
+The New Volume (E:) window appears displaying the disk content, as shown in the screenshot.
+Note: The disk will remain unlocked until the next tune you restart the system .
+
+Rohos Disk Encryption
+we will use the Rohos Disk Encryption too! to perform disk encryption
+navigate to E:ICEH-Tools\CEHv11 Module 20 Cryptography\Disk Encryption Tools\Rohos Disk Encryption and double-click rohos.exe.
+The Rohos Disk Encryption main window appears; click Create new disk •••
+The Create new Rohos disk window appears; click Change ... to modify the size of the encrypted disk
+The Disk details wizard appears; modify the disk size to 10 in the Disk Size (in Megabytes) field and leave all od1er settings to default; then, click OK.
+Provide a password in the Specify a new password to access the disk field and retype it into the Confirm password field; then, click Create
+disk button (Here, the password provided is test@123)
+Wait until the encrypted volume is created. The time to create the encrypted volume depends upon d1e size you specified under the Disk
+Size option: if large, it will take a long time to create the volume.
+11. On creating the encrypted volume, the Encrypted Disk (R:) window appears, displaying d1e default disk content, as shown in the screenshot
+The Disk is connected notification appears at d1e top sectlon of the Rohos Disk Enc ryption window.
+Note: This drive appears only when you are connected to Rohos Disk Encryption, and disappears when you exit.
+
+Cryptool 
+we will use d1e CrypTool tool to perfonn cryptanalysis
+Navigate to E:ICEH-Tools\CEHv11 Module 20 Cryptography\Cryptanalysis Tools\CrypTool and double-click SetupCrypTool_1_4_4 1_en.exe
+The CrypTool window appears; close the startingexample-en.txt window
+Click the File option from the menu bar and select New to create encrypted data
+The Unnamed1 notepad appears; insert sorne text into d1e file. You will
+be encrypting dus content.
+11. From me menu bar, click Encrypt/Decrypt and navigate to Symmetric (modern) -+ RC2 •••.
+Note: RC2 is a symmetric-key block cipher. It is a 64-bit block cipher with variable key size and uses 18 rounds.
+The Key Entry: RC2 dialog box appears; keep the Key length set to default (8 bits).
+13. In the text field below Key length, enter 05 as hexadecimal characters, and click Encrypt.
+Note: The chosen hexadecimal character acts as a key that you must send to the intended user along with the encrypted file.
+The RC encryption of Unnamed1 notepad ftle appears
+To save, click File in the menu bar and select Save
+
+The Key Entry: Triple DES (ECB) dialog-box appears; leave the Key
+length set to default (128 bits (effectively 112 bits)).
+36. In the text field below Key length, enter d1e combinations of 12 as hexadecimal characters, and click Encrypt.
+Note: The chosen hexadecimal characters act like a key that you must send to the intended user along with the encrypted file.
+
+AlphaPeeler
+we will use d1e AlphaPeeler tool to perfonn cryptanalysis.
+1. In d1e Windows 10 virtual machine, navigate to E:ICEH-T ools\CEHv11 Module 20 Cryptogr aphy\Crypta nalysis Tools\Aipha Peeler and doubleclick Alpha PeelerPro1.3wse.exe.
+Switch back to the AlphaPeeler window; click Professional Crypto from the menu bar and select DES crypto from the options
+The DES crypto pop-up appears; click the ellipsis icon (...) under the Plain text file option
+The Open window appears; navigate to Desktop and select Test.txt file; then, click Open.
+Note: Here, we are selecting the file that we will encrypt and dus will act as an input file
+In the DES crypto pop-up; click the ellipsis icon (...) under the Cipher text file option.
+12. The Open window appears; select the save location Q1ere, E:ICEHTools\CEHv11 Module 20 Cryptography\CryptanalysisTools\AiphaPeeler) and name the file as Confidential.txt; 
+then, click Open.
+In the DES crypto pop-up; insert the password into the Passphrase field and click DES-EDE (CBC) to encrypt the te..xt file.
+Note: Here, the password provided is test@123.
+A new ftle Confidential.txt appears at location E:ICEH-Tools\CEHv11
+Module 20 Cryptography\Cryptanalysis Tools\AiphaPeeler, as shown in the screenshot.
+15. Double-click Confidential.txt to open, and you can observe that the file's content is encrypted.
+Note: Here, the encrypted file is shared duough shared network drive E:\CEHTools\CEHv11 Module 20 Cryptography and the key to open the encrypted
+data was sent to you via an email. Using this, you can decrypt the encrypted data and view the data in plain-text.
