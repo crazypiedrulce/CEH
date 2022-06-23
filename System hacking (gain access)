@@ -607,3 +607,57 @@ find each character of the message string being sent in individual packets over 
 message wid1out being detected.
 
 Auditpol
+
+Turn on the Windows 10 virtual machine and login with the credentials Admin and Pa$$w0rd. Click Type here to search at the bottom of
+Desktop and type cmd. From the results, right-click Command Prompt and click Run as administrator
+A Command Prompt window with Administrator privileges appears. Type auditpol /get /category:* and press Enter to view all the audit policies
+Type auditpol /set /category:"system","account logon" /success:enable /failure:enable and press Enter to enable the audit policies
+Type auditpol /get /category:* and press Enter to check whether the audit policíes are enabled
+Type auditpol /clear /y and press Enter to clear the audit policíes
+Type auditpol /get /category:* and press Enter to check whether the audit policíes are cleared.
+Note: No Auditing indicates that the system is not logging audit policíes
+
+
+Clear_Event_ Viewer _Logs.bat
+On the Windows 10 virtual machine, navigate to E:\CEH-Tools\CEHv11 Module 06 System Hacking\Covering Tracks Tools\Clear_Event_ Viewer _Logs.bat. Right-click
+Clear_Event_Viewer_Logs.bat and click Runas administrator
+A Command Prompt window appears, and the utility starts clearing the event logs, as shown in the screenshot. The command prompt will automatically close when finished
+Note: Clear_Event_ Viewer_Logs.bat is a utility that can be used to wipe out the logs of rl1e target system. This utility can be run through command prompt or
+PowerShell, and it uses a BAT file to delete security, system, and application logs on the target system. You can use this utility to wipe out logs as one method of
+covering your tracks on the target system.
+
+wevtutil
+Click Type here to search at me bottom of Desktop and type cmd. From me results, right-click Command Prompt and click Run as administrator.
+S. The User Account Control pop-up appears; click yes.
+6. A Command Prompt window wid1 Administrator privileges appears. Type wevtutil el and press Enter to display a list of event logs.
+Note: cl | enum-logs lists event log names
+Now, type wevtutil el <log_name> (here, we are clearing system logs) and press Enter to clear a specific event log.
+Note: cl | clear-log: clears a log, log_name is the name of the log to clear, and ex: is the system, application, and security
+Similarly, you can also clear application and security logs by issuing rl1e same
+command wid1 different log names (application, security).
+Note: wevtutil is a command-line utility used to retrieve information about event logs and publishers. You can also use this command to install and uninstall event
+manifests, run queries, and export, arcruve, and clear logs
+
+cipher
+In Command Prompt, type cipher lw:<Drive or Folder or File Location> and press Enter to deleted files in a specific drive, folder, or file. 
+Note: Here, we are encrypting the deleted files on the C: drive. You can run this utility on the drive, folder, or file of your choice
+The Cipher.exe utility starts overwriting the deleted files, first, with all zeroes (OxOO); second, with all 255s (OxFF); and finally, with random numbers, as
+shown in the screenshot
+Cipher.exe is an in-built Windows command-line too! that can be used to securely delete a chunk of data by overwriting it to prevent its possible
+recovery. This command also assists in encrypting and decrypting data inNTFS partitions.
+
+Clear Linux Machine Logs using the BASH Shell
+Turn on the Parrot Security virtual machine
+The Parrot Terminal window appears. Type export HISTSIZE=O and press Enter to disable the BASH shell from saving the history.
+Note: HISTSIZE: determines the number of commands to be saved, which will be set to O.
+5. In the Terminal window, type history -c and press Enter to clear the stored history.
+Note: This command is an effective alternative to the disabling history command; with history -c, you have the convenience of rewriting or reviewing the earlier used commands
+Similarly, you can also use d1e history -w command to delete d1e history
+of the current shell, leaving the command history of other shells tmaffected.
+7. Type shred -/.bash_history and press Enter to shred the history file, making its content unreadable.
+Note: This command is useful in cases where an investigator locates the file; because of this command, they would be unable to read any content in the
+history file.
+Now, type more ~/.bash_history and press Enter to view the shredded history content,
+You can use all the above-mentioned commands in a single command by issuing shred ~/.bash_history && cat /dev/null > .bash_history && history -c && exit.
+1O. This command first shreds the history file, then deletes it, and finally d ears the evidence of using tlus command. After this command, you will exit from
+the terminal window.
