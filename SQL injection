@@ -159,12 +159,12 @@ Scroll down to view the user accotmt information for all users
 
 OWASP ZAP
 
-In windows The OWASP ZAP main window appears; under the Quick Start tab, click the Automated Sean option.
+In windows The OWASP ZAP main window appears; under the Quick Start tab, click the Automated Scan option.
 The Automated Scan wízard appears, enter the target website in the URL to attaek field (in this case, http://www.moviescope.com) . Leave other
 options set to default, and then click the Attack button
 OWASP ZAP starts performing Active Scan on the target website
 After the sean completes, Alerts tab appears.
-8. You can observe the vulnerabilities found on the website tmder d1e Alerts tab.
+8. You can observe the vulnerabilities found on the website under the Alerts tab.
 Now, expand the SQL lnject ion vulnerability node under the Alerts tab
 Click on the discovered SQL lnjection vulnerability and further click on the vulnerable URL
 11. You can observe the infonnation such as Risk, Confidence, Parameter, Attack, etc., regarding the discovered SQL Injection vulnerability in the lower right-bottom
