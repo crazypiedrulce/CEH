@@ -1,1 +1,167 @@
+Ghost Eye
+
+In parrot in a terminal install ghost eye. Tod o this, in the terminal window, type git clone https://github.com/BullsEyeO/ghost_eye.git and press Enter.
+ This will install Ghost Eye in your virtual machine.
+ Note: You can also access the tool repository from the CEH-Tools folder available in Windows 1O virtual machine, in case, the C'rttH ub link does not exist,
+or you are wuble to clone the too! repository. Follow the steps below in order to
+access CEH-Tools folder from d1e Parrot Security virtual macl1ine:
+Open a windows e,xplorer and press Ctri+L. The Location field appears;
+type smb://10.10.10.10 and press Enter to access Windows 10 shared folders.
+The security pop-up appears; enter the Windows 10 virtual machine credentials (Usemame: Admin and Password: Pa$$w0rd) and click Connect.
+The Windows shares on 10.10.10.10 window appears; navigate to the location CEH-Tools/CEHv11 Module 13 Hacking Web Servers/GitHub Tools/ and copy the ghost_eye folder.
+Paste the copied ghost_eye folder on the location /home/attacker/ .
+In the terminal window, type mv /home/attacker/ghost_eye /root/
+cd ghost_eye and press Enter.
+In the terminal window, type pip3 install -r requirements.txt and press Enter
+To launch Ghost Eye, type python3 ghost_eye.py and press Enter.
+The Ghost Eye- Information Garl1ering Tool options appear, 
+13. Let us perform a Whois Lookup. Type 1 for the Enter your choice: option and press Enter
+Type certifiedhacker.com in the Enter Domain or IP Address: field and press Enter
+Scroll up to see the certifiedhacker.com result In the result, observe the complete information of the certifiedhacker.com domain such as Domain
+Name, Registry Domain ID, Registrar WHOIS Server, Registrar URL, and Updated Date
+Let us perform a DNS Lookup on certifiedhacker.com. In the Enter your choice field, type 2 and press Enter to perform DNS Lookup.
+17. The Enter Domain or IP Address field appears; type certifiedhacker.com, and press Enter.
+As soon as you hit Enter, Ghost Eye starts performing a DNS Lookup on the targeted domain (here, certifiedhacker.com).
+19. Scroll up to view the DNS Lookup result
+Now, perform the Clickjacking Test. Type 6 in ilie Enter your choice field and press Enter.
+21. In the Enter the Domain to test field, type certifiedhacker.com and press Enter.
+By performing this test, Ghost Eye will provide the complete architecture of the web server, and also reveal whether the domain is vulnerable to
+Clickjacking attacks or not
+
+Skipfish
+
+Turn on the Windows Server 2016 virtual machine and log in with the credentials Administrator and Pa$$w0rd.
+2. Double-click the WAMP Server shortcut icon from Desktop to start WAMP Server services. Alternatively, you can also launch the WAMP
+Server services from the Start menu apps
+Wait until the WAP Server icon turns Green in the Notification area.
+Leave the Windows Server 2016 virtual machine running. Switch to the Parrot Security virtual machine. 
+In the terminal window, type skipfish -o /root/test -S /usr/share/skipfish/dictionaries/complete.wl http://[IP Address of Windows Server 2016]:8080 
+and press Entere and launch MATE Terminal from the menu bar.
+Now, perform security reconnaissance on a web server using Skipfish.
+The target is the WordPress website http://[IP Address of Windows Server 2016].
+On receiving this command, Skipfish performs a heavy brute-force attack on the web server by using the complete.wl dictionary file,
+creates a directory named test in the root location, and stores the result in index.html inside this location.
+12. Before beginning a sean, Skipfish displays some tips. Press Enter to start the security reconnaissance.
+Skipfish scans the web server
+Note that Skipfish takes sorne time (approximately 20 minutes) to complete its scan.
+On completion of the sean, Skipfish generates a report and stores it in the test directory (in the root location). Navigate to location, right-click
+index.html, hover your mouse cursor on Open With, and click Firefox to view the scan result
+The Skipfish crawl result appears in the web browser, displaying a summary overview of document and issue types found
+Expand each node to view detailed information regarding the result.
+18. Analyze an issue found in the web server. To do this, click a node under the lssue type overview section to expand it.
+19. Analyze the SQL query or similar syntax in parameters issue.
+Observe the URL of the webpage associated with the vulnerability. Click the URL
+The PHP version webpage appears, displaying details related to the machine, as well as the other resources associated with the web server
+infrastructure and PHP configuration.
+23. Click show trace next to the URL to examine the vulnerability in detail
+An HTTP trace window appears on the webpage, displaying the complete HTML session,
+
+httprecon Tool
+
+Turn on the Windows 10 and log in with the credentials Admin and Pa$$w0rd.
+2. Navigate to E:\CEH-Tools\CEHv11 Module 13 Hacking Web Servers\Web Server Footprinting Tools\httprecon, right-click httprecon.exe, and, from the context menu, click Run as
+administrator double-click to latmch the application.
+The main window of httprecon appears,
+Enter the website URL (here, www.certifiedhacker.com) that you want to footprint and select port number (80) in the Target section.
+S. Click Analyze to start analyzing the designated website.
+6. A footprint of the website appears,
+Look at the Get existing tab, and observe the server (Apache) and the server-side application (ASP.NET) used to develop the webpages.
+8. When attackers obtain this information, they research the vulnerabilities present in ASP.NET and Apache and try to e.xploit them, which results in
+either full or partial control over the web application.
+9. Click the GET long request tab, which lists all GET requests. Next, click the Fingerprint Details tab
+The details displayed in the screenshot above include the name of the
+protocol rl1e website is using and its version.
+11. By obtaining this information, attackers can manipulate HTIP vulnerabilities in order to perform malicious activities such as sniffing over the HTTP
+channel, which might result in revealing sensitive data such as user credentials
+
+ID Serve
+
+On the Windows 10 virtual machine, navigate to E:\CEH-Tools\CEHv11Module 13 Hacking Web Servers\Web Server Footprinting Tools\ID Serve
+and double-click idserve.exe.
+2. The main window of ID Serve appears. Click the Server Query tab For option 1, in the Enter or copy/paste an Internet server URL or IP
+address section, enter the URL (http://www.certifiedhacker.com) you want to footprint.
+4. Click Query the Server to start querying the website.
+5. After the completion of the query, ID Serve displays d1e results of the entered website, 
+After obtaining this information, the attacker may perform a vulnerability analysis on that particular version of the web server and implement
+various techniques to perform exploitation
+
+Netcat and Telnet
+
+In parrot In the terminal window, type nc -vv www.moviescope.com 80 and press Enter.
+Once you hit Enter, the netcat will display the hosting infonnation of the provided domain, as shown in the screenshot.
+9. Now, type GET 1 HTTP/1.0 and press Enter twice.
+10. Netcat will perform the banner grabbing and gather information such as content type, last modified date, accept ranges, ETag, and server information
+In the terminal windows, type clear and press Enter to clear the netcat result in the terminal window.
+
+Now, perform banner grabbing using telnet. In the terminal window, type telnet www.moviescope.com 80 and press Enter
+Telnet will connect to the domain, as shown in the screenshot.
+14. Now, type GET 1 HTTP/1.0 and press Enter twice. Telnet will perform the banner grabbing and gather information such as content type, last modified
+date, accept ranges, ETag, and server information.
+
+Nmap Scripting Engine (NSE)
+
+in parrot in a terminal
+Enumerate the directories used by web servers and web applications, in the terminal window. Type nmap -sV --script=http-enum <targetwebsite> and press Enter.
+6. In this scan, we are enumerating the www.goodshopping.com website
+This script enumerates and provides you with the output details
+The next step is to discover the hostnames that resolve the targeted domain.
+9. In the terminal window, type nmap --script hostmap-bfk -script-args hostmap-bfk.prefix=hostmap- www.goodshopping.com and press Enter
+Perfonn an H'ITP trace on the targeted domain. In the terminal window, type nmap --script http-trace -d www.goodshopping.com and press Enter.
+11. This script will detect a vulnerable server that uses the TRACE method  by sending an HTTP TRACE request that shows if the method is enabled or not.
+Now, check whed1er Web Application Firewall is configured on the target host or domain. In me terminal window, type nmap -p80 --script http-waf-detect 
+www.goodshopping.com and press Enter.
+13. This command will scan the host and attempt to determine whether a web server is being monitored by an IPS, IDS, or WAF.
+14. This command will probe the target host with malicious payloads and detect me changes in the response code.
+
+Uniscan Web Server Fingerprinting
+
+Start WAMPServer on the Windows Server 2016 virtual machine. Double-click the WAMPServer shortcut icon on Desktop to start the service.
+3. Wait until the WAMPServer icon turns green in the notification area,
+in Parrot In the terminal window, type uniscan -h and hit Enter to display the uniscan help options.
+1 O. The help menu appears, as shown in the screenshot. First, use the -q command to search for the directories of the web server.
+In the terminal window, type uniscan -u http://10.10.10.16:8080/CEH -q and hit Enter to start scanning for directories.
+12. Here, 10.10.10.16 is the IP address of the Windows Server 2016 virtual machine. This may vary in your lab environment.
+13. In the above command, the -u switch is used to provide the target URL, and the -q switch is used to scan the directories in the web server.
+Uniscan starts performing different tests on the webserver and discovering web directories, as shown in the screenshot
+Now, run uniscan using t:wo options together. Here -w and -e are used together to enable the file check (robots.txt and sitemap.xml file). In the
+terminal window, type uniscan -u http:/110.10.10.16:8080/CEH -we and hit Enter to start the scan.
+Uniscan starts the file check and displays the results,
+Now, use the dynamic testing option by giving the command -d. Type uniscan -u http://10.10.10.16:8080/CEH -d and hit Enter to start a
+dynamic scan on the web server
+Uniscan starts performing dynarnic tests, obtaining more information about email-IDs, Source code disclosures, and external hosts.
+Uniscan displays the PHP info,
+After scanning, navigate to /usr/share/uniscan/report and right-click on 10.10.10.16.html. Hover your mouse cursor on Open With and click
+Firefox from the menu to view the scan report
+
+Crack FTP Credentials using a Dictionary Attack Hydra
+
+In parrot, First, we will copy the Wonllists folder containing the sample username and password files (named Passwords.txt and Usemames.txt) from the shared
+network drive to the root/Home directory of the Parrot Security virtual machine.
+4. Todo so, open any windows explorer and press Ctrt+L. The Location field appears; type smb://10.10.10.10 and press Enter to access Windows 10 shared folders.
+5. A security pop-up appears; enter the Windows 10 virtual machine credentials (Username: Admin and Password: Pa$$w0nl) and click Connect.
+6. The Windows shares on 10.10.10.10 window appears. Double-click the CEH-Tools folder.
+Navigate to CEHv11 Module 13 Hacking Web Servers and copy the Wordlists folder.
+Paste the Wordlists folder into the /home/attacker directory
+A Parrot Terminal window appears. In the tenninal window, type sudo su and press Enter to run the programs as a root user.
+Type mv /home/attacker.tWordlists /root/ and press Enter to move the Wordlists folder to the root directory
+Perform an Nmap scan on the target machine (Windows 1O) to check if the FTP port is open.
+16. In the parrot terminal window, type nmap -p21 [IP Address of Windows 1O], and press En ter.
+Note: In this lab, the IP address of Windows 10 is 10.10.10.10.
+Observe that port 21 is open in Windows 1 O.
+18. Check if an FTP server is hosted on the Windows 1 O machine
+Type ftp [IP Address of Windows 10] and press Enter. You will be prompted to enter user credentials. The need for credentials implies that
+an FTP server is hosted on the machine.
+Try entering random usernames and passwords in an attempt to gain FTP access.
+Note: The password you en ter will not be visible on the screen.
+21. As shown in the screenshot, you will not be able to log in to the FTP server. Close the terminal window.
+Now, to attempt to gain access to the FTP server, perform a dictionary attack using the THC Hydra too!.
+23. Open a new terminal and jump to the root directory. Now, type hydra -L /root/Wordlists/Usernames.txt -P /root/Wordlists/Passwords.txt ftp://[IP Address of Windows 10] 
+and press Enter.
+Note: The IP address of Windows 10 in this lab exercise is 10.10.10.10.
+Hydra tries various combinations of usernames and passwords (present in the Usernames.txt and Passwords.txt files) on the FTP server and
+outputs cracked usernames and passwords, as shown in the screenshot.
+N ote: This might take some time to complete.
+25. On completion of the password cracking, the cracked credentials appear, Try to login to ilie FfP server using one of ilie cracked username and
+password combinations. In this lab, use Martin's credentials to gain access to the server
+
 
