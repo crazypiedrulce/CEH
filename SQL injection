@@ -1,0 +1,170 @@
+Perform an SQL Injection Attack on an MSSQL Database
+
+Note: In this lab, the machine hosting the website (d1e Windows Server 2019) is the victim machine; and the Windows 10 virtual machine will perform the attack.
+1. Turn on the Windows 10 and Windows Server 2019 virtual machines.
+2. In the Windows 10 virtual macl1ine, login with the credentials Admin and Pa$$w0rd.
+3. Open any web browser (in this case, we are using Mozilla Firefox), type http://www.goodshopping.com/ in the address bar, and press Enter.
+The GOOD SHOPPING home page loads. Assume dmt you are new to this site and have never registered with it; click LOGIN on the menu bar.
+In the Username field, type the query blah' or 1=1 -- as your login name, and leave the password field empty. Click the Log in button.
+You are now logged into the website with a fake login, even though your credentials are not valid. Now, you can browse all the site's pages as a
+registered member. After browsing the site, click Logout from the top-right comer of the webpage
+Note: Blind SQL injection is used when a web application is vulnerable to an SQL injection, but the results of the injection are not visible to the attacker. It is
+identical to a normal SQL injection except that when an attacker attempts to exploit an application, rather than seeing a useful (¡.e., information-rich) error
+message, a generic custom page is displayed. In blind SQL injection, an attacker poses a true or false question to the database to see if the application is vulnerable
+to SQL injection.
+7. Now, we shall create a user account using the SQL injection query. Before proceeding with this sub-task, we shall first examine the login database of the
+GoodShopping website.
+8. Switch to the Windows Server 2019 virtual machine and login with the  credentials Administrator and Pa$$w0rd.
+Note: In this task, we are logging into the Windows Server 2019 virtual machine as a vtctrm.
+9. Click the Type here to search icon in the lower section of Desktop and type microsoft. From the results, click Microsoft SQL Server Management Studio 18.
+Microsoft SQL Server Management Studio opens, along with a Connect to Server pop-up. In the Connect to Server pop-up, leave the default
+settings as they are and click the Connect button
+In the left pane of the Microsoft SQL Server Management Studio window, under the Object Explorer section, expand the Databases node.
+From the available options, expand rl1e GoodShopping node, and then the Tables node under it.
+12. Under the Tables node, right-click the dbo.Login file and click Select Top 1000 Rows from the context menu to view the available credentials
+You can observe that the database contains only one entry with the username and password as smith and smith123, respectively.
+Switch back to the Windows 1O virtual machine and go to the browser where the GoodShopping website is open.
+15. Click LOGIN on the menu bar and type the query blah';insert into login values ('john', 'apple123'); -- in the Username field (as your login name)
+and leave the password field empty. Click the Log in button
+If no error message is displayed, it means that you have successfully created your login using an SQL injection query.
+17. After executing the query, to verify whether your login has been created successfully, click the LOGIN tab, enter john in the Username field and
+apple123 in the Password field, and click Log in
+You will log in successfully with the created login and be able to access all the features of the website.
+19. After browsing the required pages, click Logout from the top-right corner of the webpage
+Switch back to the victim machine (Windows Server 2019 virtual  machine).
+21. In the Microsoft SQL Server Management Studio window, right-click dbo.Login, and click Select Top 1000 Rows from the context menu.
+22. You will observe that a new user entry has been added to the website's login database file with the usemame and password as john and apple123,
+respectively. Note down the available databases.
+Switch back to the Windows 1O virtual machine and the browser where the GoodShopping website is open.
+24. Click LOGIN on the menu bar and type the query blah';create database mydatabase; -- in the Username field (as your login name) and leave the
+password field empty. Click d1e Log in button.
+25. In the above query, mydatabase is the name of the database
+If no error message (or any message) displays on the webpage, it means that
+the site is vulnerable to SQL injection and a database with the name
+mydatabase has been created on the data base server.
+27. Switch back to the Windows Server 2019 virtual machine.
+28. In the Microsoft SQL Server Management Studio window, un-expand the Databases node and click the Refresh icon.
+29. Expand the Databases node. A new database has been created with the name mydatabase
+Switch back to rl1e Windows 1 O virtual machine and ilie browser where ilie
+GoodShopping website is open.
+31. Click LOGIN on the menu bar and type the query blah'; DROP DATABASE mydatabase; -- in ilie Username field; leave the Password field empty
+and click Log in.
+Note: In the above query, you are deleting the database that you created in Step 24 (mydatabase). In the same way, you could also delete a table from
+the victim website database by typing blah'; DROP TABLE table_name; -- in the Username field
+Switch back to d1e Windows 1 O virtual machine and the browser where the
+GoodShopping website is open.
+36. Click LOGIN on the menu bar and type the query blah';exec master..xp_cmdshell 'ping www.certifiedhacker.com -l 65000 -t'; -- in
+the Username field; leave the Password field empty and click Log in.
+Note: In ilie above query, you are pinging the www.certifiedhacker.com website using an SQL injection query. -l is the sent buffer size and -t refers to
+pinging the specific host.
+The SQL injection query starts pinging the host, and the login page shows a Waiting for www.goodshopping.com ... message at the bottom of the window
+To see whether the query has successfully executed, switch back to the victim machine (Windows Server 2019) .
+39. Right-click the Start icon in the bottom-left corner of Desktop and from the options, click Task Manager. Click More details in the lower section of the
+Task Manager window.
+40. Navigate to the Details tab and type p. You can observe a process called PING.EXE running in the background.
+This process is the result of the SQL injection query that you entered in the login field of the target website
+
+
+SQLMAP
+
+In parrot Click the Mozilla Firefox icon from the menu bar in the top-left corner of Desktop to launch the web browser.
+4. Type http://www.moviescope.com/ and press Enter. A Login page loads; enter the Username and Password as sam and test, respectively.
+Click the Login button.
+Note: If a Would you like Firefox to save this login for moviescope.com? notification appears at the top of the browser window, click Don't Save
+Once you are logged into the website, click the View Profile tab on the menu bar and, when the page has loaded, make a note of the URL in the address bar of the browser
+Right-click anywhere on the webpage and click lnspect Element (Q) from the context menu
+The Developer Tools frame appears in the lower section of the browser window. Click the Console tab, type document.cookie in the lower-left
+corner of the browser, and press Enter
+8.Select the cookie value, then right-click and copy it, as shown in the screenshot. Minimize the web browser.
+N ote: The cookie value may differ in your lab environment
+In the terminal window, type sudo su and press Enter to run the programs as a root user.
+11. In the [sudo) password for attacker field, type toor as a password and press Enter. Note: The password that you type will not be visible.
+12. Now, type cd and press Enter to jump to the root directory. 
+In the Parrot Terminal window, type sqlmap -u "http://www.moviescope.com/viewprofile.aspx?id=1" --cookie="<cookie value that you copied in Step 8>" --dbs and press
+Enter.
+Note: In this query, -u specifies the target URL (the one you noted down in Step 5), --cookie specifies the HTTP cookie header value, and --dbs enumerates DBMS databases.
+14. The above query causes sqlmap to enforce various injection techniques on the name parameter of the URL in an attempt to extract the database
+information of the MovieScope website
+If the message Do you want to skip test payloads specific for other DBMSes? [Y/n] appears, type Y and press Enter.
+16. If the message for the remaining tests, do you want to include all tests for 'Microsoft SQL Server' extending provided level (1) and risk (1) values?
+[Y/n] appears, type Y and press Enter.
+17. Similarly, if any other message appears, type Y and press Enter to continue.
+sqlmap retrieves the databases present in the MSSQL server. lt also displays information about d1e web server OS, web application technology, and the
+backend DBMS
+sqlmap retrieves the databases present in d1e MSSQL server. lt also displays information about d1e web server OS, web application technology, and the
+backend DBMS
+Now, you need to choose a database and use sqlmap to retrieve the tables in the data base. In this lab, we are going to determine the tables assocíated with
+the database moviescope.
+20. Type sqlmap -u "http:llwww.moviescope.com/viewprofile.aspx?id=1" --cookie="<cookie value which you have copied in Step 8>" -D moviescope --tables and press Enter.
+Note: In this query, -D specifies the DBMS database to entunerate and --tables enumerates DBMS data base tables.
+21. The above query causes sqlmap to sean d1e moviescope data base for tables located in the database.
+sqlmap retrieves the table contents of the moviescope database and displays them
+Now, type sqlmap -u "http://www.moviescope.com/viewprofile.aspx?id=1" --cookie="<cookie value which you have copied in Step 8>" -D moviescope -T User_Login --dump 
+and press Enter to dump all the User_Login table content
+sqlmap retrieves the complete User_Login table data from the database moviescope, containing all users' usernames under the Uname column and
+passwords under the password column.
+25. You will see that under the password column, the passwords are shown in plain text form.
+To verify if the login details are valid, you should try to log in with the extracted login details of any of the users. Todo so, switch back to the web
+browser, dose the Developer Tools console, and dick Logout to start a new session on the site
+The Login page appears; log in into the website using rl1e retrieved credentials john/ qwerty.
+Note: If a Would you like Firefox to save this login for moviescope.com? notification appears at the top of the browser window, click Don't Save.
+28. You will observe that you have successfully logged into yhe MovieScope website with john's account
+Now, switch back to the Parrot Terminal window. Type sqlmap -u "http://www.moviescope.com/viewprofile.aspx?id=1" --cookie="<cookie value which you have copied in Step 8>" --os-shell 
+and press Enter. Note: In this query, --os-shell is the prompt for an interactive OS shell
+If the message do you want sqlmap to try to optimize value(s) for DBMS delay responses appears, type Y and press Enter to continue
+Once sqlmap acquíres the permission to optimize the machine, it will provide you with the OS shell. Type hostname and press Enter to find the machine
+name where the site is running.
+32. If the message do you want to retrieve the command standard output? appears, type Y and press Enter.
+sqlmap will retrieve the hostname of the machine on which the target web application is running.
+Type TASKLIST and press Enter to view a list of tasks that are currently running on tl1e target system.
+Note: If the message do you want to retrieve the command standard output? appears, type Y and press Enter.
+35. The above command retrieves the tasks and displays them under the command standard output section
+Following the same process, you can use various other commands to obtain further detailed information about d1e target machine.
+N ote: To view the available commands under the OS shell, type help and press Enter.
+
+DSSS
+
+In parrot In the terminal window, type git clone https://github.comlstamparm/DSSS and press Enter to clone the DSSS repository.
+N ote: You can also access the tool repository from the CEH-Tools folder available in Windows 1O virtual machine, in case, the github link does not exist,
+or you are unable to clone the tool repository. Follow the steps below in order to access CEH-Tools folder from the Parrot Security virtual machine:
+• Open a windows explorer and press Ctrl+L. The Location field appears;
+type smb://10.10.10.10 and press Enter to access Windows 10 shared folders
+The security pop-up appears; enter the Windows 10 virtual machine credentials (Usemame: Admin and Password: Pa$$w0rd) and click Connect.
+The Windows shares on 10.10.10.10 window appears; navigate to the location CEH-Tools/CEHv11 Module 15 SQL lnjection/GitHub Tools/ and copy the DSSS folder.
+Paste the copied DSSS folder on the location /home/attacker/.
+In the terminal window, type mv /home/attacker/DSSS /root/ .
+8. After the cloning process is complete, type cd DSSS and press Enter to navigate to the downloaded DSSS folder.
+9. Now, type ls and press Enter to view the folder content.
+1 O. You will see the Python file dsss.py; we will use this program to detect SQL injection vulnerabilities on the target website
+In the terminal window, type python3 dsss.py and press Enter to view a list of available options in d1e DSSS application
+In the Mozilla Firefox window, type http://www.moviescope.com/ in the address bar and press Enter. A Login page loads; enter the Username
+and Password as sam and test, respectively. Click the Login button.
+N ote: If a Would you like Firefox to save this login for moviescope.com? notification appears at the top of the browser window, click Don't Save.
+Once you are logged into the website, click the View Profile tab from the menu bar; and when the page has loaded, make a note of the URL in the
+address bar of the browser.
+15. Right-click anywhere on the webpage and click lnspect Element (Q) from the context menu, as shown in the screen
+The Developer Tools frame appears in the lower section of the browser window. Click the Console tab, type document.cookie in the lower-left
+corner of the browser, and press Enter
+Select the cookie value, then right-click and copy it. Minimize the web browser.Note: The cookie value might differ in your lab environment.
+Switch to a tenninal window and type python3 dsss.py -u "http://www.moviescope.com/viewprofile.aspx?id=1" --cookie="<cookie value which you have copied in Step 17>" and
+press Enter.
+Note: In dus command, -u specifies the target URL and --cookie specifies the HITP cookie header value
+The above command causes DSSS to sean ilie target website for SQL injection vulnerabilities.
+20. The result appears, showing that the target website (www.moviescope.com) is vulnerable to blind SQL injection attacks. The vulnerable link is also displayed
+Highlight the vulnerable website link, right-click it, and, from the options, click Copy
+Switch to Mozilla Firefox; in a new tab, paste the copied link in the address bar and press Enter.
+23. You will observe that information regarding available user accounts appears under the View Profile tab
+Scroll down to view the user accotmt information for all users
+
+
+OWASP ZAP
+
+In windows The OWASP ZAP main window appears; under the Quick Start tab, click the Automated Sean option.
+The Automated Scan wízard appears, enter the target website in the URL to attaek field (in this case, http://www.moviescope.com) . Leave other
+options set to default, and then click the Attack button
+OWASP ZAP starts performing Active Scan on the target website
+After the sean completes, Alerts tab appears.
+8. You can observe the vulnerabilities found on the website tmder d1e Alerts tab.
+Now, expand the SQL lnject ion vulnerability node under the Alerts tab
+Click on the discovered SQL lnjection vulnerability and further click on the vulnerable URL
+11. You can observe the infonnation such as Risk, Confidence, Parameter, Attack, etc., regarding the discovered SQL Injection vulnerability in the lower right-bottom
