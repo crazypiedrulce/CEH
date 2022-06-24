@@ -119,4 +119,112 @@ Now switch back to the Android virtual machine and halt the DoS attack by clicki
 
 
 Exploit the Android Platform through ADB using PhoneSploit
+In Parrot in a terminal, type cd and press Enter to jump to the root directory
+In the Terminal window, type apt-get install adb and press Enter to install ADB.
+If a Do you want to continue? message appears during the installation, type Y and press Enter to continue.
+Once the installation completes, type git clone https://github.com/01010000-kumar/PhoneSploit and press Enter to clone the PhoneSploit repository
+Open a windows explorer and press Ctrl+L. The Location field appears;
+type smb://10.10.10.10 and press Enter to access Windows 10 shared folders.
+The security pop-up appears; enter the Windows 10 virtual machine credentials (Usemame: Admin and Password: Pa$$w0rd) and click Connect.
+The Windows shares on 10.10.10.10 window appears; navigate to the location CEH-Tools/CEHv11 Module 17 Hacking Mobile Platfonns/GitHub Tools/ and copy the PhoneSploit folder.
+Paste the copied PhoneSploit folder on the location /home/attacker/.
+In the terminal window, type mv /home/attacker/PhoneSploit /root/ .
+10. Now, type cd PhoneSploit and press Enter to navigate to the PhoneSploit folder.
+Note: By default, the tool will be cloned in the root directoty 
+Type phyton3 -m pip install colorama and press Enter to install the dependency
+Now, type python3 phonesploit.py and press Enter to run the tool.
+The PhoneSploit main menu options appear
+The main_menu prompt appears; type 3 and press Enter to choose Connect a newphone
+When prompted to Enter a phones ip address, type the target Android device's IP address (in this case, 10.10.10.14) and press Enter.
+16. You will see that the target Android device (in this case, 10.10.10.14) is connected through port number 5555
+Note: If you are unable to establish a connection with the target device, then perform Steps#12-15 again.
+Now, at me main_menu prompt, type 4 and press Enter to choose Access Shell on a phone.
+18. When prompted to Entera device name, type d1e target Android device's IP address (in this case, 10.10.1 0.14) and press Enter.
+19. You can observe that a shell command line appears
+In the shell command line, type pwd and press Enter to view the present working directory on the target Android device.
+21. In the results, you can observe that the PWD is d1e root directory.
+22. Now, type ls and press Enter to view all the files present in the root directory.
+Type cd sdcard and press Enter to navigate to the sdcard folder.
+24. Type ls and press Enter to list all the available files and folders.
+Note: In this example, we will download an image file (images.jpeg) that we placed in d1e Android virtual machine's Download folder earlier; you can do the
+same before performing the next steps
+Type cd Download and press Enter to navigate to the Download folder.
+26. Type ls and press Enter to list al! the available files in the folder. In this case, we are interested in the images.jpeg file, which we downloaded earlier.
+Note: Note down the location of images.jpeg (in this example, /sdcard/Downloadlimages.jpeg). We will download this file in later steps
+Type exit and press Enter to exit the shell command line and rerurn to the main_menu.
+28. At the main_menu prompt, type 7 and press Enter to choose Screen Shot a picture on a phone.
+29. When prompted to Entera device name, type d1e target Android device's IP address (m this case, 10.10.10.14) and press Enter.
+30. When prompted to Enter where you would like the screenshot to be saved, type /home/attacker/Desktop/ as the location and press Enter. The
+screenshot of the target mobile device will be saved in the given location. Minimize the Terminal window
+Click Places in the top section of me Desktop; then, from me context menu, click Desktop.
+32. You should see me downloaded screenshot of rl1e targeted Android device (screen.png). Double-click it if you wish to view me screenshot
+Close me Desktop window and switch back to me Terminal window.
+34. At me main_menu prompt, type 14 and press Enter to choose List all apps on a phone.
+35. When prompted to Enter a device name, type the target Android device's IP address (in this case, 10.10.10.14) and press Enter.
+36. the result appears, displaying the installed apps on me target Android device, 
+Note: using this information, you can use other PhoneSploit options to either launch or install any of me installed apps.
+Now, at the main_menu prompt, type 15 and press Enter to choose Run an app. In this example, we will launch a calculator app on the target Android device.
+Note: Based 011 rl1e information obtained in the previous step about the installed applications, you can launch any app of your choice.
+38. When prompted to Enter a device name, type the target Android device's IP address (in this case, 10.10.10.14) and press Enter.
+39. To launch the calculator app, type com.android.calculator2 and press Enter.
+After launching the calculator app on the target Android device, switch to the Android virtual machine.
+41. You will see that the calculator app is running, and that random values have been entered, 
+N ote: The entered values núght differ in your lab environment
+Switch back to the Parrot Security virtual machine. In the Terminal window, type p and press Enter to navigate to additional PhoneSploit options on the Next Page.
+43. The result appears, displaying additional PhoneSploit options, as shown in the screenshot.
+44. At the main_menu prompt, type 18 and press Enter to choose Show Mac/lnet information for the target Android device.
+When prompted to Enter a device name, type rl1e target Android device's IP address (in this case, 10.10.10.14) and press Enter
+Now, at the main_menu prompt, type 21 and press Enter to choose the NetStat option.
+47. When prompted to Entera device name, type the target Android device's IP address (in this case, 10.10.10.14) and press Enter.
+48. The result appears, displaying netstat infonnation of the target Android device, Note: For demonstration purposes, in this task, we are exploiting the Android
+emulator virtual machine. However, in real life, attackers use the Shodan search engine to find ADB-enabled devices and exploit them to gain senstive
+information and carry out malicious activities.
+49. In the same way, you can exploit the target Android device further by choosing other PhoneSploit options such as lnstall an apk on a phone,
+Screen record a phone, Turn The Device off, and Uninstall an app
+
+Sixo
+Turn on the Android virtual machine and click the Google Chrome browser icon on the Home screen to launch Chrome.
+2. In Chrome, type https://www.sisik.eu/apk-tool in the address bar and press Enter.
+The Sixo Online APK Analyzer webpage loads
+Note: If a cookie notification pop-up appears, click Got it!
+4. Click the Drop APK here or click to select file field to upload an APK file from the device.
+Note: Sixo Online APK Analyzer allows you to analyze various details about Android APK files. lt can decompile binary XML files and resources.
+In the Choose an action pop-up, click Files
+The Downloads screen appears; double-click the app_backdoored.apk file.
+Note: If you find yourself in a folder called Recent navigate to the Downloads folder by clicking on the hamburger icon the top-left corner.
+The browser window reappears with the information about the uploaded file (Backdoored.apk)
+Scroll down to the Requested Permissions section to view information regarding the app's requested permissions.
+Note: When an app wants to access resources or various device capabilities, it typically must request permission from the user todo so. Some permissions
+are granted by the user when installing the app and some need to be confinned later while the app is running. The requested
+declared in the app's Androidl\Manifest.xml file.
+Scroll down to the AndroidManifest.xml section, which consists of essential infonnation about d1e APK file.
+Note: The manifest file contains important information about the app that is used by development tools, d1e Android system, and app stores. lt contains
+the app's package name, version information, declarations of app components, requested permissions, and oilier important data. lt is serialized
+into a binary XML format and bundled inside the app's APK file.
+You can also scroll clown to view infonnation about the app's APK Signature, App Source Code, etc
+
+AVC UnDroid
+
+Press Ctrl+T to open a new tab, type https://undroid-avcomparatives.org/ in the address bar, and press Enter.
+13. The AVC UnDroid website loads; click Select APK ....
+In the Choose an action pop-up, click Files.
+15. In the Downloads screen, double-click app_backdoored.apk.
+16. The selected ftle (app_backdoored.apk) is now listed; click Start analysis button to analyze the selected APK file
+Note: A VC UnDroid is an online Android analyzer that provides analysis of Android apps
+AVC UnDroid initializes the analysis of d1e selected APK file. On completion, the Report appears, displaying detailed information about the APK file, 
+18. The Report section displays information such as MDS, SHA 1, SHA256, ftle size, ftlename, etc.
+Scroll down to view information regarding Requested Permissions, Responsible API calls for used Permissions, Potentially dangerous Calls, and more.
+
+Quixxi Vulnerability Scanner
+
+In Chrome, type https://vulnerabilitytest.quixxi.com/#1 in the address bar and press Enter.
+4. The Quixxi website loads; click the Drag'n'drop or click here to scan your app field.
+When the Choose an action pop-up appears, click Files
+The Downloads screen appears; double-click Backdoor.apk.
+7. Quick starts scanning the selected APK file (Backdoor.apk) for vulnerabilities
+After the sean fmishes, Vulnerability Sean Report: A Summary appears displaying the application name, vulnerabilities scanned, high severity threats, etc., 
+Click to expand Permissions Used node to view the pennissions.
+Scroll-down, click to expand CERTIFICATION INFORMATION node to view certification details
+Scroll-down further to view the OWASP infonnation such as lssue, Severity, Assessment Status, CWE, Exploits, etc.
+You can scroll-down and click on GET FULL REPORT button to generate a full report.
 
