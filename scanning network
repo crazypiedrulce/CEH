@@ -31,3 +31,62 @@ any probe indicates that a host is active.
 # nmap -sn -PO <target IP address>
 
 Angry IP Scanner
+
+In the Windows 10 virtual machine, navigate to E:\CEH-Tools\CEHv11 Module 03 Scanning Networks\Ping Sweep Tools\Angry IP Scanner and
+double-click ipscan-win64-3.6.1.exe
+In the IP Range fields, type the IP range as 10.10.10.0 to 10.10.10.255 and click the Preferences icon beside the IP Range menu
+The Preferences window appears. In the Scanning tab, under the Pinging section, select the Pinging method as Combined UDP+TCP from the drop-down list.
+Now, switch to the Display tab. U nder the Display in the results list section, select the Alive hosts (responding to pings) only radio button and click OK
+In the IP Range - Angry IP Scanner window, click the Start button to start scanning the IP range that you entered.
+Angry IP Scanner starts scanning the IP range and begins to list out the alive hosts found. Check the progress bar on the bottom-right comer to
+see the progress of the scanning.
+After the scanning is completed, a Scan Statistics pop-up appears. Note the total number of Hosts alive (here, 6) and click Close
+
+MegaPing
+Navigate to E:\CEH-Tools\CEHv11 Module 03 Scanning Networks\Scanning Tools\MegaPing and double-click megaping_setup.exe.
+Note: If a User Acc·ount Control pop-up appears, click Yes.
+4. The MegaPing - lnstallShield Wizard window appears; click Next and follow the wizard-driven installation steps to install MegaPing.
+Select the IP Scanner option from the left pane. In the IP Scanner tab in the right-hand pane, enter the IP range in the From and To fields; in
+this lab, the IP range is 10.10.1 0.5 to 10.10.1 0.20; then, click Start
+Select the Port Scanner option from the left-hand pane. In the Port Scanner tab in the right-hand pane, enter the IP address of the Windows Server 2016
+(10.10.10.16) machine into the Destination Address List field and click Add.
+Select the 10.10.10.16 checkbox and click the Start button to start listening to the traffic on 10.10.10.16.
+MegaPing lists the ports associated with Windows Server 2016 (10.10.10.16), with detailed information on port number and type,
+service running on the port along with d1e description, and associated risk
+
+In the Windows 10 virtual machine, click on the Start menu and launch the Nmap - Zenmap GUI from the applications
+The Nmap • Zenmap GUI appears; in the Command field, type the command nmap -sT -v <T arget IP Address> (here, the target IP address is 10.10.1 0.16) and click Scan.
+Note: -sT : performs the TCP connect/ full open sean and -v: enables the verbose output (include all hosts and ports in the output).
+Now, switch to the Windows 10 virtual machine. In the Command field of Z enmap, 
+type the command nmap -sS -v <Target IP Address> (here, the target IP address is 10.10.1 0.16) and click Scan.
+Note: -sS: performs the stealth scan/ TCP half-open sean and -v: enables the verbose output (include all hosts and ports in the output).
+In the Command field o f Zenmap, type the command nmap -sX -v <Target IP Address> (here, the target IP address is 10.10.10.16) and click Scan.
+Note: -sX : performs the Xmas sean and -v: enables the verbose output (include all hosts and ports in the output).
+In the Command field, type the command nmap -sM -v <Target IP Address> (here, the target IP address is 10.10.10.16) and click Scan
+Note: -sM: performs the TCP Maimon scan and -v: enables the verbose output (include all hosts and ports in the output).
+In the Command field, type the command nmap -sA -v <Target IP Address> (here, d1e target IP address is 10.10.10.16) and click Scan.
+Note: -sA: performs the ACK flag probe sean and -v: enables the verbose output (include all hosts and ports in the output).
+Now, return to the Windows 10 virtual maehine. In the Command field, type the command nmap -sU -v <Target IP Address> (here, the target IP
+address is 10.10.1 0.16) and click Scan.
+N ote: -sU: performs the UDP sean and -v: enables d1e verbose output (include all hosts and ports in the output).
+In d1e Command field, type the eommand nmap -sA -v <Target IP Address> (here, d1e target IP address is 10.10.10.16) and click scann.
+N ote: -sA: performs the ACK flag probe sean and -v: enables the verbose output (include all hosts and ports in the output)
+
+Systema operativo
+
+The Zenmap GUI appears. In the Command field, type the command nmap -A <Target IP Address> (here, the target machine is Windows Server 2016 [10.10.10.16]) and click Scan.
+Note: -A: to perform an aggressive scan.
+In the Command field, type the command nmap -O <Target IP Address> (Here, the targe machine is Windows Server 2016 (10.10.10.16]) and click Scan.
+N ote: -O perfonns the OS discovery
+In the Command field, type the command nmap --script smb-os-discovery.nse <Target IP Address> (here, the target machine is Windows Server 2016 [10.10.10.16]) and click Scan.
+Note: --script : specifies the customized script and smb-os-discovery.nse  attempts to determine the OS, computer name, domain, workgroup, and
+current time over the SMB protocol (ports 445 or 139)
+
+Firewall
+The Nmap - Zenmap GUI appears. In the Command field, type the command nmap <Target IP Address> --data Oxdeadbeef (here, target IP address is 10.10.1 0.16) and click Scan.
+Note: Nmap uses --data <hex string> (here, Oxdeadbeef) to send the binary data (0's and 1 's) as payloads in the sent packets to sean beyond firewalls
+In the Command field, type the command nmap <Target IP Address> --data-string "Ph34r my 133t skills" (here, target IP address is 10.10.1 0.16) and click Scan.
+Note: Nmap uses --data-string <string> (here, " Ph34r my 133t skills') to send a regular string as payloads in the sent packets to the target machine for
+scanning beyond the firewall
+
+Scan a Target Network using Metasploit
