@@ -1,0 +1,33 @@
+Perform Host Discovery using Nmap
+The Nmap - Zenmap GUI appears; in the Command field, type the command nmap -sn -PR <Target IP Address> (here, the target IP address is 10.10.1 0.16) and click Scan.
+Note: -sn: disables port scan and -PR: perfonns ARP ping scan.
+8. The scan results appear, indicating that the target Host is up, 
+
+In the Command field, type nmap -sn -PU <Target IP Address>, (Here, the target IP address is 10.10.10.16) and click Scan. The scan results
+appear, indicating the target Host is up,.
+Note: -PU: performs d1e UDP ping scan
+
+Now, we will perform d1e ICMP ECHO ping sean. In the Command field, type nmap -sn -PE <Target IP Address>, (here, the target IP address is 10.10.10.16) and click Scan. }
+The sean results appear, indicating that the target Host is up, .
+Note: -PE: performs ilie ICMP ECHO ping scan.
+
+Now, we will perform an ICMP ECHO ping sweep to discover live hosts from a range of target IP addresses. In the Command field, 
+type nmap -sn -PE <Target Range of IP Addresses> (Here, the target range of IP addresses is 10.10.10.11-20) and click Scan. The sean results appear,
+indicating the target Host is up,
+
+ICMP Tirnestarnp and Address Mask Ping Sean: These techniques are alternatives for the tradicional ICMP ECHO ping can, which are used to determine whether the target host 
+is live specifically when administrators block the ICMP ECHO pings.
+Example -
+ICMP timestamp ping sean
+# nmap -sn -PP <target IP address> 
+ICMP address mask ping scan
+# nmap -sn -PM <target IP address>
+TCP SYN Ping Sean: This technique sends empty TCP SYN packets to the target host, ACK response means that the host is active.
+# nmap -sn -PS <target IP address>
+TCP ACK Ping Scan: This technique sends empty TCP ACK packets to the target host; an RST response means that the host is active.
+# nmap -sn -PA <target IP address>
+IP Protocol Ping Scan : This technique sends different probe packets of different IP protocols to the target host, any response from
+any probe indicates that a host is active.
+# nmap -sn -PO <target IP address>
+
+Angry IP Scanner
