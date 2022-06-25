@@ -1,0 +1,174 @@
+Web Application Reconnaissance
+Perform a Whois lookup to gad1er information about d1e IP address of the web server and the complete information about the domain such as its registration details, 
+name servers, IP address, and location.
+4. Use tools such as Netcraft (https://www.netcraft.com), SmartWhois (https:/ /www.tamos.com), WHOIS Lookup (http://whois.domaintools.com), and Batch IP Converter
+(http://www.sabsoft.com) to perfonn the Whois lookup.
+S. Perfonn DNS lnterrogation to gather information about the DNS servers, DNS records, and types of servers used by the target organization. 
+DNS zone data include DNS domain names, computer names, IP addresses, domain mail servers, service records, etc.
+6. Use tools such as Professional Toolset (https://tools.dnsstuff.com), DNSRecon (https://github.com), and DNS Records (https://networktools.com), 
+Domain Dossier (https://centralops.net) to perform DNS interrogation.
+
+Scaning
+
+In the Parrot Terminal window, type nmap -T4 -A -v <Target Web Application> (here, the target web application is www.moviescope.com)
+and press Enter to perfonn a port and service discovery scan.
+N ot e: In this command, -T4: specifies setting time template (0-5), -A:specifies setting ACK flag, and -v: enables the verbose output (include all
+hosts and ports in the output).
+The result appears, displaying the open ports and services running on the machine hosting the target website
+Scroll down to see the complete results. You can observe that the target machine name, NetBIOS name, DNS name, i\tlAC address, OS, and
+other information is displayed
+
+banner grabbing
+
+In the terminal window, type telnet www.moviescope.com 80 and press Enter to establish a telnet connection with the target machine.
+N ote: Port 80 is the port number assigned to the commonly used Internet communication protocol, HypertextTransfer Protocol (HITP).
+The Trying 10.10.10.19 ... message appears; type GET 1 HTTP/1.0 and press Enter two times
+The result appears, displaying information related to the server name and its version, technology used.
+19. Here, the server is identified as Microsoft-IIS/10.0 and the technology used is ASP.NET.
+
+WhatWeb
+
+In the Tenninal window of Parrot, type whatweb and press Enter. It displays a list of the commands available with WhatWeb.
+Now, type whatweb <Target Web Application> (here, the target web application is www.moviescope.com) and press Enter to perform website
+footprinting on the target website.
+7. The result appears, displaying d1e MovieScope website infrastructure, 
+In the terminal, type whatweb -v <Target Web Application> (here, the target web application is www.moviescope.com) and press Enter to run
+a verbosity scan on the target website.
+The result appears, displaying a detailed report on the target website such as its IP address, plugin information, and HTTP header information
+Now, type whatweb --log-verbose=MovieScope_Report www.moviescope.com and press Enter to export the results returned by WhatWeb as a text file.
+N ote: This will generate a report with the name MovieScope_Report and save this fue in the root folder 
+
+OWASP ZAP
+
+In a Parrot Terminal; type zaproxy and press Enter to launch OWASP ZAP.
+The OWASP ZAP main window appears. Under the Quiek Start tab, click the Automated Scan option under Welcome to OWASP ZAP
+The Automated Sean wizard appears; enter the target website under the URL to attaek field (here, www.movieseope.eom). Leave the other
+settings to default and click the Attaek button.
+OWASP ZAP starts scanning the target website. You can observe various URLs under the Spider tab
+After perfonning web spidering, OWASP ZAP performs active scanning.
+Navigate to the Active Sean tab to observe the various scanned links.
+12. After completing the active sean, the results appear under the Alerts tab, displaying the various vulnerabilities and issues associated with the target website
+N ote: In this task, the objective being web spidering, we will focus on the information obtained while performing web spidering
+Now, click on the Spider tab from the lower section of the window to view the web spidering information. By default, the URLs tab appears under the Spider tab.
+14. The URLs tab contains various links for hidden content and functionality associated with the target website (www.moviescope.com).
+Now, navigate to the Messages tab under the Spider tab to view more detailed infonnation regarding the URLs obtained while performing the web spidering, 
+
+Detect Load Balancers
+
+In the Terminal in Parrot; type dig yahoo.com and press Enter.
+6. The result appears, displaying the available load balancers of the target website. Here, a single host resolves to  multiple IP addresses, 
+which possibly indicates that the host is using a load balancer
+Now, type lbd yahoo.com and press Enter.
+8. The result appears, displaying the available DNS load balancers used by the target website, 
+
+ldentify Web Server Directories
+Nmap
+In the terminal window in Parrot; type nmap -sV --script=http-enum <target domain or IP address> (here, www.moviescope.com) and press Enter.
+The result appears, displaying open ports and services, along with their version.
+7. Scroll-down in the result and observe the identified web server directories under the http-enum
+Gobuster
+Now, we shall copy the wordlist ftle (common.txt) from a shared network drive. We will use this file in the Gobuster tool.
+9. Open any explorer window and press Ctrl+L. The Location field appears; type smb://10.10.10.1O and press Enter to access Windows 1O shared folders.
+10. The security pop-up appears; enter the Windows 10 virtual machine credentials (Usemame: Admin and Password: Pa$$w0nl) and clickConnect.
+11. The Windows shares on 10.10.10.1O window appears; double-click the CEH-Tools folder.
+Navigate to CEHv11 Module 14 Hacking Web Applications, copy the common.txt file.
+Paste the common.txt into the /home/attacker directory, close the window Now, switch back to the terminal window, Type mv /home/attacker/common.txt /root/Desktop/ 
+and press Enter to move the common file to the Desktop.
+15. In the terminal window, type gobuster dir -u <Target Website> -w /root/Desktop/common.txt, and press Enter.
+Note: dir: uses directory or file brute-forcing mode, -u: specifies the target URL, and -w: is the wordlist file used for directory brute-forcing (here, common.txt).
+16. The result appears, displaying the identified web server directories,
+
+Vega
+
+In windows 10 Navigate tome location E:\CEH-Tools\CEHv11 Module 14 Hacking Web Applications\Web Application Hacking Tools\Vega and double-click VegaSetup64.exe
+The Subgraph Vega main window appears
+Click Scan from the menu bar and select Start New scan from the  available options
+The Select a Scan Target window appears on the screen. Ensure that the Enter a base URI for sean radio button is selected under the Scan Target section.
+15. In the Enter a base URI for sean field, enter the target URL as http://10.10.10.16:8080/dvwa and click Next 
+The Select Modules wizard appears; double-click on both of the checkboxes (lnjection Modules and Response Processing Modules) to select all options.
+17. By checking these options, all modules under these options will be selected. Click Next
+In the Authentication Options wizard, leave the settings to default and click Next
+In Parameters wizard, leave the settings to default and click Finish to initiate the scan
+The Follow Redirect? pop-up appears; click Yes to continue
+The Vega application starts scanning the target website for vulnerabilities.
+Observe the Scanner Progress bar and wait for it to finish.
+N ote: In the left-hand pane, under the Sean Alerts section, you can see the scan status as Auditing. As soon as Vega completes, the scan status changes to Completed
+After the scanner finishes performing its vulnerability assessment on the target website, it lists the discovered vulnerabilities under Scan Alert Summary.
+In the left-pane under Sean Alerts, expand the nodes to view the complete vulnerability scan result. Now, choose any one of the discovered vulnerabilities to 
+display it on the respective page, as in the dashboard section shown in the screenshot.
+24. Choose any one vulnerability under the Scan Alerts section in the lefthand pane. Here, we are selecting the Cleartext Password over HTTP
+vulnerability; detailed information regarding the selected vulnerability will be displayed in the right section of the window
+Similarly, you can select any vulnerability from the list of discovered vulnerabilities to view its detailed information and then apply appropriate
+fixes for all the vulnerable codes in your web application
+
+Burpsuite
+Brute force
+In parrot Click the Firefox icon from the top section of Desktop to launch the Mozilla Firefox browser.
+8. The Mozilla Firefox window appears; type http://10.10.10.16:8080/CEH/wp-login.php? lnto the address bar and press Enter
+Now, we shall set up a Burp Suite proxy by first configuring the proxy settings of the browser
+The Connection Settings window appears; select the Manual proxy configuration radio button and specify the HTTP Proxy as 127.0.0.1 and the
+Port as 8080. Tick the Use this proxy server for all protocols checkbox and click OK. Close the Preferences tab
+Start Burpsuite
+The Burp Suite main window appears; click the Proxy tab from the available options in the top section of the window.
+In the Proxy settings, by default, the lntercept tab opens-up. Observe that by default, the interception is active as the button says lntercept is on. Leave it running
+Switch back to the browser window. On the login page of the target WordPress website, type random credentials, here admin and password.
+Click the Log In button
+Switch back to the Burp Suite window; observe that the HTTP request was intercepted by the application
+Now, right-click anywhere on the HITP request window, and from the context menu, click Send to lntruder
+Now, click on the lntruder tab from the toolbar and observe that under the lntruder tab, the Target tab appears by default.
+27. Observe the target host and port values in the Host and Port fields
+Click on the Positions tab under the lntruder tab and observe that Burp Suite sets the target positions by default, as shown in the HTTP request.
+Click the Clear § button from the left-pane to clear the default payload values.
+Once you clear the default payload values, select Cluster bomb from the Attack type drop-down list.
+Note: Cluster bomb uses multiple payload sets. There is a different payload set for each defined position (up to a maximum of 20). The attack iterates
+through each payload set in turn so that all permutations of payload combinations are tested. For example, if there are two payload positions, the
+attack will place the first payload from payload set 2 into position 2 and iterate through all payloads in payload set 1 in position 1; it will then place the second
+payload from payload set 2 into position 2 and iterate through all the payloads in payload set 1 in position 1
+Now, we will set the username and password as the payload values. To do so, select the username value entered in Step 23 and click Add § from the left-pane.
+31. Similarly, select the password value entered in Step 23 and click Add § from the left-pane
+Open any explorer window and press Ctri+L. 
+34. The security pop-up appears; enter the Windows 10 virtual machine credentials (Usemame: Admin and Password: Pa$$w0rd) and click Connect.
+35. The Windows shares on 10.10.10.10 window appears; double-click  CEH-Tools folder.
+Paste the Wordlist folder into the /home/attacker/Desktop directory, as shown in the screenshot
+36. Navigate to CEHv11 Module 14 Hacking Web Applications and copy Wordlist folder.
+Switch back to me Burp Suite window.
+39. Navigate to the Payloads tab under the lntruder tab and ensure that under the Payload Sets section, the Payload set is selected as 1, and the
+Payload type is selected as Simple list.
+40. Under the Payload Options [Simple list] section, click me Load ... button.The Location field appears; type smb://10.10.10.1O and press Enter 
+to access Windows 1O shared folders.
+A ftle selection window appears; navtgate to the /home/attacker/Desktop/Wordlist, select the username.txt click the Open button
+Observe that the selected username.txt file content appears under the Payload Options [Simple list] section, as shown in the screenshot
+Similarly, load a password file for the payload set 2. To do so, under the Payload Sets section, select the Payload set as 2 from the drop-down
+options and ensure that the Payload type is selected as Simple list
+Under the Payload Options [Simple list] section, click the Load ••• button
+A file selection window appears; navigate to the location /home/attacker /Desktop/Wordlist , select the password.txt file, and click the Open button
+Observe that selected password.txt file content appears under the Payload Options [Simple list] section, as shown in the screenshot.
+4 7. Once the wordlist files are selected as payload values, click the Start attack button to launch the attack
+A Burp lntruder notiflcation appears. Click OK to proceed
+The lntruder attack 1 window appears as the brute-attack initializes. It displays various usemame-password combinacions along with the Length of
+the response and the Status.
+50. Wait for the progress bar at the bottom of the window to complete
+After the progress bar completes, scroll clown ancl observe d1e different values of Status and Length. Here, Status=302 and Length= 1131.
+N ote: Different values of Status ancl Length inclicate d1at the combinacion of the respective credentials is successful.
+52. In the Raw tab tmcler the Request tab, the HTTP request with a set of the correct credencials is displayed. (here, username=admin ancl
+password=qwerty@123), as shown in the screenshot.
+
+Perform Parameter Tampering
+In the Proxy settings, by default, the lntercept tab opens-up. You can observe that, by default, the interception is active, as the button says lntercept
+is on. Leave it running
+Switch back to the browser window, and on the login page of the target website (www.moviescope.com), enter the credentials sam and test. Click the Log In button.
+Now, keep clicking the Forward button until you are logged into the user account
+Now, click the View Profile tab from the menu bar to view the user information.
+After clicking the View Profile tab, switch back to the Burp Suite window and keep clicking the Forward button until you get the HTTP request, 
+22. Now, navigate to the Params tab under the lntercept tab to view the captured parameters.
+Under the Params tab, observe a table with captured values such as URL and Cookie.
+24. In the URL type with the name id, double-click the Value column to change it from 1 to 2,
+After changing the value, navigate back to the Raw tab
+In the Raw tab, click the lntercept is on button to turn off the interception
+After switching off the interception, navigate back to the browser window and observe that the user account associated with ID= 2 appears with the
+name John, as shown in the screenshot
+Note: Although we logged in using sam as a username with ID=1, using Burp Suite, we successfully tampered with the ID parameter to obtain information
+about other user accounts
+
+Exploit Parameter Tampering and XSS Vulnerabilities
+
