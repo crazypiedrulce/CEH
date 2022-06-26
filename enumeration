@@ -31,3 +31,209 @@ S. The scan results appear, displaying the open NetBIOS port (137) and, under th
 name, NetBIOS user, and NetBIOS MAC of the target system
 
 snmp-check
+
+In the Parrot Terminal window, type nmap -sU -p 161 <Target IP address> (in this example, the target IP address is 10.10.1 0.16) and press Enter.
+Note: -sU performs a UDP scan and -p specifies the port to be scanned
+The results appear, displaying that port 161 is open/ filtered and being used by SNMP
+
+In the Parrot Terminal window, type snmp-check <Target IP Address> (in this example, the target IP address is 10.10.1 0.16) and press Enter.
+11. The result appears as shown in the screenshot. It reveals that the extracted SNMP port 161 is being used by the default "public" community string.
+Note: If the target machine does not have a valid account, no output will be displayed.
+12. The snmp-check command enumerates the target machine, listing sensitive information such as System information and U ser accounts
+Scroll down to view detailed information regarding the target network under the following sections: Network information, Network
+intefaces, Network IP and Routing information, and TCP connections and listening ports.
+Similarly, scrolling down reveals further sensitive information on Processes, Storage information, File system information, Device information, Share, etc.
+
+SoftPerfect Network Scanner
+
+In windows Navigate to Z:\CEHv11 Module 04 Enumeration\SNMP Enumeration Tools\SoftPerfect Network Scanner and double-click netscan_setup.exe
+In the Options menu, click Remote SNMP •••. The SNMP pop-up window will appear.
+9. Click the Mark All/None button to select all the items available for SNMP scanníng and close the window.
+To scan your network, enter an IP range in the 1Pv4 From and To fields (in this example, the target IP address range is 10.10.10.5-10.10.10.20), and click
+the Start Scanning button
+The status bar at the lower-right comer of the GUI displays the status of the scan.
+12. The scan results appear, displaying the active hosts in the target IP address range
+To view the properties of an individual IP address, right-click a particular IP address (in this example, 10.10.10.16) and select Properties
+The Properties window appears, displaying the Shared Resources and Basic lnfo of the machine corresponding to the selected IP address
+To view the shared folders, note the scanned hosts that have a + node before them. Expand the node to view all the shared folders
+Right-click the selected host, and click Open Device. A drop -down list appears, containing options that allow you to connect to the remote
+machine over HTTP, HTTPS, FTP, and Telnet.
+
+Active Directory Explorer (AD Explorer)
+
+In windows Navigate to Z:\CEHv11 Module 04 Enumeration\LDAP Enumeration Tools\Active Directory Explorer and double-click ADExplorer.exe.
+The Connect to Active Directory pop-up appears; type the IP address of the target in the Connect to field (in this example, we are targeting
+the Windows Server 2016 virtual machine: 10.10.10.16) and click OK.
+The Active Directory Explorer displays the active directory structure in the left pane
+Now, expand DC=CEH, DC=com, and CN=Users by clicking "+" to explore domain user details
+Click any user name (in the left pane) to display its properties in the right pane.
+Right-click any attribute in the right pane (in this case, displayName) and click Modify ••• from the context menu to modify the user's profile
+The Modify Attribute window appears. First, select the username tmder
+the Value section, and then click the Modify ... button. The Edit Value pop-up appears. Rename the username in d1e Value data field and click OK to save the changes
+You can read and modify other user profile attributes in the same way.
+12. This concludes the demonstration of performing LDAP enumeratton using AD Explorer
+
+RPCScan  (NFS)
+
+In the terminal, type nmap -p 2049 <Target IP Address> (in this case, 10.10.1 0.19) and press Enter.
+Open any explorer window and press Ctrl+L. The Location field appears; type smb://10.10.10.10 and press Enter to access Windows 10 shared folders.
+The security pop-up appears; enter the Windows 10 virtual machine credentials (Usemame: Admin and Password: Pa$$w0rd) and click Connect.
+Thee Windows shares on 10.10.10.10 window appears; navigate to the location CEH-Tools/CEHv11 Module 04 Enumeration/GitHub Tools/ and copy the RPCScan folder.
+Paste the copied RPCScan folder on the location /home/attacker/.
+In the terminal window, type mv /home/attacker/RPCScan /root/.
+24. After the download completes, navigate to the RPCScan folder by typing cd RPCScan and press Enter.
+Type python3 rpc-scan.py <Target IP address> --rpc (in this case, the target IP address is 10.10.10.19, the Windows Server 2019 virtual machine); press Enter.
+Note: -rpc: lists the RPC (portmapper); the target IP address may differ in your lab environment
+The result appears, displaying that port 2049 is open, and the NFS service is running on it
+
+SuperEnum (NFS)
+
+In the terminal window, type git clone https://github.com/p4pentest/SuperEnum and press Enter to download the SuperEnum repository.
+Open any explorer window and press Ctrl+L. The Location field appears; type smb://10.10.10.10 and press Enter to access Windows 10 shared folders.
+The security pop-up appears; enter the Windows 10 virtual machine credentials (Username: Admin and Password: Pa$$w0rd) and click Connect.
+The Windows shares on 10.10.10.10 window appears; navigate to the location CEH-Tools/CEHv11 Module 04 Enumeration/GitHub Tools/ and copy the SuperEnum folder.
+Paste the copied SuperEnum folder on the location /home/attacker/
+In the terminal window, type mv /home/attacker/SuperEnum /root/
+type cd SuperEnum and press Enter to navigate to the SuperEnum tool folder
+Type echo "10.10.10.19" >> Target.txt and press Enter to create a target file containing IP address
+18. Type ./superenum and press Enter. Under Enter IP List filename with path, type Target.txt, and press Enter.
+N ote: If you get an error running the ./superenum script, type chmod +x superenum and press Enter, then repeat Step 18
+After the scan is finished, scroll down to review me results. Note that port 2049 is open and the NFS service is running on it.
+You can also observe the other open ports and the services running on them.
+22. In the terminal window, type cd .. and press Enter to return to d1e root directory
+
+Zone Transfer (DNS)
+
+In Parrot In the terminal window, type dig ns <Target Domain> (in this case, the target domain is www.certifiedhacker.com); press Enter.
+Note: In this command, ns returns name servers in the result.
+8. The above command retrieves information about all the DNS name servers of the target domain and displays it in the ANSWER SECTION,
+In the terminal window type dig @<Name Server> <Target Domain> axfr
+(in this example, the name server is ns1.bluhost.com and the target domain is www.certifiedhacker.com); press Enter.
+Note: In this command, axfr retrieves zone information.
+1 O. The result appears, displaying that the server is available, but that the Transfer failed.
+Note: After retrieving DNS name server information, the attacker can use one of the servers to test whether the target DNS allows zone transfers or
+not. In this case, zone transfers are not allowed for the target domain; this is why the command resulted in the message: Transfer failed. A penetration
+tester should attempt DNS zone transfers on different domains of the target organization
+
+NSlookup
+
+We now move on to DNS enumeration of Windows DNS servers
+The Command Prompt window appears; type nslookup, and press Enter.
+15. In the nslookup interactive mode, type set querytype=soa, and press Enter.
+16. Type the target domain certifiedhacker.com and press Enter. This resolves the target domain information
+Note: set querytype=soa sets the query type to SOA (Start of Authority) record
+to retrieve administrative infonnation about the DNS zone of the target domain certifiedhacker.com.
+17. The result appears, displaying information about the target domain such as the primary name server and responsible mail addr
+In the nslookup interactive mode, type ls -d <Name Server> (in this example, the name is ns1.bluehost.com) and press Enter, as shown in the screenshot.
+Note: In this command, ls -d requests a zone transfer of the specified name server.
+19. The result appears, displaying that the DNS server refused the zone transfer
+Note: After retrieving DNS name server information, the attacker can use one of the servers to test whether the target DNS allows zone transfers or
+not. In this case, the zone transfer was refused for the target domain. A penetration tester should attempt DNS zone transfers on different domaíns
+of the target organization
+
+DSRecon
+
+In parrot, A Parrot Terminal window appears. Type dnsrecon -h and press Enter to view al! the available options in the DNSRecon tool.
+Type dnsrecon -d <Target domain> -z (in thiss example, the target domain is www.certifiedhacker.com); press Enter
+Note: In this command, -d specifies the target domain and -z specifies that the DNSSEC zone walk be perfonned with standard enumeration.
+7. The result appears, displaying the enumerated DNS records for the target domain. In this case, DNS record file A is enumerated
+Note: Using the DNSRecon tool, the attacker can enumerate general DNS records for a given domain (MX, SOA, NS, A, AAAA, SPF, and TXT). These
+DNS records contain digital signatures based on public-key cryptography to strengthen authentication in DNS
+
+NetScanTools Pro
+
+Switch tome Windows 10 virtual machine and login with the credentials Admin and Pa$$w0rd.
+3. Double-click the NetScanTools Pro Demo icon from Desktop to launch the tool
+Note: If the Reminder window opens, click Start the DEMO, and in the DEMO Version window, click Start NetScanTools Pro Demo •••.
+In the left pane, under Manual Tools (all), scroll clown and click *nix RPC lnfo,
+In the Target Hostname or 1Pv4 Address field in the right pane, enter the target IP address (in this case, 10.10.10.19) and click the Dump
+Portmap button to start RPC enumeration
+The result appears, displaying the enumerated Program ID, Version, Protocol, and Port of the target system.
+In the left pane, under the Manual Tools (all) section, scroll down and click the SMB Scanner option
+In the right pane, click the Start SMB Scanner (external App) button
+The SMB Scanner window appears; click the Edit Target List button.
+The Edit Target List window appears. In the Hostname or 1Pv4 Address field, enter the target IP address (10.10.10.19, in this example). Click the Add
+to List button to add d1e target IP address to Target List.
+12. Similarly, add another target IP address (10.10.10.16, in this example) to Target List and click OK.
+Now, click Edit Share Login Credentials to add credentials to access the target systems
+The Login Credentials List for Share Checking window appears. Enter
+Administrator and Pa$$w0rd in the Usemame and Password fields, respectively. Click Add to List to add the credentials to the list and click OK.
+In reality, attackers may add a list of login credentials by which they can log in to the target machines and obtain the required SMB share information.
+In the SMB Scanner window, click the Get SMB Versions button
+Once the scan is complete, the result appears, displaying information such as the NetBIOS Name, DNS Name, SMB versions, and Shares for each target IP address
+Right-click on any of the machines (in this example, we will use 10.10.10.19) and click View Shares from the available options
+The Shares for 10.10.10.19 window appears, displaying detailed information about shared files such as Share Name, Type, Remark, Path, Permissions, and Credentials Used
+
+Perform RPC, SMB, and FTP Enumeration using Nmap
+
+In the Parrot Terminal window, type nmap -p 21 <Target IP Address> (in this case, 10.10.10.19) and press Enter.
+19. The scan result appears, indicating that port 21 is open and me FTP service is running on it,
+In the terminal window, type nmap -T4 -A <Target IP Address> (in this example, the target IP address is 10.10.10.19) and press Enter.
+Note: In this command, -T4 specifies the timing template (the number can be 0-5) and -A specifies that the ACK flag is set.
+21. The scan result appears, displaying that port 111 is open, and giving detailed information about the services running on it, along with their versions
+In the terminal window, type nmap -p <Target Port> -A <Target IP Address> (in this example, the target port is 445 and the target IP address is 10.10.10.19) and press Enter.
+Note: In this command, -p specifies the port to be scanned, and -A specifies that the ACK flag is set.
+23. The scan result appears, displaying that port 445 is open, and giving detailed information under the Host script results section about the running SMB
+In the terminal window, type nmap -p <Target Port> -A <Target IP Address> (in this example, the target port is 21 and target IP address is 10.10.10.19) and press Enter.
+Note: In this command, -p specifies the port to be scanned and -A specifies d1at the ACK flag is set.
+The scan result appears, displaying that port 21 is open, and giving traceroute information
+
+Global Network lnventory
+
+In the Windows 10 virtual machine, log in with the credentials Admin/ Pa$$w0rd and navigate to E:\CEH-Tools\CEHv11 Module 03 Scanning Networks\Scanning Tools\Global Network lnventory; d1en,
+double-click gni_setup.exe
+The About Global Network lnventory wizard appears; click I Agree.
+The Global Network lnventory GUI appears. Click Close on the Tip of the Day pop-up.
+Under the Audit Scan Mode section, click the Single address scan radio button, and then click Next.
+Note: You can also scan an IP range by clicking on the IP range scan radio button, after which you will specify the target IP range
+Under the Single Address Scan section, specify the target IP address in the Name field of the Single address option (in this example, the target IP address is 10.10.10.16); 
+Click Next
+The next section is Authentication Settings; select the Connect as radio button and enter the Windows Server 2016 virtual machine credentials
+(Domain \ Username: Administrator and Password: Pa$$w0rd) , and then click Next.
+Note: In reality, attackers do not know the credentials of the remote machine(s). In this situation, they choose the Connect as currently logged on user option
+and perform a scan to determine which machines are active in the network With this option, they will not be able to extract all the information about the target
+system. Because this lab is just for assessment purposes, we have entered the credentials of the remote machine directly.
+In the final step of the wizard, leave the default settings tmchanged and click Finish
+The Scan progress window will appear
+The results are displayed when the scan finished. The Scan summary of the scanned target IP address ( 10.10.1 0.16) appears.
+Note: The scan result and summary in each tab might vary in your lab environment
+Hover your mouse cursor over the Computer deta its under the Scan summary tab to view the scan summary
+Click the Operating System tab and hover me mouse cursor over Windows details to view me complete details of the machine
+Click the BIOS tab, and hover the mouse cursor over windows details to display detailed BIOS settings information.
+Click the NetBIOS tab, and hover thee mouse cursor over any NetBIOS application to display the detailed NetBIOS information about the target
+
+Advanced IP Scanner
+
+In windows Navigate to Z:\CEHv11 Module 03 Scanning Networks\Ping Sweep Tools\Advanced IP Scanner and double-click Advanced_IP _Scanner_2.5.3850.exe.
+4. Follow the installation steps to install Advanced IP Scanner, using all the default settings
+In the IP address range field, specify the IP range (in this example, we will target 10.10.10.5-10.1 0.1 0.20). Click the Scan button.
+Advanced IP Scanner scans the target IP address range, with progress tracked by the status bar at the bottom of the window. Wait for the scan to complete
+The sean results appear, displaying information about active hosts in the target network such as status, machine name, IP address, manufacturer name, and MAC addresses,
+Click the Expand all icon to view the shared folders and running on the target network.
+The shared folders and servtces running on the target network appear
+Right-click any of the detected IP addresses to list available options.
+Using these options, you can ping, traceroute, transfer files, chat, send a message, connect to the target machine remotely (using Radmin), etc
+
+Enum4linux
+
+In the Parrot Terminal window, type enum41inux -h and press Enter to view the various options available with enum4linux
+The help options appear, as shown in the screenshot. In this lab, we will demonstrate only a few options to conduct enumeration on the target machine
+We will first enumerate the NetBIOS infonnation of the target machine.
+In the terminal window, type enum41inux -u martin -p apple -n <Target IP Address> (in this case, 10.10.10.16) and hit Enter.
+Note: In this command, -u user specifies the username to use and -p pass specifies the password.
+The tool enumerates the target system and displays the NetBIOS information under the Nbtstat lnformation section
+In the terminal window, type enum41inux -u martin -p apple -U <Target IP Address> (in this case, 10.10.10.16) and hit Enter to run the tool with
+the "get userlist" option
+Enum4linux starts enumerating and displays data such as Target Information, Workgroup/ Domain, domain SID (security identifier), and
+the list of users, along with their respective RIDs (relative identifier),
+Second, we will obtain the OS information of the target; type enum41inux -u martin -p apple -o <Target IP Address> (tn this case, 10.10.10.16) and hit Enter
+The tool enumerates the target system and lists its OS details
+Third, we will enumerate the password policy information of our target machine. In the terminal window, 
+type enum41inux -u martin -p apple -P <Target IP Address> (tn this case, 10.10.10.16) and hit Enter.
+The tool enumerates the target system and displays its password policy information
+Fourth, we will enumera te the target machine's group policy information.
+In the terminal window, type enum41inux -u martin -p apple -G <Target IP Address> (in this case, 10.10.10.16) and hit Enter
+The tool enumerates the target system and displays the group policy information,
+Finally, we will enumerate the share policy information of our target machine. Type enum41inux -u martin -p apple -S <Target IP Address>
+(in this case, 10.10.1 0.16) and hit Enter
+The result appears, displaying the enumera te shared folders on the target system
