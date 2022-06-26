@@ -1,0 +1,33 @@
+Perform NetBIOS Enumeration using Windows CommandLine Utilities
+
+Open a Command Prompt window.
+4. Type nbtstat -a <IP address of the remote machine> (in this example, the target IP address is 10.10.10.1O) and press Enter.
+Note: In this command, -a displays the NetBIOS name table of a remote computer.
+The result appears, displaying the NetBIOS name table of a remote computer (in this case, the WINDOWS10 virtual machine)
+In the same Command Prompt window, type nbtstat -c and press Enter.
+Note: In this command, -c lists the contents of the NetBIOS name cache of the remote computer.
+7. The result appears, displaying the contents of the NetBIOS name cache, the table of NetBIOS names, and their resolved IP addresses.
+Note: lt is possible to extract this information wimout creating a null session (an unaumenticated session).
+Now, type net use and press Enter. The output displays information about the target such as connection status, shared folder/ drive and network information
+
+NetBIOS Enumerator
+In the Windows 10 virtual machine, navigate to E:\CEH-Tools\CEHv11 Module 04 Enumeration\NetBIOS Enumeration Tools\NetBIOS Enumerator and double-click NetBIOS Enumerater.exe.
+Under IP range to scan, enter an IP range in the from and to fields and click the Scan button to initiate the svan (In this example, we are targeting the IP
+range 10.10.10.15-10.10.10.20).
+Click on the expand icon (+) to the left of the 10.10.10.16 and 10.10.10.19 IP addresses in the left pane of the window. Then click on the expand icon
+to the left of NetBIOS Names to display NetBIOS details of the target IP address,
+
+Perform NetBIOS Enumeration using an NSE Script
+The Zenmap window appears. In the Command field, type the command nmap -sV -v --script nbstat.nse <Target IP Address> (in this example,
+the target IP address is 10.10.1 0.16) and click Scan.
+Note: -sV detects the senrice versions, -v enables the verbose output (that is, includes all hosts and ports in the output), and --script nbtstat.nse performs
+the NetBIOS enumeration.
+The scan results appear, displaying the open ports and services, along with their versions. Displayed under the Host script results section are
+details about the target system such as the NetBIOS name, NetBIOS user, and NetBIOS MAC address
+
+In the Command field of Zenmap, type nmap -sU -p 137 --script nbstat.nse <Target IP Address> (in this case, the target IP address is 10.10.10.16) and click Scan.
+Note: -sU perfonns a UDP sean, -p specifies the port to be scanned, and --script nbtstat.nse performs the NetBIOS enumeration.
+S. The scan results appear, displaying the open NetBIOS port (137) and, under the Host script results section, NetBIOS details such as NetBIOS
+name, NetBIOS user, and NetBIOS MAC of the target system
+
+snmp-check
