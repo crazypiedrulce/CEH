@@ -90,3 +90,51 @@ Note: Nmap uses --data-string <string> (here, " Ph34r my 133t skills') to send a
 scanning beyond the firewall
 
 Scan a Target Network using Metasploit
+
+In the Parrot Terminal window, type service postgresql start and hit Enter.
+Now, type msfconsole and hit Enter to launch Metasploit
+An msf command line appears. Type db_status and hit Enter to check if Metasploit has connected to the data base successfully. If you receive the
+message "postgersql selected, no connection," then the database did not connect to msf.
+Note: I f the message you receive is "connected to msf," then skip to Step #14.
+Exit the Metasploit framework by typing exit and press Enter. Then, to initiate thee database, type msfdb init, and press Enter
+To restart thee postgresql service, type service postgresql restart and press Enter. Now, start the Metasploit Framework again by typing
+msfconsole and pressing Enter
+Check the data base status by typing db_status and press Enter. This time, the database should successfully connect to msf
+Type nmap -Pn -sS -A -oX Test 10.10.10.0/24 and hit Enter to scan the subnet
+After the sean completes, Nmap displays the number of active hosts in the target network
+Now, type db_import Test and hit Enter to import the Nmap results from the database
+Type hosts and hit Enter to view the list of active hosts along with their MAC addresses, OS names, etc
+Type services or db_services and hit Enter to receive a list of the services running on the active hosts
+Type search portscan and hit Enter. The Metasploit port scanning modules appear
+Here, we will use the auxiliary/scanner/portscan/syn module to perform an SYN scan on the target systems. To do so, type
+use auxiliary/scanner/portscan/syn and press Enter.
+22. We will use this module to perform an SYN sean against the target IP address range (10.10.10.5-20) to look for open port 80 through the ethO interface.
+Todo so, issue the below commands:
+• set INTERFACE ethO
+• set PORTS 80
+• set RHOSTS 10.10.10.5-20
+• set THREADS 50
+Note: PORTS: specifies the ports to sean (e.g., 22-25,80, 110-900), RHOSTS: specifies the target address range or CIDR identifier, and THREADS: specifies
+the number of concurrent threads (default 1).
+After specifying the above values, type run, and press Enter to initiate the sean against the target IP address range
+To load the am¡iliary/scanner/portscan/tcp module, type use auxiliary/scanner/portscan/tcp and press Enter.
+27. Type hosts -R and press Enter to automatically set this option with the discovered hosts present in our database. Or Type set RHOSTS <Target IP Address> and press Enter.
+Note: Here, we will perform a TCP sean for open ports on a single IP address (10.10.10.16), as scanning multiple IP addresses consumes much time
+Type run and press Enter to discover open TCP ports in the target system.
+29. The results appear, displaying all open TCP ports in the target IP address (10.10.10.16).
+To do so, first type back, and then press Enter to revert to the msf command line. Then, type use auxiliary/scanner/smb/smb_version and press Enter.
+32. We will use this module to run a SMB version sean against the target IP address range (10.10.10.5-20). Todo so, issue the below commands:
+> set RHOSTS 10.10.10.5-20
+> set THREADS 11
+Type run and press Enter to display the SMB versions of the target hosts
+
+While perfonning a sean using Nmap, we diseovered that the FTP port 21 is open on the host 10.10.10.1O in the target network. Now, we will
+scan the target host to identify the FTP version.
+35. Type back and press Enter. To load an FTP module, type use auxiliary/scanner/ftp/ftp_version and press Enter.
+36. Type set RHOSTS 10.10.10.10 and press Enter to specify the target host
+Type run and press Enter to initiate d1e FTP version identifieation scan.
+38. The result appears, displaying the FTP version details of the target host
+Type hosts and press Enter to view detailed information on active hosts in the target network. 
+You can further export this information toa CSV file. Todo so, first type back, and then press Enter. Now, type hosts -o /root/Desktop/Metasploit_Scan_Results.csv and press Enter
+Navigate to the location /root/Desktop and double-click the Metasploit_Scan_Results.csv file. The CSV file appears, displaying
+detailed information on the active hosts in the target IP range 
