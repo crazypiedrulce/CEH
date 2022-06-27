@@ -1,1 +1,181 @@
+The demonstrations in this lab use a Linksys 802.11 g WLAN adapter and CEH-LABS as thee access point. The CEH-LABS access point has been configured with WEP,
+WPA, and WPA2 encryption as per the lab requirements.
+Note: Here, me WEP encryption key is 1234567890. The WPA and WPA2 encryption password is password1.
+N ote: If you decide to use a different wireless adapter, the steps to set up me adapter might differ.
+1. Connect your access point CEH-LABS.
+Note: Ensure that wireless router is plugged in to the network/ Internet.
+2. Turn on me Windows 10 virtual machine, and log in with the credentials Admin and Pa$$w0rd.
+3. Navigate to E:\CEH-Tools\CEHv11 Lab Prerequisites\Linksys Adapter, right-click setup64.exe, and click the Troubleshoot compatibility option
+The Program Compatibility Troubleshooter wizard appears and begins Detecting issues.
+5. After the issues have been detected, the Select troubleshooting option wizard appears; click Try recommended settings
+In the Test compatibility settings for the program wizard, click Test the program •••
+A User Account Control pop-up appears; click Yes.
+8. The Linksys Adapter Setup Wizard appears; click Next.
+In the License Agreement wizard, check the I accept this agreement checkbox and click Next.
+10. Thee Preparing System for lnstall wizard appears; wait for it to complete
+The lnsert Adapter wizard appears. Plug your Unksys 802.11 g WLAN adapter into an available USB port
+After connecting the Linksys 802.11g WLAN adapter, a New USB Device Detected window appears. Select the Connect to a virtual machine radiobutton
+under Choose where you would like to connect Linksys 802.11 g WLAN, and under Virtual Machine Name, select Windows 10; click OK.
+In the Linksys Adapter Setup Wizard window, observe that the adapter starts lnstalling ....
+14. After the installation completes, a Congratulations! Your adapter has been installed correctly notification appears; click Next.
+An lnstalling Linksys Wireless Manager wizard appears and installs the Lnksys software. On completion, the Connect to a Wireless Network
+wizard appears and the adapter starts searching for available wireless networks.
+16. The list of the available wireless network in range appears, 
+17 . Select CEH-LABS and click the Connect button.
+In the Quickly Connect Using Push Button wizard, click Skip.
+19. In the Connect to a Wireless Network wizard, type the password of wireless network CEH-LABS (in this example, password1) in the Your
+network requires a security key. Enter it here: field, and click Next.
+The wizard shows the message Checking Connection as the adapter attempts to connect to the network.
+21. The Connected to Your Network screen appears in the wizard once the connection has been established. Click Finish to exit the setup
+When the Linksys Adapter Setup Wizard notification appears, click OK
+A Manage your wireless networks pop-up appears, click OK
+Now that we have set up the wireless adapter, we shall disable me ed1ernet adapter.
 
+NetSurveyor
+
+
+In windows, ensure that the Linksys 802.11g WLAN adapter is plugged in and connected to the Windows 10 virtual machine.
+If the adapter is not connected to the virtual machine, unplug and plug it in again. A New USB Device Detected window appears: select the Connect to
+a virtual machine radio-button, and under Virtual Machine Name, select Windows 10; click OK.
+Navigate to E:\CEH-Tools\CEHv11 Module 16 Hacking Wireless Networks\Wi-Fi Discovery Tools\NetSurveyor and double-click NetSurveyor-Setup.exe
+After the system reboots, login with the credentials Admin/ Pa$$w0rd.
+Note: Ensure that the Linksys 802.11 g WLAN adapter is connected to the Windows 10 virtual machine.
+As befo re, if the adapter is not connected, tmplug and plug it in again. A New USB Device Detected window appears: select the Connect to a virtual
+machine radio-button, and tmder Virtual Machine Name, select Windows click OK.
+7. Launch NetSurveyor by double-clicking the NetSurveyor shortcut from Desktop.
+N ote: If a User Account Control pop-up appears, click Yes.
+8. NetSurveyor initializes, and a list of discovered access-points in the network appears under the Network Discovery tab, along with details
+such as SSID, BSSID, Channel, Beacon Strength, etc.
+9. In the lower section of the window, the Channel Usage tab displays a graphical view of the usage of 802.11 channels by discovered access points .
+In the lower section of the window, click the AP Timecourse tab to view the timecourse of Beacon qualities by SSID in a graphical format .
+Click the Channel Spectrogram tab to view the spectrogram of the 802.11 channel usage. This information can be used to perform spectrum
+analysis, actively monitor spectrum usage in a particular area, and detect the spectrum signal of the target network
+Similarly, you can gather detailed information about the discovered access points with other graphical diagnostic views by navigating to different
+tabs in the lower section. lnformation you can discover includes differential beacon qualities by SSID, the timecourse of 802.11 channel
+usage, and a heatmap of 802.11 channel usage.
+13. To save the gathered information in a report, click File from the menu bar and select Create Report ••• from the options.
+The Report Charts As An Adobe PDF File (*.pdf) window appears.
+Navigate to the location where you want to save d1e file (in this case, Downloads), ensure the File name is NetSurveyor Report, and click Save
+
+Wash and Wireshark
+
+In parrot Plug in the Linksys 802.11g WLAN adapter.
+3. A New USB Device Detected window appears. Select the Connect to a virtual machine radio-button under Choose where you would like to
+connect Unksys 802.11 g WLAN, and under Virtual Machine Name, select Parrot Security; click OK.
+In the Parrot Terminal window, type ifconfig and press Enter. Observe that the wireless interface (in this case, wlanO) gets connected to the machine
+In the terminal window, type airmon-ng start wlan0 and press Enter.
+This command puts the wireless interface (in this case, wlanO) into monitor mode.
+1 O. The result appears, displaying the error: "Found 2 processes that could cause trouble." To put the interface in monitor mode, these processes must be killed.
+11 . Type airmon-ng check kili and press Enter to stop the network managers and kili the interfering processes.
+Now, in the command airmon-ng start wlan0 again to put the wireless interface in monitor mode.
+13. Note that Linksys WUSB54GC v3 802.11g Adapter is now running in monitor mode on the wlanOmon interface
+Now, we shall fmd Wi-Fi networks (access points) by using the wireless
+interface wlanOmon.
+15. Type wash -i wlan0mon and press Enter to detect \WS-enabled devices.
+Note: The command -i, --interfac,e=<iface> specifies the interface to capture the packets.
+16. The results appear, displaying the discovered Wi-Fi access points.
+Note: If no results appear, restart the Parrot Security virtual machine and perform Steps 1 - 8, type wash -i wlan0mon in the Terminal window, and press Enter
+Now, click Applications in the top-left corner of Desktop and navigate to Pentesting -> lnformation Gathering -> wireshark
+The Wireshark Network Analyzer window appears; double-click the wireless network interface (in this case, wlan0mon) to start capturing network traffic
+Wireshark starts capturing net:work traffic. Note that the captured wireless packets are labeled 802.11 under the Protocol column
+
+Aircrack-ng
+
+In parrot Plug in the Linksys 802.11 g WLAN adapter.
+4. A New USB Device Detected window appears. Select the Connect to a virtual machine radio-button under Choose where you would like to
+connect Unksys 802.11 g WLAN, and under Virtual Machine Name, select Parrot Security; click OK
+A Parrot Terminal window appears. In the terminal window, type sudo su and press Enter to run the programs as a root user.
+In the Parrot Terminal window, type airmon-ng start wlan0 and press Enter. This command puts the wireless interface (in this case, wlan0) into monitor mode.
+1 O. The result appears, displaying d1e error: "Found 2 processes that could cause trouble". To put the interface in monitor mode, these processes must be killed.
+Type airmon-ng check kili and press Enter to stop the network managers and kili the interfering processes
+Now, in the command airmon-ng start wlan0 again to put the wireless adapter into monitor or promiscuous mode.
+13. Note that Linksys WUSB54GC v3 802.11g Adapter is now running in monitor mode on the wlan0mon interface,
+Type airodump-ng wlan0mon and press Enter. This command requests a list of detected access points, and connected clients ("stations").
+The result appears, displaying the available access points
+
+In the terminal window, type airodump-ng -bssid B4:75:0E:89:00:60 wlan0mon and press Enter.
+Note: In this command, --bssid: MAC address of the target access point (in this example, B4:75:0E:89:00:60). wlan0mon: wireless interface
+Airodump-ng starts capturing the lnitialization Vector (IV) from the target AP, .
+22. The list of connected clients ("stations") appears. You can observe that there are two clients connected to the target access point
+(B4:75:0E:89:00:60). In this task, we will send deaud1entication packets to the client STATION: 20:A6:0C:30:23:D3. Leave airodump-ng running
+Open another terminal by clicking the MATE Terminal
+In the new terminal window, type aireplay-ng --deauth 15 -a B4:75:0E:89:00:60 -c 20:A6:0C:30:23:D3 wlan0mon and press Enter to generate de-authentication packets.
+Note: In this command•
+--deauth: Activates deauthentication mode
+15 Number of deauthentication packets to be sent
+-a: Sets the access point MAC address
+-c: Sets the destination MAC address
+wlan0mon: Wireless interface
+Note: If you get any errors while running the command, reíssue the command multiple times until it executes successfully
+The source MAC address should be associated with the access point in order to accept the packet. Because, in this case, the source MAC address
+used to inject the packets has no connection with the access point, the access point usually ignores the packets and sends out a deauthentication
+packet, which contains the access point's SSID, in plain text. In order to create a fake authentication, we need to associate it with d1e access point.
+29. Switch back to the terminal window where airodump-ng is running. You will observe that the hidden SSID associated with BSSID B4:75:0E:89:00:60 appears under ESSID as CEH-LABS,
+
+Wifiphisher
+
+In the Parrot Terminal window, type apt-get install libnl-3-dev libnlgenl-3-dev and press Enter to install the dependencies for Wifiphisher
+Once the installation has finished, type apt-get install libssl-dev in the terminal window and press Enter to install the libssl-dev dependency.
+Note: If the above command does not work, then run the dpkg --configure -a command before trying apt-get install libssl-dev again.
+Paste the copied roguehostapd folder on the location /home/attacker/ .
+In the terminal window, type mv /home/attacker/roguehostapd /root/ .
+12. After cloning roguehostapd, type cd roguehostapd and press Enter to navigate to the cloned repository.
+13. Now, type python setup.py install and press Enter to install the roguehostapd application.
+Note: Roguehostapd is a fork of hostapd, the famous user space software access point. It provides Python ctypes bindings anda number of additional
+attack features. It was primarily developed for use in the Wifip hisher project.
+After the installation finishes, type cd .. and press Enter to navigate back to the root directory
+Paste the copied wifiphisher folder on d1e location /home/attacker/. (git clone http:)
+In the terminal window, type mv /home/attackerlwifiphisher /root/.
+16. After cloning Wifiphisher, type cd wifiphisher and press Enter to navigate to the cloned repository
+Now, type python3 setup.py install and press Enter to install Wifiphisher
+After the installation finishes, type cd •• and press Enter to navigate back to the root directory
+Type wifiphisher --force-hostapd and press Enter to launch the Wifiphisher application
+Wifiphisher initializes and appears in the Parrot Terminal window.
+21. It scans the network for available access points and displays them,.
+22. In the list of available access points, we will select CEH-LABS. Use the Down Arrow key on your keyboard to navigate to the CEH-LABS access point and press Enter.
+23. Note the YOU HAVE SELECTED CEH-LABS notification in the lower section of the window
+The Available Phishing Scenario wizard appears. Use the Down Arrow key to navigate to Network Manager Connect and press Enter to select the option
+After selecting Network Manager Connect, you will observe a YOU HAVE SELECTED wifi_connect notification in the lower section of the window
+A window appears, displaying the fake network that we have created under Extensions feed. Note that deauth (deauthentication) packets are sent to the all the connected devices
+Now, switch to your "victim" mobile device. Note that a rogue access point with the name CEH-LABS has been created along with the original CEH-LABS access point,
+28. Observe that the rogue access point does not have any security enabled
+Click on the rogue access point CEH-LABS (the one that is unsecured).
+Note that your device initializes a connection with d1e access point and starts obtaining the IP address
+After your device has connected to d1e CEH-LABS access point, you will notice that there is no Internet
+Now, switch back to the Wifiphisher window running in the Parrot Security virtual machine. You can see the connected device under the Connected Victims section
+Switch back to your connected Android device. Slide down from the top of the device and tap the Connect to Wi-Fi option
+The Enter the password for "CEH-LABS" screen appears. Under Enter Password, type the pre-shared key in the Password field and click Join
+Now, switch back to the Wifiphisher window and note the captured WEP key
+After obtaining the key, press Esc in the Wifiphisher application window to quit.
+
+Crack a WEP Network using Aircrack-ng
+
+In the Parrot Terminal window, type airmon-ng start wlan0 and press Enter. This command puts the wireless interface (in this case, wlanO) into monitor mode
+Note that Linksys WUSB54GC v3 802.11g Adapter is now running in monitor mode on the wlan0mon interface
+Type airodump-ng wlanOmon and press Enter. This command requests airodump-ng to display a list of detected access points and connected clients ("stations').
+If you wish to can search only for available WEP networks, run the airodump-ng wlan0mon --encrypt wep command.
+16. The result appears, displaying only the net:works with WEP enabled
+Checking injection
+ In other terminal, type cd and press Enter to jump to the root directory.
+22. In the terminal window, type aireplay-ng -9 -e CEH-LABS -a B4:75:0E:89:00:60 wlanOmon and press Enter.
+Note: In this command, -9: tests injection and quality; -e: specifies the target IP access point SSID (in this case, CEH-LABS); -a: specifies the MAC address
+of the target access point (in this case, B4:75:0E:89:00:60); and wlanOmon: is the wireless interface. 23. The result appears, showing that lnjection is working!,
+Now, you must instmct airodump-ng to begín capturing the Initialization Vector (IV) from the access point Todo so, in the terminal window, type
+airodump-ng -bssid B4:75:0E:89:00:60 -c 1 -w WEPcrack wlan0mon and press Enter. Leave airodump-ng running.
+Note: In this command, --bssid: is the MAC address of the target access point (in this case, B4:75:0E:89:00:60); -e: is the channel on wluch d1e target
+access-point is running (in this case, CEH-LABS is nm11Íng on channel number 1); -w: is d1e name of the dump file prefi.x that contaíns d1e IVs (in this case,
+WEPcrack); and wlanOmon: is wireless interface
+Airodump-ng will capture the IVs generated from the target access point
+Open another terminal by clicking the MATE Terminal
+In this new terminal window, type aireplay-ng -3 -b B4:75:0E:89:00:60 -h 20:A6:0C:30:23:D3 wlan0mon and press Enter. This command will
+generate ARP traffic in the net:work. The reason for choosing ARP request packets is beca use the access points will usually rebroadcast them,
+and this will generate new IVs.
+Note: Reissue dus command until it runs successfully
+Wait until the number of send ARP packets reaches the range of 15,000-20,000, and then press Ctrl+C to stop generating ARP traffic in the network.
+32. Switch back to the terminal window where airodump-ng is running. Wait tmtil the number of captured packets reaches the range of 15,000-20,000.
+Press Ctrl+C to stop the capture
+Now, launch aircrack-ng to recover the WEP key from the capture file.
+Type aircrack-ng WEPcrack-01.cap and press Enter.
+34. Aircrack-ng will crack the WEP key of the CEH-LABS
+
+Crack a WPA Network using Fern Wifi Cracker
