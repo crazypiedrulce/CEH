@@ -29,10 +29,9 @@ The wizard shows the message Checking Connection as the adapter attempts to conn
 21. The Connected to Your Network screen appears in the wizard once the connection has been established. Click Finish to exit the setup
 When the Linksys Adapter Setup Wizard notification appears, click OK
 A Manage your wireless networks pop-up appears, click OK
-Now that we have set up the wireless adapter, we shall disable me ed1ernet adapter.
+Now that we have set up the wireless adapter, we shall disable the ethernet adapter.
 
 NetSurveyor
-
 
 In windows, ensure that the Linksys 802.11g WLAN adapter is plugged in and connected to the Windows 10 virtual machine.
 If the adapter is not connected to the virtual machine, unplug and plug it in again. A New USB Device Detected window appears: select the Connect to
@@ -179,3 +178,69 @@ Type aircrack-ng WEPcrack-01.cap and press Enter.
 34. Aircrack-ng will crack the WEP key of the CEH-LABS
 
 Crack a WPA Network using Fern Wifi Cracker
+
+First, we will copy the password.txt file from the shared network drive to the Desktop of the Parrot Security virtual machine
+In the Parrot Terminal window, type fern-wifi-cracker, and press Enter to launch the Fern Wifi Cracker application.
+Fern WIFI Cracker opens. If a Fern Professional pop-up appears, click No.
+20. Click Select Interface and from the drop-down list, select the wlan0 interface.
+21. A Tips- Sean settings pop-up appears, click Ok.
+22. The selected adapter (wlan0) loads, and the notification Monitor Mode Enabled on wlan0mon appears in the selected network adapter field.
+23. Click the Scan for Access points button to initíalize the scan for the access points
+Note that detected access points with WPA enabled are shown next to the Wi Fi WPA button.
+Note: The number of detected WPA networks will differ in your lab environment.
+25. Click the Wi Fi WPA button
+The attack Panel window appears. A list of access points with WPA enabled appears under Select Target Access Point. In dus task, we will
+crack the CEH-LABS \WA access point.
+27. Select CEH-LABS from the list and click the Browse button present at the bottom-right corner of the window
+The Select Wordlist window appears. Navigate to d1e location /attacker/Desktop, and select password.txt. Click Open.
+29. See that the selected password.txt file appears. Now, click the Wi Fi Attack button in the right pane to launch the attack.
+The attack initializes and goes through various phases such as probing the access point, deauthentication, capturing the handshake, and, finally,
+brute-forcing WPA encryption,
+After the completion of the Current Phrase bar, the cracked WPA KEY appears
+If the Attack Panel window automatically closes, relaunch Fern Wifi Cracker from the tenninal window and click the Key Database button.
+33. The Fern - Key Database pop-up appears, displaying the acquired key for CEH-LABS
+
+Crack WPA2 Network using Aircrack-ng
+
+Note: Before starting this task, you need to configure your access point router  to work in WPA2-PSK (Pre-Shared Key) encryption mode. To do
+so, navigate to the router's default IP address and change the authentication mode from WPA to WPA2-PSK, with the password
+
+In the Parrot Terminal window, type airmon-ng start wlan0 and press Enter. This command puts the wireless interface (in this case, wlan0) into monitor mode.
+1 O. The result appears, displaying the error: "Found 2 processes that could cause trouble." To put the interface in monitor mode, these processes must be killed.
+11. Type airmon-ng check kill and press Enter to stop the network managers and kill the interfering processes.
+Now, type the command airmon-ng start wlanO again to put the wireless adapter into monitor or promiscuous mode
+Observe that Linksys WUSB54GC v3 802.11g Adapter is now running in monitor mode on the wlanOmon interface
+We will now use airodump-ng to get a list of detected access points and connected clients. In the terminal window, type airodump-ng wlan0mon and press Enter.
+Note: Airodump-ng hops from channel to channel and shows all access points from which it can receive beacons. Channels 1 to 14 are used for 802.11 b and g.
+In this lab, we will target the access point CEH-LABS to perform WPA2 cracking.
+Note: If you are tmable to obtain the station BSSID using this command, you can do so with the command in Step 17.
+16. Open a new terminal
+Note: The password that you type will not be visible.
+19. Now, type cd and press Enter to jump to the root directory.
+20. Now, you should run airodump-ng to capture the packets from the access point. To do so, in the new terminal window, type airodump-ng -bssid
+B4:75:0E:89:00:60 -c 11 -w CEH-LABS-01 wlanOmon and press Enter.
+Leave airodump-ng running.
+Note: In this command, --bssid: is the MAC address of the target access point (in this case, B4:75:0E:89:00:60); -c: is the channel on wluch the target
+access point is configured (in this case, CEH-LABS is running on channel number 11); -w: is the name of the dump file prefix which contaíns the IVs
+(in this case, CEH-LABS-01); and wlan0mon: is the wireless interface
+Open a new terminal
+Now, type cd and press Enter to jump to the root directory.
+25. In dus new tenninal window, type aireplay-ng -0 11 -a B4:75:0E:89:00:60 -c 54:13:79:22:6A:C5 wlan0mon and press Enter.
+Note: In this command, -0: activates deauthentication mode; 11: is the number of deauthentication packets that should be sent; -a: sets access point
+MAC address; -c: sets destination MAC address; and wlanOmon: the wireless interface.
+Rerun the above command multiple times to send a large number of deauthentication packets.
+Note: If you get an error while issuing the command, rerun it multiple times until it runs successfully
+Switch back to the terminal, where airodump-ng is running and keep capturing packets until you see the WPA handshake: B4:75:0E:89:00:60
+notification, which indicates that a WPA/WPA2 handshake was successfully captured for the target BSSID.
+28. Press Ctrl+C to stop the capture.
+Now, open a new tenninal window.
+Type cp /home/attacker/Desktoplpassword.txt /root/Desktop/ and press Enter to copy the password.txt file to the root directory.
+33. In the tenninal window, type aircrack-ng -a2 B4:75:0E:89:00:60 -w /root/Desktop/password.txt /root/CEH-LABS-01-01.cap and press Enter. 
+The file CEH·LABS·01·01.cap contaíns captured packets located at /root/Desktop.
+Note: In this command, -a : specifies the attack mode (in this case, 2 [WPA-PSK]) and -w: specifies the path to a wordlist (we created the file
+password.txt on the Desktop earlier in this lab)
+34. The result appears, showing the WPA handshake packet captured with airodump-ng. The target access point's password is cracked and displayed
+in plain text next to the message KEY FOUND!, 
+Note: If the password is complex, aircrack-ng will take a long time to crack it 
+
+MANA-Toolkit
