@@ -1,1 +1,72 @@
+Yersinia
 
+On the Parrot  open wireshark
+A Parrot Terminal window appears. In the terminal window, type sudo su and press Enter to run the programs as a root user
+Maximize the window of the terminal
+Type yersinia -l and press Enter to open Yersinia in interactive mode.
+Note: -l: Starts an interactive ncurses session.
+To remove the Notification window, press any key, and then press h for help.
+13. The Available commands option appears
+Press q to exit me help options.
+15. Press F2 to select DHCP mode. In DHCP mode, STP Fields in the lower section of the window change to DHCP Fields,
+Press x to list available attack options
+The Attack Panel window appears; press 1 to start a DHCP starvation attack.
+Yersinia starts sending DHCP packets to the network adapter and all active machines in the local network, 
+N ote: If you are using multiple targets, yo u will observe ilie same packets on all target machines.
+After a few seconds, press q to stop the attack
+Now, switch to the Wireshark window and observe the huge number of captured DHCP packets
+Click on any DHCP packet and expand the Ethernet II node in the packet details section. lnformation regarding the source and destination MAC addresses is displayed,
+
+Arpspoof
+
+In the Parrot open wireshark
+In the Parrot Terminal window, type arpspoof -i ethO -t 10.10.10.2 10.10.10.1O and press Enter.
+(Here, 10.10.10.10 is IP address of the target system [Windows 10], and 10.10.10.2 is IP address of the access point or gateway)
+Note: -i: specifies network interface and -t: specifies target IP address.
+9. Issuing the above command informs the access point that the target system (10.10.10.10) has our MAC address (the MAC address of host machine
+(Parrot Security)). In other words, we are informing the access point that we are the target system.
+1 O. After sending a few packets, press CTRL + z to stop sending the ARP packets
+In wireshark receive the packets
+Switch back to the terminal window where arpspoof was running. Type arpspoof -i ethO -t 10.10.10.10 10.10.10.2 and press Enter.
+13. Through the above command, the host system infonns the target system (10.10.10.10) that it is the access point (10.10.10.2).
+14. After sending a few packets, press CTRL + z to stop sending the ARP packets.
+In Wireshark, you can observe the ARP packets with an alert warning "duplicate use of 10.10.10.10 detected!"
+
+Man-in-the-Middle (MITM) Attack using Cain & Abel
+
+In windows Navigate to Z:\CEHv11 Module 08 Sniffing\ARP Poisoning Tools\Cain & Abel and double-click ca_setup.exe
+The WínPcap lnstallatíon pop-up appears; click Don't ínstall, as you already installed it during the lab setup.
+Now, double-click the Caín shortcut on Desktop to launch Caín & Abel.
+Click Configure from the menu bar to configure an ethernet card
+The Configuration Dialog window appears. By default, the Sniffer tab is selected. Ensure that the Adapter associated wid1 the IP address of the
+machine is selected; then, click OK.
+Click the Start/Stop Sniffer icon  on the toolbar to begin sniffing
+Now, click the Sniffer tab.
+Click the plus(+) icon or right-click in the window and select Scan MAC Addresses to scan the network for hosts.
+16. The MAC Address Scanner window appears. Check the All hosts in my subnet radio button and select the All Tests checkbox; then, click OK.
+Caín & Abel starts scanning for MAC addresses and lists all those found.
+18. After completing the scan, a list of all active IP addresses along with their  corresponding MAC addresses is displayed
+Now, click the APR tab at the bottom of the window.
+20. APR options appear in the left-hand pane. Click anywhere on the topmost section in the right-hand pane to activate the plus (+) icon.
+Click the plus (+) icon, a New ARP Poison Routing window appears, from which we can add IPs to listen to traffic
+To monitor the traffic between two systems here, Windows 10 and Windows Server 2016), click to select 10.10.10.10 (Windows 10) from
+the left-hand pane and 10.10.10.16 (Windows Server 2016) from the right-hand pane; click OK.
+Click to select the created target IP address scan displayed in the Configuration/Routes Packets tab
+Click on the Start/Stop APR icon to start capturing ARP packets
+Now, switch to the Windows Server 2016 virtual machine, log in with the credentials Administrator and Pa$$w0rd.
+26. launch Command Prompt.
+27. type ftp 10.10.10.10 (the IP address of Windows 10) and press Enter.
+28. When prompted for a User, type "Jason" and press Enter; for a Password, type "qwerty" and press Enter.
+Switch back to the Windows Server 2019 virtual machine; observe that the toollists packet exchange
+Click the Passwords tab from the bottom of the window. Click FTP from the left-hand pane to view the sniffed password for ftp 10.10.10.10,
+
+Wireshark
+
+filtro http.request.method == POST
+click Edit from the menu bar and click Find Packet ....
+The Find Packet section appears below the display filter field,
+Click Display filter, select String from the drop-down options. Click
+Packet list, select Packet details from the drop-down options, and click Narrow & Wide and select Narrow (UTF-8 1 ASCII) from the drop-down options.
+17. In the field next to String, type pwd and click the Find button
+Wireshark will now display the sniffed password from the captured packets.
+19. Expand the HTML Form URL Encoded: application/x-www-formurlencoded node from the packet details section, and view the captured username and password
