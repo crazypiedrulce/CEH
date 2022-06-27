@@ -1,1 +1,67 @@
+Zed Attack Proxy (ZAP)
 
+In Windows, In Google Chrome, click the Customize and control Google Chrome icon (:), and select Settings from the context menu.
+On the Settings page, scroll down and click the Advanced option in the browser.
+Scroll down to the System section and click Open your computer's proxy settings to configure a proxy'.
+Under the Manual proxy setup section, make the following changes:
+Under the Use a proxy server option, click the Off button to switch it On.
+In the Address field, type 10.10.10.19 (the IP address of the attacker's machine).
+In the Port field, type 8080 . Click Save .
+Switch to the Windows Server 2019
+To install OWASP ZAP, na viga te to Z\ICEHv11 Module 11 Session Hijacking\OWASP ZAP, double-click ZAP _2_8_0_windows.exe,
+A prompt that reads Do you want to persist the ZAP Session? appears. Select the No, I do not want to persist this session at this moment in time
+radio button and click Start.
+The OWASP ZAP main window appears. Click on the " +" icon in the right pane and select Break from the options.
+Note: The Break tab allows you to modify a response or request when ZAP has caught it. It also allows you to modify certain elements that you cannot modify
+through your browser, including:
+a) The header
+b) Hidden fields
+e) Disabled fields
+d) Fields that use JavaScript to ftlter out illegal characters
+Break tab is added to your OWASP ZAP window.
+19. To configure ZAP as a prxy, click the Settings icon * from the toolbar
+In the Options window, click Local Proxies in the left pane. In the right pane, under the Local Proxy section, type 10.10.10.19 (the IP address of the
+Windows Server 20 19 virtual machine) in the Address field and set the Port value to the default, 8080; click OK
+Click the Set break on all requests and responses icon (circulo verde) on the main ZAP toolbar. This button sets and unsets a global breakpoint that will trap
+and display the next response or request from the victim's machine in the Break tab.
+Note: the Set break on all requests and responses icon turns automatically from green to red.
+Now, switch back to the victim's machine (Windows 10) and launch the same browser in which you configured the prm:y settings. In this lab, we have
+configured the Google Chrome browser.
+23. Type www.moviescope.com in the address bar and press Enter.
+24. A message appears, stating that Your connection is not private. Click the Advanced button.
+Now, switch back to the attacker machine (Windows Server 2019) and observe that OWASP ZAP has begin to capture the requests of the victim's machine
+In Steps 23-25, we visited www.moviescope.com in the victim's browser.
+Look in the Break tab and click the Submit and step to next request and response icon (play) on the toolbar to capture the www.moviescope.com request.
+A HTTP response appears; click the icon (play) on the toolbar.
+Now, in the Break tab, modify www.moviescope.com to www.goodshopping.com in all the captured GET requests.
+N ote: If you find any URL starting with https, modify it to http.
+30. Once you have modified the GET requests, click the (play) icon on the toolbar to forward the traffic to the victim's machine
+Modify every HTTP request captured by OWASP ZAP until you see the www.goodshopping.com page in the victim's machine.
+Note: You will need to switch back and forth from the victim's machine to see the browser status while you do this.
+32. Now, switch to the victim's machine (Windows 10); the browser displays the website that the attacker wants the victim's machine to see (in this example,
+www.goodshopping.com).
+Note: It takes multiple iterations to open the Good Shopping site in the victim's machine.
+33. The victim has navigated to www.moviescope.com, but now sees www.goodshopping.com; while the address bar displays www.moviescope.com, the window displays www.goodshopping.com
+
+Bettercap
+
+In the Parrot Terminal window, type bettercap -h and press Enter
+Note: In this command, -h: requests a list of the available options
+In the terminal window, type bettercap -iface ethO and press Enter to set the network interface.
+Note: -iface: specifies the interface to bind to (in this example, ethO) 
+Note: If the bettercap version in your lab environment is old, run the following commands:
+sudo apt remove bettercap
+sudo rm /usr/local/bin/bettercap
+In -s /usr/lib/x86_64-linux-gnu/libpcap.so.1.8.1 /usr/lib/x86_64-linux-gnu/libpcap.so.1
+wget "https://github.com'curl -s https://github.com/bettercap/bettercap/releases | grep -E -o '/bettercap/bettercap/releases/download/v[0-9.]+/bettercap_linux_amd64_[0-9.]+zip' | head -n 1'"
+Type help and press Enter to view the list of available modules in bettercap.
+Type net.probe on and press Enter. This module will send different types of probe packets to each IP in the current subnet for the net.recon module to detect them.
+11. Type net.recon on and press Enter. This module is responsible for periodically reading the system ARP table to detect new hosts on the network.
+Note: The netrecon module displays the detected active IP addresses in the network. In real-time, this module will start sniffing network packets.
+12. Type set net.sniff.regexp '.*password=.+' and press Enter. This module will only consider the packets sent with a payload matching the given regular
+expression (in this case, '.*password=.+')
+You can observe that bettercap starts sniffing network traffic on target machine Windows 10
+Now, switch to the Windows 10 virtual machine. Open any web browser (in this case, Mozilla Firefox), type www.moviescope.com in the address bar,and press Enter
+Switch back to the Parrot virtual machine. You can observe that bettercap has sniffed the website browsed by the victim on the target system
+Now, switch to the Windows 10 virtual machine again. On the MovieScope website, enter any credentials (in this example, sam/ test) and press Enter to log in
+Switch to the Parrot virtual machine. You can observe the details of both the browsed website and the credentials obtained in plain text
