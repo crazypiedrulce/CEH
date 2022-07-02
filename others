@@ -5,9 +5,16 @@ nmap -sn 170.16.0.1/24 -oN nmap.txt
 nmap -O 170.16.0.1/24 -oN namp-OS.txt
 namp -sC -sV -sS 170.16.0.20 -oN namp-all.txt
 
+2) Zenmap
+nmap -sn -PR 170.16.0.1/24  arp ping
+nmap -sn -PU <Target IP Address>,  udp
+nmap -sT -v <Target IP Address>
+nmap -sS -v <Ta rget IP Address>
+nmap -sV -v --script nbstat.nse <Target IP Address>
 
 Module 02: Enumeration 
 netdiscover -i eth0 
+netdiscover -r iprange
 ping www.moviescope.com –f –l 1500 -> Frame size
 tracert www.moviescope.com -> Determining hop count
 
@@ -252,3 +259,4 @@ IoT protocol MQTT
 SYN flooding attack
 Statistics from the menu bar, and then click the I/O Graph
 Hijacking Attack ARP packets
+Covert TCP filtro tcp
