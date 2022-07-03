@@ -278,3 +278,16 @@ Enter a phones ip address,
 main_menu prompt, type 4 and press Enter to choose Access Shell on a phone.
 cd sdcard
 main_menu prompt, type 7 and press Enter to choose Screen Shot a picture on a phone
+
+armitage
+
+Pentesting -> Exploitation Tools -> Metasploit Framework -> armitage
+click the Connect button
+Nmap Scan -> lntense Scan
+expand the payload node, and then navigate to windows -> meterpreter; double-click meterpreter_reverse_tcp.
+the LPORT Option, and change the port Value to 444. In the Output field, select exe from the drop-down options; click Launch
+set the File Name as malicious_payload.exe, and click the Save
+Now, switch to the Terminal window, type cp /root/Desktop/malicious_payload.exe /var/www/share/, and press Enter to copy the file to the shared folder.
+20. Type service apache2 start and press Enter
+Armitage, double-click meterpnrter_reverse_tcp .
+The windowslmeterpreter_reverse_tcp, LPORT Option and output multi/handler
